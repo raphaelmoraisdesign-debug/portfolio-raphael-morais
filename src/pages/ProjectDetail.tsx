@@ -751,11 +751,7 @@ export default function ProjectDetail() {
             <SectionTitle title="Process & étapes" />
             <div className="space-y-16">
               {project.process.map((step: any, index: number) => (
-                <div key={step.step} className="relative">
-                  {/* Timeline connector */}
-                  {index < project.process.length - 1 && (
-                    <div className="absolute left-6 top-14 bottom-0 w-0.5 bg-gradient-to-b from-primary to-border hidden md:block" />
-                  )}
+                <div key={step.step}>
                   
                   <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start">
                     {/* Left: Content */}
