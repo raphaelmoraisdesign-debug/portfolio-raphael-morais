@@ -169,7 +169,7 @@ export default function ProjectDetail() {
       </nav>
 
       {/* Header */}
-      <header className="py-12 md:py-20 bg-gradient-to-b from-background to-card/30">
+      <header className="py-10 md:py-16 bg-gradient-to-b from-background to-card/30">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -214,8 +214,8 @@ export default function ProjectDetail() {
       </header>
 
       {/* Main Content */}
-      <div className="container py-12 md:py-20">
-        <div className="max-w-4xl mx-auto space-y-20">
+      <div className="container py-10 md:py-16">
+        <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
           
           {/* About Client */}
           <motion.section
