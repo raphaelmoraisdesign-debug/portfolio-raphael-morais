@@ -117,42 +117,43 @@ export const projectsData: ProjectData[] = [
     client: "BNP Paribas Personal Finance",
     sector: "Banque",
     description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
-    roles: ["Product Design", "Research", "Cadrage"],
+    roles: ["Product design", "Research", "Design System"],
     heroImage: bnpOmnicanaliteHero,
-    isFeatured: true,
-    challengeBusiness:
-      "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
+    challengeBusiness: "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
     audienceCible: "Conseillers crédit en télévente",
     statCle: "Leader européen du crédit · Cetelem",
     role: "Product Designer",
-    duration: "2 ans",
+    duration: "2 ans ",
     year: "Janvier 2024 à Décembre 2025",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.maze, toolLogos.jira],
     gallery: [],
-    context:
-      "Les conseillers crédit Cetelem utilisaient plusieurs outils non connectés pour gérer les dossiers clients, créant des frictions et des erreurs de saisie. L'objectif était de créer une interface unifiée omnicanale.",
+    context: "Les conseillers crédit Cetelem utilisaient plusieurs outils non connectés pour gérer les dossiers clients, créant des frictions et des erreurs de saisie. L'objectif était de créer une interface unifiée omnicanale.",
     objectives: [
       { text: "Réduire le temps de traitement dossier", metric: "-40%" },
       { text: "Améliorer la satisfaction conseiller", metric: "NPS +20pts" },
-      { text: "Unifier les canaux de vente", metric: "1 outil centralisant tout les besoins" },
+      { text: "Unifier les canaux de vente", metric: "1 interface" }
     ],
-    team: ["1 Product Owner", "1 Product Designer", "3 Développeurs front-end", "1 Lead Tech"],
-    collaboration:
-      "Travail en squad agile avec des sprints de 2 semaines. Collaboration étroite avec les équipes métier crédit et les conseillers terrain.",
+    team: [
+      "1 Product Owner",
+      "2 Product Designers",
+      "3 Développeurs front-end",
+      "1 Lead Tech"
+    ],
+    collaboration: "Travail en squad agile avec des sprints de 2 semaines. Collaboration étroite avec les équipes métier crédit et les conseillers terrain.",
     process: [
       {
         step: "01",
         title: "Discovery & Research",
         summary: "Compréhension du contexte métier et des pain points des conseillers.",
         activities: [
-          "Observation terrain avec des conseiller en télévente",
+          "Observation terrain en agence Cetelem",
           "Entretiens avec 4 conseillers crédit",
           "Analyse des outils existants",
-          "Mapping des parcours vendeur actuels",
+          "Mapping des parcours vendeur actuels"
         ],
-        deliverables: "Personas conseillers, User-Flow, liste des pain points priorisés",
+        deliverables: "Personas conseillers, User-Flow, liste des pain points hiérarchisés et priorisés",
         image: bnpOmnicanaliteDiscovery,
-        imageCaption: "Logiciel existant avant la refonte",
+        imageCaption: "Logiciel existant avant la refonte"
       },
       {
         step: "02",
@@ -161,58 +162,62 @@ export const projectsData: ProjectData[] = [
         activities: [
           "Ateliers d'idéation avec les conseillers",
           "Conception des wireframes",
-          "Définition d'u nouveau design system dédié aux outils collaborateurs",
-          "Prototypage interactif",
+          "Définition d'un design system dédié aux outils collaborateurs",
+          "Prototypage interactif"
         ],
         deliverables: "Wireframes validés, prototype Figma, composants design system",
         image: bnpOmnicanaliteConception,
-        imageCaption: "Interface de simulation et de comparateurs",
+        imageCaption: "Interface de simulation et nouvelle interface responsive"
       },
       {
         step: "03",
         title: "Tests & Validation",
         summary: "Validation de la solution avec des utilisateurs réels.",
         activities: [
-          "Tests utilisateurs sur MVP développé",
+          "Tests utilisateurs avec les conseillés",
           "Itérations sur les retours",
-          "Validation métier et conformité",
+          "Validation métier et conformité"
         ],
         deliverables: "Maquettes finales, documentation UX",
         image: bnpOmnicanaliteTest,
-        imageCaption: "Formulaires de souscription testés avec les utilisateurs",
+        imageCaption: "Formulaires de souscription testés avec les utilisateurs"
       },
       {
         step: "04",
         title: "Delivery & Suivi",
         summary: "Accompagnement des équipes de développement.",
-        activities: ["Handover développeurs", "Support pendant l'implémentation", "QA design"],
+        activities: [
+          "Handover développeurs",
+          "Support pendant l'implémentation",
+          "Recette design"
+        ],
         deliverables: "Specs techniques, design tokens",
         image: bnpOmnicanaliteDelivery,
-        imageCaption: "Comparaison avant/après de l'interface",
-      },
+        imageCaption: "Comparaison avant/après de l'interface"
+      }
     ],
     results: {
       quantitative: [
         { metric: "Temps traitement", before: "25 min", after: "15 min", change: "-40%" },
         { metric: "Erreurs de saisie", before: "12%", after: "4%", change: "-67%" },
-        { metric: "Satisfaction conseiller", before: "+18", after: "+42", change: "+24pts" },
+        { metric: "Satisfaction conseiller", before: "+18", after: "+42", change: "+24pts" }
       ],
       qualitative: [
-        '"Enfin un outil qui correspond à notre façon de travailler" - Conseiller Cetelem',
+        "\"Enfin un outil qui correspond à notre façon de travailler\" - Conseiller Cetelem",
         "Adoption rapide par les équipes terrain",
-        "Les nouveaux conseillés sont plus rapidment autonomes sur l'outils",
+        "Nos nouveaux conseillés sont plus rapidement autonomes"
       ],
       learnings: [
         "L'importance de l'observation terrain pour comprendre les vrais besoins",
         "La co-conception avec les utilisateurs finaux garantit l'adoption",
-        "Un design system robuste accélère les développements futurs",
-      ],
+        "Un design system robuste accélère les développements futurs"
+      ]
     },
     summary: [
       "Problème : Outils fragmentés causant inefficacité et frustration",
       "Action : Interface omnicanale unifiée co-conçue avec les conseillers",
-      "Impact : -40% temps de traitement, +24pts satisfaction",
-    ],
+      "Impact : -40% temps de traitement, +24pts satisfaction"
+    ]
   },
 
   // ---------------------------------------------------------
