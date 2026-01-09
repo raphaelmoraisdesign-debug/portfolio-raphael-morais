@@ -7,7 +7,7 @@ import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
 
 // Import project images
-import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
+import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
 import eneHero from "@/assets/projects/ene-hero.jpg";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
