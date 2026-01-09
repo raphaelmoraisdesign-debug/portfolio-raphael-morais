@@ -135,7 +135,7 @@ export default function Index() {
         <div className="container">
           <SectionTitle 
             title="Clients & secteurs" 
-            subtitle="Plus de 8 ans d'expérience dans des environnements variés."
+            subtitle="7 ans d'expérience dans des environnements variés."
           />
 
           <motion.div 
