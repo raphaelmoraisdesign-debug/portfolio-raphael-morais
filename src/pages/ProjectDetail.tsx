@@ -8,7 +8,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 
 // Import project images
 import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
-import bnpOmnicanaliteDiscovery from "@/assets/projects/bnp-omnicanalite-discovery.png";
+import bnpOmnicanaliteDiscovery from "@/assets/projects/bnp-omnicanalite-old-siclid.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
 import eneHero from "@/assets/projects/ene-hero.jpg";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
