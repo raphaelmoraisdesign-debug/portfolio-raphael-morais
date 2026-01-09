@@ -52,7 +52,7 @@ export default function Contact() {
 
   return (
     <PageLayout>
-      <section className="py-16 md:py-20">
+      <section className="py-section-mobile md:py-section">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <motion.div
@@ -74,7 +74,7 @@ export default function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="text-center py-12 bg-card rounded-xl"
               >
-                <CheckCircle className="w-16 h-16 text-accent mx-auto mb-4" />
+                <CheckCircle className="w-16 h-16 text-primary mx-auto mb-4" />
                 <h3 className="text-xl font-semibold text-foreground mb-2">
                   Message envoyé !
                 </h3>
@@ -99,9 +99,9 @@ export default function Contact() {
                         key={type}
                         type="button"
                         onClick={() => setSelectedType(type === selectedType ? null : type)}
-                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-250 ease-in-out ${
                           selectedType === type
-                            ? "bg-accent text-accent-foreground"
+                            ? "bg-primary text-primary-foreground"
                             : "bg-secondary text-text-secondary hover:bg-secondary/80"
                         }`}
                       >
@@ -121,7 +121,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     placeholder="Jean Dupont"
                     required
-                    className="bg-card border-border focus:border-accent"
+                    className="bg-card border-border focus:border-primary transition-all duration-250 ease-in-out"
                   />
                 </div>
 
@@ -136,7 +136,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     placeholder="jean@example.com"
                     required
-                    className="bg-card border-border focus:border-accent"
+                    className="bg-card border-border focus:border-primary transition-all duration-250 ease-in-out"
                   />
                 </div>
 
@@ -151,7 +151,7 @@ export default function Contact() {
                     placeholder="Décrivez brièvement votre projet ou votre question..."
                     rows={6}
                     required
-                    className="bg-card border-border focus:border-accent resize-none"
+                    className="bg-card border-border focus:border-primary transition-all duration-250 ease-in-out resize-none"
                   />
                 </div>
 
@@ -188,14 +188,14 @@ export default function Contact() {
                   href="https://linkedin.com"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-250 ease-in-out"
                 >
                   <Linkedin className="w-5 h-5" />
                   LinkedIn
                 </a>
                 <a
                   href="mailto:contact@mariedupont.design"
-                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-secondary/80 transition-colors"
+                  className="flex items-center gap-2 px-4 py-2 rounded-lg bg-secondary text-secondary-foreground hover:bg-primary hover:text-primary-foreground transition-all duration-250 ease-in-out"
                 >
                   <Mail className="w-5 h-5" />
                   Email direct

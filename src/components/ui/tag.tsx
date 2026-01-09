@@ -2,12 +2,13 @@ import { cn } from "@/lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const tagVariants = cva(
-  "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-colors",
+  "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium transition-all duration-250 ease-in-out",
   {
     variants: {
       variant: {
         default: "bg-secondary text-secondary-foreground",
-        accent: "bg-accent-subtle text-accent",
+        accent: "bg-accent-subtle text-primary",
+        primary: "bg-primary text-primary-foreground",
         outline: "border border-border text-text-secondary",
         muted: "bg-muted text-muted-foreground",
       },

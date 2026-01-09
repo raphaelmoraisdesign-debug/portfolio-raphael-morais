@@ -159,7 +159,7 @@ export default function ProjectDetail() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className="text-sm text-text-secondary hover:text-foreground transition-colors whitespace-nowrap"
+                className="text-sm text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out whitespace-nowrap"
               >
                 {item.label}
               </a>
@@ -169,7 +169,7 @@ export default function ProjectDetail() {
       </nav>
 
       {/* Header */}
-      <header className="py-10 md:py-16 bg-gradient-to-b from-background to-card/30">
+      <header className="py-section-mobile md:py-section bg-gradient-to-b from-background to-card/30">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -178,7 +178,7 @@ export default function ProjectDetail() {
           >
             <Link 
               to="/projets" 
-              className="inline-flex items-center gap-2 text-text-secondary hover:text-foreground transition-colors mb-8"
+              className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out mb-8"
             >
               <ArrowLeft className="w-4 h-4" />
               Retour aux projets
@@ -214,8 +214,8 @@ export default function ProjectDetail() {
       </header>
 
       {/* Main Content */}
-      <div className="container py-10 md:py-16">
-        <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
+      <div className="container py-section-mobile md:py-section">
+        <div className="max-w-4xl mx-auto space-y-l md:space-y-5xl">
           
           {/* About Client */}
           <motion.section
@@ -257,7 +257,7 @@ export default function ProjectDetail() {
                 <ul className="space-y-2">
                   {project.objectives.map((obj: string, i: number) => (
                     <li key={i} className="flex items-start gap-3 text-text-secondary">
-                      <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 shrink-0" />
+                      <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
                       {obj}
                     </li>
                   ))}
@@ -306,9 +306,9 @@ export default function ProjectDetail() {
             <div className="space-y-12">
               {project.process.map((step: any, index: number) => (
                 <div key={step.step} className="relative pl-8 border-l-2 border-border">
-                  <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-accent border-4 border-background" />
+                  <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
                   <div className="mb-4">
-                    <span className="text-xs font-semibold text-accent uppercase tracking-wider">
+                    <span className="text-xs font-semibold text-primary uppercase tracking-wider">
                       Étape {step.step}
                     </span>
                     <h3 className="text-xl font-semibold text-foreground mt-1">
@@ -322,7 +322,7 @@ export default function ProjectDetail() {
                       <ul className="space-y-1.5">
                         {step.activities.map((activity: string, i: number) => (
                           <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                            <span className="text-accent">→</span>
+                            <span className="text-primary">→</span>
                             {activity}
                           </li>
                         ))}
@@ -357,10 +357,10 @@ export default function ProjectDetail() {
                     <p className="text-sm text-text-secondary mb-2">{result.metric}</p>
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <span className="text-text-tertiary line-through">{result.before}</span>
-                      <ArrowRight className="w-4 h-4 text-accent" />
+                      <ArrowRight className="w-4 h-4 text-primary" />
                       <span className="text-2xl font-bold text-foreground">{result.after}</span>
                     </div>
-                    <span className="text-accent font-semibold">{result.change}</span>
+                    <span className="text-primary font-semibold">{result.change}</span>
                   </div>
                 ))}
               </div>
@@ -372,7 +372,7 @@ export default function ProjectDetail() {
               <ul className="space-y-3">
                 {project.results.qualitative.map((item: string, i: number) => (
                   <li key={i} className="flex items-start gap-3 text-text-secondary">
-                    <span className="w-1.5 h-1.5 bg-accent rounded-full mt-2 shrink-0" />
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -399,7 +399,7 @@ export default function ProjectDetail() {
             whileInView="animate"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="bg-accent-subtle rounded-xl p-8"
+            className="bg-primary-light rounded-xl p-8"
           >
             <h3 className="font-display text-xl font-semibold text-foreground mb-4">
               En 30 secondes
@@ -407,7 +407,7 @@ export default function ProjectDetail() {
             <ul className="space-y-2">
               {project.summary.map((item: string, i: number) => (
                 <li key={i} className="flex items-start gap-3 text-text-secondary">
-                  <span className="font-bold text-accent">{i + 1}.</span>
+                  <span className="font-bold text-primary">{i + 1}.</span>
                   {item}
                 </li>
               ))}

@@ -87,7 +87,7 @@ export default function Index() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-b from-background to-card/30">
+      <section className="py-section-mobile md:py-section bg-gradient-to-b from-background to-card/30">
         <div className="container">
           <motion.div 
             className="max-w-4xl"
@@ -139,7 +139,7 @@ export default function Index() {
       </section>
 
       {/* Services Section */}
-      <section className="py-12 md:py-16">
+      <section className="py-section-mobile md:py-section">
         <div className="container">
           <SectionTitle 
             title="Ce que je fais" 
@@ -179,7 +179,7 @@ export default function Index() {
       </section>
 
       {/* Clients Section */}
-      <section className="py-12 md:py-16 bg-card/50">
+      <section className="py-section-mobile md:py-section bg-primary-light">
         <div className="container">
           <SectionTitle 
             title="Clients & secteurs" 
@@ -203,7 +203,7 @@ export default function Index() {
       </section>
 
       {/* Methodology Section */}
-      <section className="py-12 md:py-16">
+      <section className="py-section-mobile md:py-section">
         <div className="container">
           <SectionTitle 
             title="Méthode de travail" 
@@ -242,7 +242,7 @@ export default function Index() {
       </section>
 
       {/* Featured Projects */}
-      <section className="py-12 md:py-16 bg-card/50">
+      <section className="py-section-mobile md:py-section bg-card/50">
         <div className="container">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
             <SectionTitle 

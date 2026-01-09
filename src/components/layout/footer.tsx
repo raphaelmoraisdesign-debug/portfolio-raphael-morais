@@ -9,7 +9,7 @@ export function Footer() {
           <div>
             <Link 
               to="/" 
-              className="font-display text-xl font-semibold text-foreground hover:text-accent transition-colors"
+              className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors duration-250 ease-in-out"
             >
               Marie Dupont
             </Link>
@@ -23,14 +23,14 @@ export function Footer() {
               href="https://linkedin.com" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-text-secondary hover:text-accent transition-colors"
+              className="text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out"
               aria-label="LinkedIn"
             >
               <Linkedin className="w-5 h-5" />
             </a>
             <a 
               href="mailto:contact@example.com"
-              className="text-text-secondary hover:text-accent transition-colors"
+              className="text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out"
               aria-label="Email"
             >
               <Mail className="w-5 h-5" />
@@ -41,10 +41,10 @@ export function Footer() {
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-tertiary">
           <p>© 2025 Marie Dupont. Tous droits réservés.</p>
           <div className="flex gap-6">
-            <Link to="/projets" className="hover:text-foreground transition-colors">
+            <Link to="/projets" className="hover:text-primary transition-colors duration-250 ease-in-out">
               Projets
             </Link>
-            <Link to="/contact" className="hover:text-foreground transition-colors">
+            <Link to="/contact" className="hover:text-primary transition-colors duration-250 ease-in-out">
               Contact
             </Link>
           </div>

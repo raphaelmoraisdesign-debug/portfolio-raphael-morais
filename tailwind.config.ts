@@ -17,8 +17,29 @@ export default {
     },
     extend: {
       fontFamily: {
-        sans: ["Inter", "system-ui", "sans-serif"],
-        display: ["Playfair Display", "Georgia", "serif"],
+        sans: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
+        display: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        // Typography scale based on specs
+        'body': ['17px', { lineHeight: '1.6' }],
+        'h3': ['24px', { lineHeight: '1.3', fontWeight: '500' }],
+        'h2': ['32px', { lineHeight: '1.2', fontWeight: '600' }],
+        'h1': ['48px', { lineHeight: '1.1', fontWeight: '700', letterSpacing: '-0.02em' }],
+      },
+      spacing: {
+        // 8pt grid system
+        'xs': '8px',
+        's': '16px',
+        'm': '24px',
+        'l': '32px',
+        'xl': '40px',
+        '2xl': '48px',
+        '3xl': '56px',
+        '4xl': '64px',
+        '5xl': '80px',
+        'section': '80px',
+        'section-mobile': '40px',
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,6 +50,8 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          dark: "hsl(var(--primary-dark))",
+          light: "hsl(var(--primary-light))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -78,11 +101,18 @@ export default {
         soft: "var(--shadow-soft)",
         elevated: "var(--shadow-elevated)",
         card: "var(--shadow-card)",
+        'card-hover': "0 12px 40px -12px hsl(241 98% 55% / 0.15)",
       },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      transitionDuration: {
+        'smooth': '250ms',
+      },
+      transitionTimingFunction: {
+        'smooth': 'ease-in-out',
       },
       keyframes: {
         "accordion-down": {
