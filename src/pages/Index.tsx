@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles, Loader2 } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Tag } from "@/components/ui/tag";
 import { ProjectCard } from "@/components/ui/project-card";
 import { HeroCentered } from "@/components/hero/HeroCentered";
+import { useFeaturedProjects } from "@/hooks/useProjects";
 
 const services = [
   {
@@ -43,40 +44,6 @@ const methodology = [
   { step: "04", title: "Livrer", description: "Accompagner les équipes pour une implémentation réussie." },
 ];
 
-import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
-import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
-import eneHero from "@/assets/projects/ene-hero.jpg";
-
-const featuredProjects = [
-  {
-    id: "bnp-omnicanalite",
-    title: "Omnicanalité B2C",
-    client: "BNP Paribas",
-    sector: "Banque",
-    description: "Refonte de l'expérience client omnicanale pour améliorer la cohérence des parcours digitaux.",
-    roles: ["UX Research", "UI Design", "Design System"],
-    image: bnpOmnicanaliteHero,
-  },
-  {
-    id: "bnp-souscription",
-    title: "Parcours Souscription",
-    client: "BNP Paribas",
-    sector: "Banque",
-    description: "Optimisation du parcours de souscription pour réduire le taux d'abandon.",
-    roles: ["Product Discovery", "UX Design", "Prototypage"],
-    image: bnpSouscriptionHero,
-  },
-  {
-    id: "ene",
-    title: "Espace Numérique Éducatif",
-    client: "Éducation Nationale",
-    sector: "Éducation",
-    description: "Conception d'une plateforme numérique pour faciliter l'apprentissage des élèves.",
-    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
-    image: eneHero,
-  },
-];
-
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
   animate: { opacity: 1, y: 0 },
@@ -92,6 +59,8 @@ const stagger = {
 };
 
 export default function Index() {
+  const { data: featuredProjects, isLoading: isLoadingProjects } = useFeaturedProjects();
+
   return (
     <PageLayout>
       {/* Hero Section */}
@@ -217,19 +186,37 @@ export default function Index() {
             </Button>
           </div>
 
-          <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            {featuredProjects.map((project) => (
-              <motion.div key={project.id} variants={fadeInUp}>
-                <ProjectCard {...project} />
-              </motion.div>
-            ))}
-          </motion.div>
+          {isLoadingProjects ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="w-8 h-8 animate-spin text-accent" />
+            </div>
+          ) : featuredProjects && featuredProjects.length > 0 ? (
+            <motion.div 
+              className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={stagger}
+            >
+              {featuredProjects.map((project) => (
+                <motion.div key={project.id} variants={fadeInUp}>
+                  <ProjectCard 
+                    id={project.slug}
+                    title={project.title}
+                    client={project.client || "Client"}
+                    sector={project.category}
+                    description={project.short_description}
+                    roles={project.tools?.slice(0, 3) || []}
+                    imageUrl={project.hero_image_url || undefined}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          ) : (
+            <p className="text-center text-text-secondary py-8">
+              Aucun projet à afficher pour le moment.
+            </p>
+          )}
         </div>
       </section>
 
