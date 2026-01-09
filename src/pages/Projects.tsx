@@ -3,61 +3,54 @@ import { motion } from "framer-motion";
 import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ProjectCard } from "@/components/ui/project-card";
-import { Tag } from "@/components/ui/tag";
 import { cn } from "@/lib/utils";
+
+// Import project images
+import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
+import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
+import eneHero from "@/assets/projects/ene-hero.jpg";
+import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
 
 const allProjects = [
   {
-    id: "refonte-credit-en-ligne",
-    title: "Refonte parcours crédit",
-    client: "Crédit Mutuel",
+    id: "bnp-omnicanalite-b2c",
+    title: "Omnicanalité B2C",
+    client: "BNP Paribas Personal Finance",
     sector: "Banque",
-    description: "Augmenter le taux de conversion du parcours de souscription crédit en ligne de 35%.",
-    roles: ["UX Research", "UI Design", "Design System"],
+    description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
+    roles: ["UX Design", "UI Design", "Design System"],
+    image: bnpOmnicanaliteHero,
   },
   {
-    id: "dashboard-analytics-saas",
-    title: "Dashboard Analytics",
-    client: "DataViz Pro",
-    sector: "SaaS B2B",
-    description: "Concevoir un dashboard analytique intuitif pour des utilisateurs non-techniques.",
-    roles: ["Product Discovery", "UX Design", "Prototypage"],
+    id: "bnp-souscription",
+    title: "Parcours Souscription",
+    client: "BNP Paribas Personal Finance",
+    sector: "Banque",
+    description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
+    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
+    image: bnpSouscriptionHero,
   },
   {
-    id: "application-mobile-assurance",
-    title: "App mobile sinistres",
-    client: "AXA",
-    sector: "Assurance",
-    description: "Simplifier la déclaration de sinistres pour réduire le temps de traitement de 60%.",
-    roles: ["UX Research", "Mobile Design", "Tests utilisateurs"],
+    id: "ene-plateforme-educative",
+    title: "ENE - Espace Numérique Éducatif",
+    client: "JUNVA SAS",
+    sector: "Éducation",
+    description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
+    roles: ["UX Design", "UI Design", "Personas"],
+    image: eneHero,
   },
   {
-    id: "plateforme-energie",
-    title: "Plateforme suivi conso",
-    client: "Engie",
-    sector: "Énergie",
-    description: "Créer une expérience de suivi de consommation énergétique engageante pour les particuliers.",
-    roles: ["UX Design", "Data Visualization", "Workshop"],
-  },
-  {
-    id: "e-commerce-luxe",
-    title: "E-commerce premium",
-    client: "Maison Luxe",
-    sector: "E-commerce",
-    description: "Repenser l'expérience d'achat en ligne pour une marque de luxe française.",
-    roles: ["UX Strategy", "UI Design", "Design System"],
-  },
-  {
-    id: "app-sante-patients",
-    title: "Suivi patient",
-    client: "Doctolib",
-    sector: "Santé",
-    description: "Améliorer l'engagement patient dans le suivi post-consultation.",
-    roles: ["UX Research", "Mobile Design", "Accessibility"],
+    id: "pollux-voxaly",
+    title: "POLLUX - Vote Électronique",
+    client: "Docaposte / Voxaly",
+    sector: "Services",
+    description: "Refonte de l'expérience de vote électronique professionnel pour les élections d'entreprise.",
+    roles: ["UX Research", "UI Design", "Ateliers"],
+    image: polluxVoxalyHero,
   },
 ];
 
-const sectors = ["Tous", "Banque", "SaaS B2B", "Assurance", "Énergie", "E-commerce", "Santé"];
+const sectors = ["Tous", "Banque", "Éducation", "Services"];
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },

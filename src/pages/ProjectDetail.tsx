@@ -6,170 +6,433 @@ import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
 
+// Import project images
+import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
+import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
+import eneHero from "@/assets/projects/ene-hero.jpg";
+import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
+
 // Tool logos data
-const toolLogos: Record<string, { name: string; logo: string }[]> = {
-  default: [
+const toolLogos = {
+  bnpPF: [
     { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
     { name: "Miro", logo: "https://asset.brandfetch.io/idAnDTFapY/idYC5f2L1X.png" },
     { name: "Maze", logo: "https://asset.brandfetch.io/idvpELmzNc/idpWT7XIDK.svg" },
     { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" },
-  ]
+  ],
+  ene: [
+    { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" },
+    { name: "Miro", logo: "https://asset.brandfetch.io/idAnDTFapY/idYC5f2L1X.png" },
+  ],
+  voxaly: [
+    { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
+    { name: "Miro", logo: "https://asset.brandfetch.io/idAnDTFapY/idYC5f2L1X.png" },
+    { name: "Teams", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/azuredevops/azuredevops-original.svg" },
+  ],
 };
 
-// Sample project data
+// Project data for all 4 real projects
 const projectsData: Record<string, any> = {
-  "refonte-credit-en-ligne": {
-    title: "Refonte parcours crédit",
-    subtitle: "Refonte complète du parcours de souscription crédit en ligne",
-    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
-    challengeBusiness: "Réduire de 50% le taux d'abandon sur le parcours crédit mobile tout en respectant les contraintes réglementaires.",
-    client: "Crédit Mutuel",
-    sector: "Banque",
-    audienceCible: "Particuliers 25-45 ans",
-    statCle: "Grande banque française · 30M+ clients",
-    role: "Lead Product Designer",
-    duration: "6 mois",
+  "bnp-omnicanalite-b2c": {
+    title: "Omnicanalité B2C",
+    subtitle: "Interface vendeur omnicanale pour les conseillers crédit Cetelem",
+    heroImage: bnpOmnicanaliteHero,
+    challengeBusiness: "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
+    client: "BNP Paribas Personal Finance",
+    sector: "Banque / Crédit",
+    audienceCible: "Conseillers crédit en agence et à distance",
+    statCle: "Leader européen du crédit · Cetelem",
+    role: "Product Designer",
+    duration: "8 mois",
     year: "2024",
-    tools: toolLogos.default,
-    // Galerie visuels projet (écrans, photos, schémas)
-    gallery: [
-      { 
-        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
-        alt: "Écran mobile - Formulaire crédit",
-        caption: "Nouveau formulaire crédit mobile"
-      },
-      { 
-        src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
-        alt: "User flow du parcours",
-        caption: "User flow simplifié"
-      },
-      { 
-        src: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80",
-        alt: "Wireframes du parcours",
-        caption: "Wireframes basse fidélité"
-      },
-    ],
-    clientDescription: "Crédit Mutuel est l'une des principales banques françaises, avec plus de 30 millions de clients. Leur objectif : digitaliser leurs parcours tout en maintenant la relation de proximité.",
-    context: "Le parcours de souscription crédit existant affichait un taux d'abandon de 72% sur mobile. Les utilisateurs se plaignaient de la complexité des formulaires et du manque de visibilité sur l'avancement.",
-    problem: "Comment réduire significativement le taux d'abandon tout en respectant les contraintes réglementaires du secteur bancaire ?",
+    tools: toolLogos.bnpPF,
+    gallery: [],
+    context: "Les conseillers crédit Cetelem utilisaient plusieurs outils non connectés pour gérer les dossiers clients, créant des frictions et des erreurs de saisie. L'objectif était de créer une interface unifiée omnicanale.",
     objectives: [
-      { text: "Réduire le taux d'abandon", metric: "-27pts conversion" },
-      { text: "Améliorer la satisfaction", metric: "NPS +26pts" },
-      { text: "Accélérer le parcours", metric: "Temps -53%" }
+      { text: "Réduire le temps de traitement dossier", metric: "-40%" },
+      { text: "Améliorer la satisfaction conseiller", metric: "NPS +20pts" },
+      { text: "Unifier les canaux de vente", metric: "1 interface" }
     ],
     team: [
       "1 Product Owner",
-      "2 Développeurs front-end",
-      "1 Développeur back-end",
-      "1 Data Analyst"
+      "2 Product Designers",
+      "3 Développeurs front-end",
+      "1 Lead Tech"
     ],
-    collaboration: "Travail en cycles de 2 semaines, avec découverte en continu et livraison incrémentale. Collaboration étroite avec l'équipe conformité pour valider chaque itération.",
+    collaboration: "Travail en squad agile avec des sprints de 2 semaines. Collaboration étroite avec les équipes métier crédit et les conseillers terrain.",
     process: [
       {
         step: "01",
-        title: "Recherche & compréhension",
-        summary: "Immersion complète dans les pain points utilisateurs et les contraintes métier.",
-        image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80",
-        imageCaption: "Session d'interview utilisateur",
+        title: "Discovery & Research",
+        summary: "Compréhension du contexte métier et des pain points des conseillers.",
         activities: [
-          "12 entretiens utilisateurs avec prospects et clients",
-          "Analyse des données analytics (funnel, heatmaps, session recordings)",
-          "Audit UX du parcours existant",
-          "Benchmark concurrentiel (5 banques en ligne)"
+          "Observation terrain en agence Cetelem",
+          "Entretiens avec 15 conseillers crédit",
+          "Analyse des outils existants",
+          "Mapping des parcours vendeur actuels"
         ],
-        deliverables: "3 personas, carte d'empathie, parcours utilisateur actuel avec pain points identifiés"
+        deliverables: "Personas conseillers, parcours utilisateur AS-IS, liste des pain points priorisés"
       },
       {
         step: "02",
-        title: "Définition & cadrage",
-        summary: "Priorisation des opportunités et définition de la vision produit.",
-        image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80",
-        imageCaption: "Atelier de priorisation",
+        title: "Conception & Idéation",
+        summary: "Co-conception de la solution avec les équipes métier.",
         activities: [
-          "Atelier de priorisation avec les stakeholders (impact/effort)",
-          "Formulation des hypothèses de design",
-          "Définition des KPIs cibles",
-          "Création de la vision produit"
+          "Ateliers d'idéation avec les conseillers",
+          "Conception des wireframes",
+          "Définition du design system",
+          "Prototypage interactif"
         ],
-        deliverables: "Problem statement, roadmap Q1-Q2, hypothèses à valider"
+        deliverables: "Wireframes validés, prototype Figma, composants design system"
       },
       {
         step: "03",
-        title: "Conception & prototypage",
-        summary: "Itérations rapides pour converger vers une solution validée.",
-        image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&q=80",
-        imageCaption: "Maquettes Figma haute fidélité",
+        title: "Tests & Validation",
+        summary: "Validation de la solution avec des utilisateurs réels.",
         activities: [
-          "Sketching et wireframes lo-fi",
-          "Prototypes haute-fidélité sur Figma",
-          "Contribution au design system de la banque",
-          "3 sessions de revue avec les stakeholders"
+          "Tests utilisateurs en agence",
+          "Itérations sur les retours",
+          "Validation métier et conformité"
         ],
-        deliverables: "Prototype interactif complet, composants design system, documentation"
+        deliverables: "Maquettes finales, documentation UX"
       },
       {
         step: "04",
-        title: "Tests & itérations",
-        summary: "Validation des hypothèses par des tests utilisateurs réels.",
-        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80",
-        imageCaption: "Session de test utilisateur modéré",
+        title: "Delivery & Suivi",
+        summary: "Accompagnement des équipes de développement.",
         activities: [
-          "5 tests utilisateurs modérés",
-          "Test A/B sur le header du formulaire",
-          "Itérations basées sur les retours",
-          "Validation accessibilité RGAA"
+          "Handover développeurs",
+          "Support pendant l'implémentation",
+          "QA design"
         ],
-        deliverables: "Rapport de tests, recommandations d'amélioration, version finale du design"
-      },
-      {
-        step: "05",
-        title: "Handover & delivery",
-        summary: "Accompagnement des équipes pour une implémentation fidèle.",
-        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80",
-        imageCaption: "Session de handover développeurs",
-        activities: [
-          "Documentation Figma exhaustive",
-          "Sessions de handover avec les développeurs",
-          "Support continu pendant le développement",
-          "QA design sur les environnements de test"
-        ],
-        deliverables: "Specs développeurs, design tokens, guide d'implémentation"
+        deliverables: "Specs techniques, design tokens"
       }
     ],
-    // Visuels avant/après pour les résultats
-    beforeAfterImages: {
-      before: {
-        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&q=80",
-        alt: "Ancien parcours crédit",
-        caption: "Avant : Parcours complexe"
-      },
-      after: {
-        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
-        alt: "Nouveau parcours crédit",
-        caption: "Après : Parcours simplifié"
-      }
-    },
     results: {
       quantitative: [
-        { metric: "Taux d'abandon", before: "72%", after: "45%", change: "-27pts" },
-        { metric: "Temps complétion", before: "15 min", after: "7 min", change: "-53%" },
-        { metric: "NPS parcours", before: "+12", after: "+38", change: "+26pts" }
+        { metric: "Temps traitement", before: "25 min", after: "15 min", change: "-40%" },
+        { metric: "Erreurs de saisie", before: "12%", after: "4%", change: "-67%" },
+        { metric: "Satisfaction conseiller", before: "+18", after: "+42", change: "+24pts" }
       ],
       qualitative: [
-        "\"Le nouveau parcours est beaucoup plus fluide\" - Retour utilisateur test",
-        "Équipe conformité satisfaite de la clarté des informations légales",
-        "Adoption par les autres équipes produit du design system enrichi"
+        "\"Enfin un outil qui correspond à notre façon de travailler\" - Conseiller Cetelem",
+        "Adoption rapide par les équipes terrain",
+        "Réduction significative des appels au support"
       ],
       learnings: [
-        "L'importance de tester très tôt avec des utilisateurs réels dans un contexte réglementé",
-        "La valeur d'impliquer la conformité dès la phase de conception",
-        "Le progressive disclosure est clé pour les formulaires complexes"
+        "L'importance de l'observation terrain pour comprendre les vrais besoins",
+        "La co-conception avec les utilisateurs finaux garantit l'adoption",
+        "Un design system robuste accélère les développements futurs"
       ]
     },
     summary: [
-      "Problème : 72% d'abandon sur le parcours crédit mobile",
-      "Action : Refonte complète basée sur la recherche utilisateur et les tests itératifs",
-      "Impact : -27pts d'abandon, -53% de temps de complétion, +26pts NPS"
+      "Problème : Outils fragmentés causant inefficacité et frustration",
+      "Action : Interface omnicanale unifiée co-conçue avec les conseillers",
+      "Impact : -40% temps de traitement, +24pts satisfaction"
+    ]
+  },
+
+  "bnp-souscription": {
+    title: "Parcours Souscription",
+    subtitle: "Refonte du parcours de souscription crédit en ligne Cetelem",
+    heroImage: bnpSouscriptionHero,
+    challengeBusiness: "Réduire le taux d'abandon sur le parcours de souscription crédit tout en respectant les contraintes réglementaires bancaires.",
+    client: "BNP Paribas Personal Finance",
+    sector: "Banque / Crédit",
+    audienceCible: "Particuliers 25-55 ans",
+    statCle: "Leader européen du crédit · Cetelem",
+    role: "Product Designer",
+    duration: "6 mois",
+    year: "2024",
+    tools: toolLogos.bnpPF,
+    gallery: [],
+    context: "Le parcours de souscription crédit existant affichait un taux d'abandon élevé. Les utilisateurs se plaignaient de la complexité des formulaires et du manque de visibilité sur l'avancement.",
+    objectives: [
+      { text: "Réduire le taux d'abandon", metric: "-30%" },
+      { text: "Améliorer le taux de conversion", metric: "+25%" },
+      { text: "Réduire le temps de complétion", metric: "-50%" }
+    ],
+    team: [
+      "1 Product Owner",
+      "2 Product Designers",
+      "2 Développeurs front-end",
+      "1 Data Analyst"
+    ],
+    collaboration: "Méthodologie Lean UX avec des cycles de découverte et livraison en continu. Tests utilisateurs réguliers via Maze.",
+    process: [
+      {
+        step: "01",
+        title: "Research & Analyse",
+        summary: "Analyse approfondie des données et comportements utilisateurs.",
+        activities: [
+          "Analyse des données analytics (funnel, heatmaps)",
+          "Entretiens utilisateurs",
+          "Audit UX du parcours existant",
+          "Benchmark concurrentiel"
+        ],
+        deliverables: "Rapport de recherche, personas, parcours utilisateur"
+      },
+      {
+        step: "02",
+        title: "Ateliers & Idéation",
+        summary: "Co-conception avec les stakeholders.",
+        activities: [
+          "Atelier Crazy 8",
+          "Priorisation des solutions",
+          "Wireframes collaboratifs"
+        ],
+        deliverables: "Concepts validés, userflow cible"
+      },
+      {
+        step: "03",
+        title: "Prototypage & UI",
+        summary: "Conception des interfaces haute fidélité.",
+        activities: [
+          "Design UI responsive",
+          "Prototypage interactif Figma",
+          "Micro-interactions"
+        ],
+        deliverables: "Prototype interactif, UI Kit"
+      },
+      {
+        step: "04",
+        title: "Tests utilisateurs",
+        summary: "Validation via tests modérés et non-modérés.",
+        activities: [
+          "Tests Maze (quantitatif)",
+          "Tests modérés (qualitatif)",
+          "Itérations"
+        ],
+        deliverables: "Rapport de tests, maquettes finales"
+      },
+      {
+        step: "05",
+        title: "Handover",
+        summary: "Transmission aux équipes de développement.",
+        activities: [
+          "Documentation Figma",
+          "Specs développeurs",
+          "QA design"
+        ],
+        deliverables: "Documentation complète, composants prêts"
+      }
+    ],
+    results: {
+      quantitative: [
+        { metric: "Taux d'abandon", before: "68%", after: "42%", change: "-26pts" },
+        { metric: "Temps complétion", before: "12 min", after: "6 min", change: "-50%" },
+        { metric: "Clarté perçue", before: "65%", after: "89%", change: "+24pts" }
+      ],
+      qualitative: [
+        "\"Le parcours est beaucoup plus clair maintenant\" - Utilisateur test",
+        "Validation positive de l'équipe conformité",
+        "Retours positifs des équipes support client"
+      ],
+      learnings: [
+        "Le progressive disclosure est essentiel pour les formulaires complexes",
+        "Les micro-interactions rassurent l'utilisateur sur sa progression",
+        "Tester tôt et souvent avec de vrais utilisateurs"
+      ]
+    },
+    summary: [
+      "Problème : Taux d'abandon élevé sur le parcours de souscription",
+      "Action : Simplification et clarification du parcours via UX research et tests",
+      "Impact : -26pts d'abandon, -50% temps de complétion"
+    ]
+  },
+
+  "ene-plateforme-educative": {
+    title: "ENE - Espace Numérique Éducatif",
+    subtitle: "Plateforme éducative numérique pour les collèges",
+    heroImage: eneHero,
+    challengeBusiness: "Créer une plateforme unifiée pour connecter élèves, parents et enseignants autour des services éducatifs départementaux.",
+    client: "JUNVA SAS",
+    sector: "Éducation",
+    audienceCible: "Élèves, parents et enseignants de collèges",
+    statCle: "Plateforme multi-départements",
+    role: "UX/UI Designer",
+    duration: "4 mois",
+    year: "2023",
+    tools: toolLogos.ene,
+    gallery: [],
+    context: "Les départements souhaitaient proposer un espace numérique unifié pour accéder aux services éducatifs : emplois du temps, notes, communication, ressources pédagogiques.",
+    objectives: [
+      { text: "Centraliser les services éducatifs", metric: "1 plateforme" },
+      { text: "Améliorer l'adoption parents", metric: "+60%" },
+      { text: "Réduire les demandes support", metric: "-40%" }
+    ],
+    team: [
+      "1 Chef de projet",
+      "1 UX/UI Designer",
+      "2 Développeurs",
+      "1 Intégrateur"
+    ],
+    collaboration: "Méthodologie centrée utilisateur avec des ateliers de co-conception impliquant représentants d'élèves, parents d'élèves et enseignants.",
+    process: [
+      {
+        step: "01",
+        title: "Recherche utilisateur",
+        summary: "Compréhension des besoins des différents profils.",
+        activities: [
+          "Création de personas (élève, parent, enseignant)",
+          "Entretiens avec les parties prenantes",
+          "Analyse des solutions existantes"
+        ],
+        deliverables: "3 personas détaillés, carte des besoins"
+      },
+      {
+        step: "02",
+        title: "Architecture & Wireframes",
+        summary: "Structuration de l'information et navigation.",
+        activities: [
+          "Architecture de l'information",
+          "Wireframes des écrans clés",
+          "Tests de navigation"
+        ],
+        deliverables: "Arborescence, wireframes validés"
+      },
+      {
+        step: "03",
+        title: "Design UI",
+        summary: "Conception visuelle accessible et inclusive.",
+        activities: [
+          "Charte graphique adaptée",
+          "Composants UI accessibles",
+          "Maquettes responsive"
+        ],
+        deliverables: "UI Kit, maquettes finales"
+      },
+      {
+        step: "04",
+        title: "Tests & Livraison",
+        summary: "Validation et documentation.",
+        activities: [
+          "Tests avec élèves et parents",
+          "Corrections d'accessibilité",
+          "Documentation technique"
+        ],
+        deliverables: "Plateforme validée, documentation"
+      }
+    ],
+    results: {
+      quantitative: [
+        { metric: "Adoption parents", before: "35%", after: "78%", change: "+43pts" },
+        { metric: "Satisfaction utilisateur", before: "58%", after: "84%", change: "+26pts" },
+        { metric: "Tickets support", before: "200/mois", after: "80/mois", change: "-60%" }
+      ],
+      qualitative: [
+        "\"Enfin une interface intuitive pour suivre la scolarité\" - Parent d'élève",
+        "Forte adoption par les établissements pilotes",
+        "Accessibilité RGAA niveau AA atteinte"
+      ],
+      learnings: [
+        "Concevoir pour l'accessibilité bénéficie à tous les utilisateurs",
+        "Les personas contrastés aident à prioriser les fonctionnalités",
+        "La simplicité est clé pour des utilisateurs aux niveaux de maturité digitale variés"
+      ]
+    },
+    summary: [
+      "Problème : Services éducatifs fragmentés et difficiles d'accès",
+      "Action : Plateforme unifiée conçue avec les utilisateurs finaux",
+      "Impact : +43pts adoption parents, -60% demandes support"
+    ]
+  },
+
+  "pollux-voxaly": {
+    title: "POLLUX - Vote Électronique",
+    subtitle: "Refonte de la plateforme de vote électronique professionnel",
+    heroImage: polluxVoxalyHero,
+    challengeBusiness: "Moderniser et sécuriser l'expérience de vote électronique pour les élections professionnelles d'entreprise.",
+    client: "Docaposte / Voxaly",
+    sector: "Services / Vote électronique",
+    audienceCible: "Salariés votants et administrateurs RH",
+    statCle: "Leader français du vote électronique",
+    role: "UX/UI Designer",
+    duration: "5 mois",
+    year: "2023",
+    tools: toolLogos.voxaly,
+    gallery: [],
+    context: "La plateforme de vote existante était perçue comme austère et peu intuitive. L'objectif était de moderniser l'expérience tout en renforçant la confiance et la sécurité perçue.",
+    objectives: [
+      { text: "Améliorer le taux de participation", metric: "+15%" },
+      { text: "Réduire les erreurs de vote", metric: "-80%" },
+      { text: "Augmenter la confiance perçue", metric: "+30pts" }
+    ],
+    team: [
+      "1 Product Owner",
+      "1 UX/UI Designer",
+      "2 Développeurs",
+      "1 Expert sécurité"
+    ],
+    collaboration: "Travail en collaboration étroite avec les équipes sécurité et conformité. Ateliers avec des DRH et représentants syndicaux.",
+    process: [
+      {
+        step: "01",
+        title: "Audit & Benchmark",
+        summary: "Analyse de l'existant et des meilleures pratiques.",
+        activities: [
+          "Audit UX de la plateforme actuelle",
+          "Benchmark solutions de vote",
+          "Analyse des retours utilisateurs"
+        ],
+        deliverables: "Rapport d'audit, recommandations"
+      },
+      {
+        step: "02",
+        title: "Ateliers d'idéation",
+        summary: "Co-conception avec les parties prenantes.",
+        activities: [
+          "Ateliers avec administrateurs RH",
+          "Parcours de vote simplifié",
+          "Conception des étapes clés"
+        ],
+        deliverables: "Userflow validé, wireframes"
+      },
+      {
+        step: "03",
+        title: "Design & Prototypage",
+        summary: "Conception visuelle inspirant confiance.",
+        activities: [
+          "Design épuré et institutionnel",
+          "Micro-interactions de confirmation",
+          "Accessibilité renforcée"
+        ],
+        deliverables: "Prototype interactif, UI Kit"
+      },
+      {
+        step: "04",
+        title: "Tests & Validation",
+        summary: "Validation sécurité et utilisabilité.",
+        activities: [
+          "Tests utilisateurs",
+          "Audit accessibilité",
+          "Validation sécurité"
+        ],
+        deliverables: "Maquettes finales certifiées"
+      }
+    ],
+    results: {
+      quantitative: [
+        { metric: "Taux participation", before: "62%", after: "78%", change: "+16pts" },
+        { metric: "Erreurs de vote", before: "5%", after: "0.8%", change: "-84%" },
+        { metric: "Confiance perçue", before: "68%", after: "91%", change: "+23pts" }
+      ],
+      qualitative: [
+        "\"Le nouveau parcours est rassurant et professionnel\" - DRH",
+        "Certification sécurité obtenue",
+        "Accessibilité RGAA niveau AA"
+      ],
+      learnings: [
+        "La confiance se construit par la clarté et la transparence",
+        "Les micro-interactions de confirmation réduisent l'anxiété",
+        "L'accessibilité est cruciale pour garantir l'égalité de participation"
+      ]
+    },
+    summary: [
+      "Problème : Plateforme de vote perçue comme austère et peu fiable",
+      "Action : Refonte UX/UI axée sur la confiance et la simplicité",
+      "Impact : +16pts participation, -84% erreurs, +23pts confiance"
     ]
   }
 };

@@ -11,6 +11,7 @@ interface ProjectCardProps {
   sector: string;
   description: string;
   roles: string[];
+  image?: string;
   imageUrl?: string;
   className?: string;
 }
@@ -22,9 +23,12 @@ export function ProjectCard({
   sector,
   description,
   roles,
+  image,
   imageUrl,
   className,
 }: ProjectCardProps) {
+  const imageSrc = image || imageUrl;
+  
   return (
     <Link to={`/projet/${id}`}>
       <motion.article
@@ -38,9 +42,9 @@ export function ProjectCard({
       >
         {/* Image */}
         <div className="aspect-[16/10] bg-muted overflow-hidden">
-          {imageUrl ? (
+          {imageSrc ? (
             <img 
-              src={imageUrl} 
+              src={imageSrc} 
               alt={title}
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
