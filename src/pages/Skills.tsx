@@ -8,7 +8,7 @@ export default function Skills() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
+      <section className="pt-section-mobile pb-l md:pt-section md:pb-5xl">
         <div className="container">
           <motion.div 
             className="max-w-3xl"
@@ -29,7 +29,7 @@ export default function Skills() {
       </section>
 
       {/* Radar Chart Section */}
-      <section className="py-12 md:py-16">
+      <section className="py-section-mobile md:py-section">
         <div className="container">
           <SectionTitle
             title="Vue d'ensemble"
@@ -47,7 +47,7 @@ export default function Skills() {
       </section>
 
       {/* Tools Section */}
-      <section className="py-12 md:py-16 bg-surface/50">
+      <section className="py-section-mobile md:py-section bg-primary-light">
         <div className="container">
           <SectionTitle
             title="Mes outils"

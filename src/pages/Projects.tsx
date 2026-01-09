@@ -82,7 +82,7 @@ export default function Projects() {
 
   return (
     <PageLayout>
-      <section className="py-16 md:py-20">
+      <section className="py-section-mobile md:py-section">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -107,9 +107,9 @@ export default function Projects() {
                 key={sector}
                 onClick={() => setActiveFilter(sector)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-200",
+                  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-250 ease-in-out",
                   activeFilter === sector
-                    ? "bg-accent text-accent-foreground shadow-soft"
+                    ? "bg-primary text-primary-foreground shadow-soft"
                     : "bg-secondary text-text-secondary hover:bg-secondary/80 hover:text-foreground"
                 )}
               >

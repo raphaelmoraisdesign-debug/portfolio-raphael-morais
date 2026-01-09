@@ -63,25 +63,25 @@ export function ToolsSection() {
             {category.title}
           </h3>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-            {category.tools.map((tool, toolIndex) => (
+            {category.tools.map((tool) => (
               <motion.div
                 key={tool.name}
-                className="flex flex-col items-center gap-3 p-4 bg-background border border-border rounded-xl hover:border-accent/30 hover:shadow-soft transition-all group"
+                className="flex flex-col items-center gap-3 p-4 bg-background border border-border rounded-xl hover:border-primary/30 hover:shadow-soft transition-all duration-250 ease-in-out group"
                 whileHover={{ y: -4 }}
-                transition={{ duration: 0.2 }}
+                transition={{ duration: 0.25, ease: "easeInOut" }}
               >
                 <div className="w-12 h-12 flex items-center justify-center">
                   <img
                     src={tool.logo}
                     alt={`Logo ${tool.name}`}
-                    className="w-10 h-10 object-contain group-hover:scale-110 transition-transform"
+                    className="w-10 h-10 object-contain group-hover:scale-110 transition-transform duration-250 ease-in-out"
                     onError={(e) => {
                       // Fallback to a placeholder if image fails to load
                       (e.target as HTMLImageElement).src = `https://ui-avatars.com/api/?name=${tool.name}&background=random&size=40`;
                     }}
                   />
                 </div>
-                <span className="text-sm font-medium text-text-secondary group-hover:text-foreground transition-colors text-center">
+                <span className="text-sm font-medium text-text-secondary group-hover:text-foreground transition-colors duration-250 ease-in-out text-center">
                   {tool.name}
                 </span>
               </motion.div>

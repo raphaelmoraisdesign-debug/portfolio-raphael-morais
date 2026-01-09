@@ -21,7 +21,7 @@ export function Navbar() {
       <nav className="container flex items-center justify-between h-16 md:h-20">
         <Link 
           to="/" 
-          className="font-display text-xl font-semibold text-foreground hover:text-accent transition-colors"
+          className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors duration-250 ease-in-out"
         >
           Marie Dupont
         </Link>
@@ -33,9 +33,9 @@ export function Navbar() {
               key={link.href}
               to={link.href}
               className={cn(
-                "text-sm font-medium transition-colors relative py-1",
+                "text-sm font-medium transition-colors duration-250 ease-in-out relative py-1",
                 location.pathname === link.href 
-                  ? "text-foreground" 
+                  ? "text-primary" 
                   : "text-text-secondary hover:text-foreground"
               )}
             >
@@ -43,7 +43,7 @@ export function Navbar() {
               {location.pathname === link.href && (
                 <motion.div
                   layoutId="navbar-indicator"
-                  className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-accent rounded-full"
+                  className="absolute -bottom-0.5 left-0 right-0 h-0.5 bg-primary rounded-full"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               )}
@@ -80,9 +80,9 @@ export function Navbar() {
                   to={link.href}
                   onClick={() => setIsOpen(false)}
                   className={cn(
-                    "text-base font-medium py-2 transition-colors",
+                    "text-base font-medium py-2 transition-colors duration-250 ease-in-out",
                     location.pathname === link.href 
-                      ? "text-accent" 
+                      ? "text-primary" 
                       : "text-text-secondary"
                   )}
                 >

@@ -9,43 +9,50 @@ import {
   Tooltip,
 } from "recharts";
 import { cn } from "@/lib/utils";
+import { Tag } from "@/components/ui/tag";
 
 const skillsData = [
   { 
     skill: "Discovery & Research", 
     fullName: "Discovery & UX Research",
     level: 9, 
-    description: "Observation terrain, tests utilisateurs modérés et non modérés, audit UX, interviews" 
+    description: "Observation terrain, tests utilisateurs modérés et non modérés, audit UX, interviews",
+    isLead: false
   },
   { 
     skill: "Strategic Design", 
     fullName: "Strategic Design",
     level: 8, 
-    description: "Discovery, co-définition de la vision produit, priorisation, roadmap" 
+    description: "Discovery, co-définition de la vision produit, priorisation, roadmap",
+    isLead: false
   },
   { 
     skill: "Méthodologie", 
     fullName: "Méthodologie",
     level: 9, 
-    description: "Design Thinking, Lean UX, Agilité, intégration dans les process produit" 
+    description: "Design Thinking, Lean UX, Agilité, intégration dans les process produit",
+    isLead: false
   },
   { 
     skill: "UX Design", 
     fullName: "UX Design",
     level: 9, 
-    description: "Facilitation d'ateliers, parcours utilisateurs, experience maps, wireframes" 
+    description: "Facilitation d'ateliers, parcours utilisateurs, experience maps, wireframes",
+    isLead: false
   },
   { 
     skill: "Lead Design", 
     fullName: "Lead Design",
     level: 8, 
-    description: "Staffing, process et rituels d'équipes, mentorat, recrutement" 
+    description: "Staffing, process et rituels d'équipes, mentorat, recrutement",
+    isLead: true
   },
   { 
     skill: "UI & Design System", 
     fullName: "UI Design & Design System",
     level: 8, 
-    description: "Maquettes haute-fidélité, prototypage, création et maintenance de design systems" 
+    description: "Maquettes haute-fidélité, prototypage, création et maintenance de design systems",
+    isLead: false
   },
 ];
 
@@ -71,6 +78,9 @@ const CustomTooltip = ({ active, payload }: any) => {
 
 export function SkillsRadarChart() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+
+  // Primary color: #1E1AFD
+  const primaryColor = "hsl(241, 98%, 55%)";
 
   return (
     <div className="w-full">
@@ -99,9 +109,9 @@ export function SkillsRadarChart() {
             <Radar
               name="Niveau"
               dataKey="level"
-              stroke="hsl(var(--accent))"
-              fill="hsl(var(--accent))"
-              fillOpacity={0.3}
+              stroke={primaryColor}
+              fill={primaryColor}
+              fillOpacity={0.25}
               strokeWidth={2}
             />
             <Tooltip content={<CustomTooltip />} />
@@ -116,8 +126,13 @@ export function SkillsRadarChart() {
             key={skill.skill}
             className="bg-background border border-border rounded-lg p-3"
           >
-            <p className="font-medium text-sm text-foreground">{skill.skill}</p>
-            <p className="text-xs text-text-secondary mt-1">Niveau {skill.level}/10</p>
+            <div className="flex items-center gap-2 mb-1">
+              <p className="font-medium text-sm text-foreground">{skill.skill}</p>
+              {skill.isLead && (
+                <Tag variant="primary" size="sm">Lead</Tag>
+              )}
+            </div>
+            <p className="text-xs text-text-secondary">Niveau {skill.level}/10</p>
           </div>
         ))}
       </div>
