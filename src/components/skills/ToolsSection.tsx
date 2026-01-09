@@ -21,6 +21,14 @@ const toolCategories: ToolCategory[] = [
     ]
   },
   {
+    title: "Outils IA",
+    tools: [
+      { name: "ChatGPT", logo: "https://cdn.brandfetch.io/idR3duQxYl/w/400/h/400/theme/dark/icon.jpeg", description: "Assistant IA conversationnel" },
+      { name: "Perplexity.ai", logo: "https://cdn.brandfetch.io/id20pNPHJT/w/400/h/400/theme/dark/icon.jpeg", description: "Recherche IA avancée" },
+      { name: "Lovable.dev", logo: "https://cdn.brandfetch.io/idnPXsT3a_/w/400/h/400/theme/dark/icon.jpeg", description: "Développement assisté par IA" },
+    ]
+  },
+  {
     title: "Documentation",
     tools: [
       { name: "Confluence", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg", description: "Documentation" },
@@ -39,14 +47,6 @@ const toolCategories: ToolCategory[] = [
       { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg", description: "Backlog Design & Kanban" },
       { name: "Asana", logo: "https://cdn.brandfetch.io/idqQRGNy4k/w/400/h/400/theme/dark/icon.png", description: "Répartition des tâches" },
       { name: "Suite Office", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", description: "PPT, Word, Excel" },
-    ]
-  },
-  {
-    title: "Outils IA",
-    tools: [
-      { name: "ChatGPT", logo: "https://cdn.brandfetch.io/idR3duQxYl/w/400/h/400/theme/dark/icon.jpeg", description: "Assistant IA conversationnel" },
-      { name: "Perplexity.ai", logo: "https://cdn.brandfetch.io/id20pNPHJT/w/400/h/400/theme/dark/icon.jpeg", description: "Recherche IA avancée" },
-      { name: "Lovable.dev", logo: "https://cdn.brandfetch.io/idnPXsT3a_/w/400/h/400/theme/dark/icon.jpeg", description: "Développement assisté par IA" },
     ]
   },
 ];
