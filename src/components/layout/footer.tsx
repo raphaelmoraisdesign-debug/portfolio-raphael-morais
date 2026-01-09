@@ -11,7 +11,7 @@ export function Footer() {
               to="/" 
               className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors duration-250 ease-in-out"
             >
-              Marie Dupont
+              Raphael MORAIS LEAL
             </Link>
             <p className="text-text-secondary mt-2 text-sm">
               Senior Product Designer · Paris
@@ -39,7 +39,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-tertiary">
-          <p>© 2025 Marie Dupont. Tous droits réservés.</p>
+          <p>© 2025 Raphael MORAIS LEAL. Tous droits réservés.</p>
           <div className="flex gap-6">
             <Link to="/projets" className="hover:text-primary transition-colors duration-250 ease-in-out">
               Projets
