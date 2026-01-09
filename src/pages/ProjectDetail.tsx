@@ -31,6 +31,24 @@ const projectsData: Record<string, any> = {
     duration: "6 mois",
     year: "2024",
     tools: toolLogos.default,
+    // Galerie visuels projet (écrans, photos, schémas)
+    gallery: [
+      { 
+        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+        alt: "Écran mobile - Formulaire crédit",
+        caption: "Nouveau formulaire crédit mobile"
+      },
+      { 
+        src: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&q=80",
+        alt: "User flow du parcours",
+        caption: "User flow simplifié"
+      },
+      { 
+        src: "https://images.unsplash.com/photo-1586281380349-632531db7ed4?w=600&q=80",
+        alt: "Wireframes du parcours",
+        caption: "Wireframes basse fidélité"
+      },
+    ],
     clientDescription: "Crédit Mutuel est l'une des principales banques françaises, avec plus de 30 millions de clients. Leur objectif : digitaliser leurs parcours tout en maintenant la relation de proximité.",
     context: "Le parcours de souscription crédit existant affichait un taux d'abandon de 72% sur mobile. Les utilisateurs se plaignaient de la complexité des formulaires et du manque de visibilité sur l'avancement.",
     problem: "Comment réduire significativement le taux d'abandon tout en respectant les contraintes réglementaires du secteur bancaire ?",
@@ -51,6 +69,8 @@ const projectsData: Record<string, any> = {
         step: "01",
         title: "Recherche & compréhension",
         summary: "Immersion complète dans les pain points utilisateurs et les contraintes métier.",
+        image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80",
+        imageCaption: "Session d'interview utilisateur",
         activities: [
           "12 entretiens utilisateurs avec prospects et clients",
           "Analyse des données analytics (funnel, heatmaps, session recordings)",
@@ -63,6 +83,8 @@ const projectsData: Record<string, any> = {
         step: "02",
         title: "Définition & cadrage",
         summary: "Priorisation des opportunités et définition de la vision produit.",
+        image: "https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=600&q=80",
+        imageCaption: "Atelier de priorisation",
         activities: [
           "Atelier de priorisation avec les stakeholders (impact/effort)",
           "Formulation des hypothèses de design",
@@ -75,6 +97,8 @@ const projectsData: Record<string, any> = {
         step: "03",
         title: "Conception & prototypage",
         summary: "Itérations rapides pour converger vers une solution validée.",
+        image: "https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&q=80",
+        imageCaption: "Maquettes Figma haute fidélité",
         activities: [
           "Sketching et wireframes lo-fi",
           "Prototypes haute-fidélité sur Figma",
@@ -87,6 +111,8 @@ const projectsData: Record<string, any> = {
         step: "04",
         title: "Tests & itérations",
         summary: "Validation des hypothèses par des tests utilisateurs réels.",
+        image: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=600&q=80",
+        imageCaption: "Session de test utilisateur modéré",
         activities: [
           "5 tests utilisateurs modérés",
           "Test A/B sur le header du formulaire",
@@ -99,6 +125,8 @@ const projectsData: Record<string, any> = {
         step: "05",
         title: "Handover & delivery",
         summary: "Accompagnement des équipes pour une implémentation fidèle.",
+        image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&q=80",
+        imageCaption: "Session de handover développeurs",
         activities: [
           "Documentation Figma exhaustive",
           "Sessions de handover avec les développeurs",
@@ -108,6 +136,19 @@ const projectsData: Record<string, any> = {
         deliverables: "Specs développeurs, design tokens, guide d'implémentation"
       }
     ],
+    // Visuels avant/après pour les résultats
+    beforeAfterImages: {
+      before: {
+        src: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=600&q=80",
+        alt: "Ancien parcours crédit",
+        caption: "Avant : Parcours complexe"
+      },
+      after: {
+        src: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80",
+        alt: "Nouveau parcours crédit",
+        caption: "Après : Parcours simplifié"
+      }
+    },
     results: {
       quantitative: [
         { metric: "Taux d'abandon", before: "72%", after: "45%", change: "-27pts" },
@@ -369,6 +410,45 @@ export default function ProjectDetail() {
             </div>
           </motion.section>
 
+          {/* GALERIE VISUELS PROJET */}
+          {project.gallery && project.gallery.length > 0 && (
+            <motion.section
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <SectionTitle title="Aperçu du projet" />
+              <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+                {project.gallery.map((image: { src: string; alt: string; caption: string }, i: number) => (
+                  <motion.div
+                    key={i}
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: i * 0.1, duration: 0.4 }}
+                    className="group relative overflow-hidden rounded-xl bg-card border border-border shadow-soft hover:shadow-elevated transition-all duration-250"
+                  >
+                    <div className="aspect-[4/3] overflow-hidden">
+                      <img
+                        src={image.src}
+                        alt={image.alt}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    <p className="absolute bottom-0 left-0 right-0 p-4 text-sm text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                      {image.caption}
+                    </p>
+                  </motion.div>
+                ))}
+              </div>
+              <p className="text-center text-sm text-text-tertiary mt-4 italic">
+                💡 Survolez les images pour voir les légendes
+              </p>
+            </motion.section>
+          )}
+
           {/* Role & Team */}
           <motion.section
             id="role"
@@ -406,34 +486,85 @@ export default function ProjectDetail() {
             variants={fadeInUp}
           >
             <SectionTitle title="Process & étapes" />
-            <div className="space-y-12">
+            <div className="space-y-16">
               {project.process.map((step: any, index: number) => (
-                <div key={step.step} className="relative pl-8 border-l-2 border-border">
-                  <div className="absolute left-0 top-0 -translate-x-1/2 w-4 h-4 rounded-full bg-primary border-4 border-background" />
-                  <div className="mb-4">
-                    <span className="text-xs font-semibold text-primary uppercase tracking-wider">
-                      Étape {step.step}
-                    </span>
-                    <h3 className="text-xl font-semibold text-foreground mt-1">
-                      {step.title}
-                    </h3>
-                    <p className="text-text-secondary mt-2">{step.summary}</p>
-                  </div>
-                  <div className="bg-card rounded-lg p-6 space-y-4">
-                    <div>
-                      <h4 className="text-sm font-semibold text-foreground mb-2">Activités</h4>
-                      <ul className="space-y-1.5">
-                        {step.activities.map((activity: string, i: number) => (
-                          <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
-                            <span className="text-primary">→</span>
-                            {activity}
-                          </li>
-                        ))}
-                      </ul>
+                <div key={step.step} className="relative">
+                  {/* Timeline connector */}
+                  {index < project.process.length - 1 && (
+                    <div className="absolute left-6 top-14 bottom-0 w-0.5 bg-gradient-to-b from-primary to-border hidden md:block" />
+                  )}
+                  
+                  <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+                    {/* Left: Content */}
+                    <div className={`${index % 2 === 1 ? 'md:order-2' : ''}`}>
+                      <div className="flex items-center gap-4 mb-4">
+                        <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg shrink-0">
+                          {step.step}
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-foreground">
+                            {step.title}
+                          </h3>
+                        </div>
+                      </div>
+                      <p className="text-text-secondary mb-4">{step.summary}</p>
+                      
+                      <div className="bg-card rounded-lg p-5 space-y-4 border border-border/50">
+                        <div>
+                          <h4 className="text-sm font-semibold text-foreground mb-2">Activités</h4>
+                          <ul className="space-y-1.5">
+                            {step.activities.map((activity: string, i: number) => (
+                              <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
+                                <span className="text-primary">→</span>
+                                {activity}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="text-sm font-semibold text-foreground mb-2">Livrables</h4>
+                          <p className="text-sm text-text-secondary">{step.deliverables}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-sm font-semibold text-foreground mb-2">Livrables</h4>
-                      <p className="text-sm text-text-secondary">{step.deliverables}</p>
+                    
+                    {/* Right: Image placeholder */}
+                    <div className={`${index % 2 === 1 ? 'md:order-1' : ''}`}>
+                      {step.image ? (
+                        <motion.div
+                          initial={{ opacity: 0, scale: 0.95 }}
+                          whileInView={{ opacity: 1, scale: 1 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: 0.2, duration: 0.4 }}
+                          className="relative group"
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300" />
+                          <img
+                            src={step.image}
+                            alt={step.imageCaption || step.title}
+                            className="relative w-full aspect-[4/3] object-cover rounded-xl shadow-soft group-hover:shadow-elevated transition-shadow duration-300"
+                          />
+                          {step.imageCaption && (
+                            <p className="mt-3 text-sm text-text-tertiary text-center italic">
+                              {step.imageCaption}
+                            </p>
+                          )}
+                        </motion.div>
+                      ) : (
+                        <div className="w-full aspect-[4/3] rounded-xl bg-card border-2 border-dashed border-border flex items-center justify-center">
+                          <div className="text-center p-6">
+                            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mx-auto mb-3">
+                              <span className="text-2xl">🖼️</span>
+                            </div>
+                            <p className="text-sm text-text-tertiary">
+                              Emplacement visuel
+                            </p>
+                            <p className="text-xs text-text-tertiary mt-1">
+                              Écran, photo, schéma...
+                            </p>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </div>
@@ -450,13 +581,63 @@ export default function ProjectDetail() {
             variants={fadeInUp}
           >
             <SectionTitle title="Résultats & impact" />
+
+            {/* Before/After Visual Comparison */}
+            {project.beforeAfterImages && (
+              <div className="mb-12">
+                <h4 className="font-semibold text-foreground mb-6 text-center">Comparaison avant / après</h4>
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Before */}
+                  <motion.div
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4 }}
+                    className="relative group"
+                  >
+                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-red-500/90 text-white text-sm font-medium rounded-full">
+                      Avant
+                    </div>
+                    <img
+                      src={project.beforeAfterImages.before.src}
+                      alt={project.beforeAfterImages.before.alt}
+                      className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-red-200 shadow-soft"
+                    />
+                    <p className="mt-2 text-sm text-text-tertiary text-center">
+                      {project.beforeAfterImages.before.caption}
+                    </p>
+                  </motion.div>
+                  
+                  {/* After */}
+                  <motion.div
+                    initial={{ opacity: 0, x: 20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.4, delay: 0.1 }}
+                    className="relative group"
+                  >
+                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-green-500/90 text-white text-sm font-medium rounded-full">
+                      Après
+                    </div>
+                    <img
+                      src={project.beforeAfterImages.after.src}
+                      alt={project.beforeAfterImages.after.alt}
+                      className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-green-200 shadow-soft"
+                    />
+                    <p className="mt-2 text-sm text-text-tertiary text-center">
+                      {project.beforeAfterImages.after.caption}
+                    </p>
+                  </motion.div>
+                </div>
+              </div>
+            )}
             
             {/* Quantitative */}
             <div className="mb-10">
               <h4 className="font-semibold text-foreground mb-4">Résultats quantitatifs</h4>
               <div className="grid md:grid-cols-3 gap-4">
                 {project.results.quantitative.map((result: any, i: number) => (
-                  <div key={i} className="bg-card rounded-xl p-6 text-center">
+                  <div key={i} className="bg-card rounded-xl p-6 text-center border border-border/50 hover:border-primary/30 transition-colors duration-250">
                     <p className="text-sm text-text-secondary mb-2">{result.metric}</p>
                     <div className="flex items-center justify-center gap-2 mb-2">
                       <span className="text-text-tertiary line-through">{result.before}</span>
