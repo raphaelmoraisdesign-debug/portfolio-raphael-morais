@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Tag } from "@/components/ui/tag";
 import { ProjectCard } from "@/components/ui/project-card";
+import { HeroCentered } from "@/components/hero/HeroCentered";
 
 const services = [
   {
@@ -87,56 +88,7 @@ export default function Index() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="py-section-mobile md:py-section bg-gradient-to-b from-background to-card/30">
-        <div className="container">
-          <motion.div 
-            className="max-w-4xl"
-            initial="initial"
-            animate="animate"
-            variants={stagger}
-          >
-            <motion.div variants={fadeInUp} className="flex items-center gap-2 text-text-secondary mb-6">
-              <MapPin className="w-4 h-4" />
-              <span className="text-sm">Paris, France</span>
-              <span className="mx-2">·</span>
-              <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
-                <span className="text-sm">Disponible</span>
-              </div>
-            </motion.div>
-
-            <motion.h1 
-              variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-tight mb-6"
-            >
-              Senior Product Designer
-              <span className="text-accent"> & Consultant</span>
-            </motion.h1>
-
-            <motion.p 
-              variants={fadeInUp}
-              className="text-xl md:text-2xl text-text-secondary max-w-2xl mb-10 leading-relaxed"
-            >
-              J'aide les équipes produit à lancer des expériences digitales 
-              <span className="text-foreground font-medium"> utiles</span>, 
-              <span className="text-foreground font-medium"> utilisables</span> et 
-              <span className="text-foreground font-medium"> désirables</span>.
-            </motion.p>
-
-            <motion.div variants={fadeInUp} className="flex flex-wrap gap-4">
-              <Button asChild size="lg" variant="hero">
-                <Link to="/projets">
-                  Voir mes projets
-                  <ArrowRight className="w-4 h-4" />
-                </Link>
-              </Button>
-              <Button asChild size="lg" variant="outline">
-                <Link to="/contact">Me contacter</Link>
-              </Button>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
+      <HeroCentered />
 
       {/* Services Section */}
       <section className="py-section-mobile md:py-section">
