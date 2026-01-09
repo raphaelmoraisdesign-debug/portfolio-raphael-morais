@@ -16,42 +16,42 @@ const skillsData = [
     skill: "Discovery & Research", 
     fullName: "Discovery & UX Research",
     level: 9, 
-    description: "Observation terrain, tests utilisateurs modérés et non modérés, audit UX, interviews",
+    description: "Observation terrain / Tests & entretiens utilisateurs / Audit UX",
     isLead: false
   },
   { 
     skill: "Strategic Design", 
     fullName: "Strategic Design",
     level: 8, 
-    description: "Discovery, co-définition de la vision produit, priorisation, roadmap",
+    description: "Discovery / Co-définition de la vision produit / Priorisation",
     isLead: false
   },
   { 
     skill: "Méthodologie", 
     fullName: "Méthodologie",
     level: 9, 
-    description: "Design Thinking, Lean UX, Agilité, intégration dans les process produit",
+    description: "Design Thinking / Lean UX / Agilité",
     isLead: false
   },
   { 
     skill: "UX Design", 
     fullName: "UX Design",
     level: 9, 
-    description: "Facilitation d'ateliers, parcours utilisateurs, experience maps, wireframes",
+    description: "Facilitation d'ateliers / Parcours utilisateurs / Experience map / Wireframes",
     isLead: false
   },
   { 
     skill: "Lead Design", 
     fullName: "Lead Design",
     level: 8, 
-    description: "Staffing, process et rituels d'équipes, mentorat, recrutement",
+    description: "Staffing / Process et rituels d'équipes",
     isLead: true
   },
   { 
     skill: "UI & Design System", 
     fullName: "UI Design & Design System",
     level: 8, 
-    description: "Maquettes haute-fidélité, prototypage, création et maintenance de design systems",
+    description: "Maquettes / Prototypage",
     isLead: false
   },
 ];

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 interface Tool {
   name: string;
   logo: string;
+  description: string;
 }
 
 interface ToolCategory {
@@ -12,38 +13,32 @@ interface ToolCategory {
 
 const toolCategories: ToolCategory[] = [
   {
-    title: "Design",
+    title: "Design & Prototypage",
     tools: [
-      { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-      { name: "FigJam", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
-      { name: "Illustrator", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/illustrator/illustrator-plain.svg" },
-      { name: "Photoshop", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" },
+      { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", description: "Maquettage & Prototype" },
+      { name: "Figjam", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", description: "Facilitation d'ateliers UX" },
+      { name: "Klaxoon", logo: "https://cdn.brandfetch.io/idCwYcH8E8/w/400/h/400/theme/dark/icon.jpeg", description: "Facilitation d'ateliers UX" },
     ]
   },
   {
-    title: "Recherche & Collaboration",
+    title: "Documentation",
     tools: [
-      { name: "Miro", logo: "https://cdn.brandfetch.io/idAnDTFapY/theme/dark/symbol.svg" },
-      { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" },
-      { name: "Maze", logo: "https://cdn.brandfetch.io/idqCUO4oJc/w/400/h/400/theme/dark/icon.jpeg" },
-      { name: "Lookback", logo: "https://cdn.brandfetch.io/idhHzkS0Z-/w/400/h/400/theme/dark/icon.png" },
+      { name: "Confluence", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg", description: "Documentation" },
+      { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg", description: "Documentation" },
     ]
   },
   {
-    title: "Visioconférence",
+    title: "Recherche UX",
     tools: [
-      { name: "Zoom", logo: "https://cdn.brandfetch.io/idIAYfP1wF/w/400/h/400/theme/dark/icon.png" },
-      { name: "Google Meet", logo: "https://cdn.brandfetch.io/idIPlLrxCt/theme/dark/icon.svg" },
-      { name: "Teams", logo: "https://cdn.brandfetch.io/idTrjYqNqL/theme/dark/icon.svg" },
+      { name: "User Testing", logo: "https://cdn.brandfetch.io/idHGM_TJYe/w/400/h/400/theme/dark/icon.jpeg", description: "UX Research & Data" },
     ]
   },
   {
     title: "Gestion de projet",
     tools: [
-      { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" },
-      { name: "Trello", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/trello/trello-plain.svg" },
-      { name: "Linear", logo: "https://cdn.brandfetch.io/idUz8PUp90/theme/dark/symbol.svg" },
-      { name: "Confluence", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg" },
+      { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg", description: "Backlog Design & Kanban" },
+      { name: "Asana", logo: "https://cdn.brandfetch.io/idqQRGNy4k/w/400/h/400/theme/dark/icon.png", description: "Répartition des tâches" },
+      { name: "Suite Office", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", description: "PPT, Word, Excel" },
     ]
   },
 ];
@@ -81,9 +76,14 @@ export function ToolsSection() {
                     }}
                   />
                 </div>
-                <span className="text-sm font-medium text-text-secondary group-hover:text-foreground transition-colors duration-250 ease-in-out text-center">
-                  {tool.name}
-                </span>
+                <div className="text-center">
+                  <span className="text-sm font-medium text-foreground block">
+                    {tool.name}
+                  </span>
+                  <span className="text-xs text-text-secondary mt-1 block">
+                    {tool.description}
+                  </span>
+                </div>
               </motion.div>
             ))}
           </div>
