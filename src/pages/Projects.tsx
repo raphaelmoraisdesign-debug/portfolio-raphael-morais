@@ -4,53 +4,7 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ProjectCard } from "@/components/ui/project-card";
 import { cn } from "@/lib/utils";
-
-// Import project images
-import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
-import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
-import eneHero from "@/assets/projects/ene-hero.jpg";
-import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
-
-const allProjects = [
-  {
-    id: "bnp-omnicanalite-b2c",
-    title: "Omnicanalité B2C",
-    client: "BNP Paribas Personal Finance",
-    sector: "Banque",
-    description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
-    roles: ["UX Design", "UI Design", "Design System"],
-    image: bnpOmnicanaliteHero,
-  },
-  {
-    id: "bnp-souscription",
-    title: "Parcours Souscription",
-    client: "BNP Paribas Personal Finance",
-    sector: "Banque",
-    description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
-    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
-    image: bnpSouscriptionHero,
-  },
-  {
-    id: "ene-plateforme-educative",
-    title: "ENE - Espace Numérique Éducatif",
-    client: "JUNVA SAS",
-    sector: "Éducation",
-    description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
-    roles: ["UX Design", "UI Design", "Personas"],
-    image: eneHero,
-  },
-  {
-    id: "pollux-voxaly",
-    title: "POLLUX - Vote Électronique",
-    client: "Docaposte / Voxaly",
-    sector: "Services",
-    description: "Refonte de l'expérience de vote électronique professionnel pour les élections d'entreprise.",
-    roles: ["UX Research", "UI Design", "Ateliers"],
-    image: polluxVoxalyHero,
-  },
-];
-
-const sectors = ["Tous", "Banque", "Éducation", "Services"];
+import { getAllProjectsForCards, getAllSectors, getProjectsBySector } from "@/data/projectsData";
 
 const fadeInUp = {
   initial: { opacity: 0, y: 20 },
@@ -68,10 +22,8 @@ const stagger = {
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("Tous");
-
-  const filteredProjects = activeFilter === "Tous" 
-    ? allProjects 
-    : allProjects.filter(p => p.sector === activeFilter);
+  const sectors = getAllSectors();
+  const filteredProjects = getProjectsBySector(activeFilter);
 
   return (
     <PageLayout>
