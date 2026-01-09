@@ -43,30 +43,37 @@ const methodology = [
   { step: "04", title: "Livrer", description: "Accompagner les équipes pour une implémentation réussie." },
 ];
 
+import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
+import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
+import eneHero from "@/assets/projects/ene-hero.jpg";
+
 const featuredProjects = [
   {
-    id: "refonte-credit-en-ligne",
-    title: "Refonte parcours crédit",
-    client: "Crédit Mutuel",
+    id: "bnp-omnicanalite",
+    title: "Omnicanalité B2C",
+    client: "BNP Paribas",
     sector: "Banque",
-    description: "Augmenter le taux de conversion du parcours de souscription crédit en ligne de 35%.",
+    description: "Refonte de l'expérience client omnicanale pour améliorer la cohérence des parcours digitaux.",
     roles: ["UX Research", "UI Design", "Design System"],
+    image: bnpOmnicanaliteHero,
   },
   {
-    id: "dashboard-analytics-saas",
-    title: "Dashboard Analytics",
-    client: "DataViz Pro",
-    sector: "SaaS B2B",
-    description: "Concevoir un dashboard analytique intuitif pour des utilisateurs non-techniques.",
+    id: "bnp-souscription",
+    title: "Parcours Souscription",
+    client: "BNP Paribas",
+    sector: "Banque",
+    description: "Optimisation du parcours de souscription pour réduire le taux d'abandon.",
     roles: ["Product Discovery", "UX Design", "Prototypage"],
+    image: bnpSouscriptionHero,
   },
   {
-    id: "application-mobile-assurance",
-    title: "App mobile sinistres",
-    client: "AXA",
-    sector: "Assurance",
-    description: "Simplifier la déclaration de sinistres pour réduire le temps de traitement de 60%.",
-    roles: ["UX Research", "Mobile Design", "Tests utilisateurs"],
+    id: "ene",
+    title: "Espace Numérique Éducatif",
+    client: "Éducation Nationale",
+    sector: "Éducation",
+    description: "Conception d'une plateforme numérique pour faciliter l'apprentissage des élèves.",
+    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
+    image: eneHero,
   },
 ];
 
