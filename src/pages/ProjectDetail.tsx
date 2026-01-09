@@ -9,6 +9,9 @@ import { SectionTitle } from "@/components/ui/section-title";
 // Import project images
 import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
 import bnpOmnicanaliteDiscovery from "@/assets/projects/bnp-omnicanalite-old-siclid.png";
+import bnpOmnicanaliteConception from "@/assets/projects/bnp-omnicanalite-conception.png";
+import bnpOmnicanaliteTest from "@/assets/projects/bnp-omnicanalite-test.png";
+import bnpOmnicanaliteDelivery from "@/assets/projects/bnp-omnicanalite-delivery.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
 import eneHero from "@/assets/projects/ene-hero.jpg";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
@@ -87,7 +90,9 @@ const projectsData: Record<string, any> = {
           "Définition du design system",
           "Prototypage interactif"
         ],
-        deliverables: "Wireframes validés, prototype Figma, composants design system"
+        deliverables: "Wireframes validés, prototype Figma, composants design system",
+        image: bnpOmnicanaliteConception,
+        imageCaption: "Interface de simulation et nouvelle interface responsive"
       },
       {
         step: "03",
@@ -98,7 +103,9 @@ const projectsData: Record<string, any> = {
           "Itérations sur les retours",
           "Validation métier et conformité"
         ],
-        deliverables: "Maquettes finales, documentation UX"
+        deliverables: "Maquettes finales, documentation UX",
+        image: bnpOmnicanaliteTest,
+        imageCaption: "Formulaires de souscription testés avec les utilisateurs"
       },
       {
         step: "04",
@@ -109,7 +116,9 @@ const projectsData: Record<string, any> = {
           "Support pendant l'implémentation",
           "QA design"
         ],
-        deliverables: "Specs techniques, design tokens"
+        deliverables: "Specs techniques, design tokens",
+        image: bnpOmnicanaliteDelivery,
+        imageCaption: "Comparaison avant/après de l'interface"
       }
     ],
     results: {
