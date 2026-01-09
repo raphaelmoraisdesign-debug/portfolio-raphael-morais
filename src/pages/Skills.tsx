@@ -8,7 +8,7 @@ export default function Skills() {
   return (
     <PageLayout>
       {/* Hero Section */}
-      <section className="pt-32 pb-16 md:pt-40 md:pb-24">
+      <section className="pt-24 pb-12 md:pt-32 md:pb-16">
         <div className="container">
           <motion.div 
             className="max-w-3xl"
@@ -16,7 +16,7 @@ export default function Skills() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-6">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-semibold text-foreground mb-4 md:mb-6">
               Mes compétences
             </h1>
             <p className="text-lg md:text-xl text-text-secondary leading-relaxed">
@@ -29,7 +29,7 @@ export default function Skills() {
       </section>
 
       {/* Radar Chart Section */}
-      <section className="py-16 md:py-24 bg-surface">
+      <section className="py-12 md:py-16">
         <div className="container">
           <SectionTitle
             title="Vue d'ensemble"
@@ -46,9 +46,8 @@ export default function Skills() {
         </div>
       </section>
 
-
       {/* Tools Section */}
-      <section className="py-16 md:py-24 bg-surface">
+      <section className="py-12 md:py-16 bg-surface/50">
         <div className="container">
           <SectionTitle
             title="Mes outils"
