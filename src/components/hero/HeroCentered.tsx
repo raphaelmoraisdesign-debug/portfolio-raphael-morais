@@ -124,8 +124,8 @@ export function HeroCentered() {
           </div>
 
           {/* Title */}
-          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-tight mb-4 md:mb-6">Product Designer confirmé 
-& Consultant<span className="text-primary"> & Consultant</span>
+          <motion.h1 variants={fadeInUp} className="text-4xl md:text-6xl lg:text-7xl font-display font-semibold text-foreground leading-tight mb-4 md:mb-6">Product Designer confirmé
+          <span className="text-primary"> & Consultant</span>
           </motion.h1>
 
           {/* Subtitle */}
