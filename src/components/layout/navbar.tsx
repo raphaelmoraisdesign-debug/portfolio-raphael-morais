@@ -23,7 +23,7 @@ export function Navbar() {
           to="/" 
           className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors duration-250 ease-in-out"
         >
-          Marie Dupont
+          Raphael MORAIS LEAL
         </Link>
 
         {/* Desktop Navigation */}
