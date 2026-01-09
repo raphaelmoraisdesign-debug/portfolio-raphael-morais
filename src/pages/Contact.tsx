@@ -34,7 +34,7 @@ export default function Contact() {
             >
               <SectionTitle 
                 title="Me contacter" 
-                subtitle="Mon profil vous plaît ou vous intrigue ?"
+                subtitle="Mon profil vous plaît ou vous intrigue ? Contactez moi."
                 align="center"
               />
             </motion.div>
