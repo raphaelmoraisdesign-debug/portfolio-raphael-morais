@@ -64,6 +64,7 @@ export interface ProjectData {
   description: string;
   roles: string[];
   heroImage: string;
+  isFeatured: boolean; // Affiché sur la page d'accueil
   
   // Détails projet
   challengeBusiness: string;
@@ -113,6 +114,7 @@ export const projectsData: ProjectData[] = [
     description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
     roles: ["Product design", "Research", "Design System"],
     heroImage: bnpOmnicanaliteHero,
+    isFeatured: true,
     challengeBusiness: "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
     audienceCible: "Conseillers crédit en télévente",
     statCle: "Leader européen du crédit · Cetelem",
@@ -226,6 +228,7 @@ export const projectsData: ProjectData[] = [
     description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
     roles: ["UX Research", "UI Design", "Tests utilisateurs"],
     heroImage: bnpSouscriptionHero,
+    isFeatured: true,
     challengeBusiness: "Réduire le taux d'abandon sur le parcours de souscription crédit tout en respectant les contraintes réglementaires bancaires.",
     audienceCible: "Particuliers 25-55 ans",
     statCle: "Leader européen du crédit · Cetelem",
@@ -341,6 +344,7 @@ export const projectsData: ProjectData[] = [
     description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
     roles: ["UX Design", "UI Design", "Personas"],
     heroImage: eneHero,
+    isFeatured: true,
     challengeBusiness: "Créer une plateforme unifiée pour connecter élèves, parents et enseignants autour des services éducatifs départementaux.",
     audienceCible: "Élèves, parents et enseignants de collèges",
     statCle: "Plateforme multi-départements",
@@ -444,6 +448,7 @@ export const projectsData: ProjectData[] = [
     description: "Refonte de l'expérience de vote électronique professionnel pour les élections d'entreprise.",
     roles: ["UX Research", "UI Design", "Ateliers"],
     heroImage: polluxVoxalyHero,
+    isFeatured: false,
     challengeBusiness: "Moderniser et sécuriser l'expérience de vote électronique pour les élections professionnelles d'entreprise.",
     audienceCible: "Salariés votants et administrateurs RH",
     statCle: "Leader français du vote électronique",
@@ -576,4 +581,21 @@ export function getProjectsBySector(sector: string) {
 export function getAllSectors(): string[] {
   const sectors = [...new Set(projectsData.map(p => p.sector))];
   return ["Tous", ...sectors];
+}
+
+/**
+ * Récupère les projets mis en avant (featured)
+ */
+export function getFeaturedProjects() {
+  return projectsData
+    .filter(p => p.isFeatured)
+    .map(({ id, title, client, sector, description, roles, heroImage }) => ({
+      id,
+      title,
+      client,
+      sector,
+      description,
+      roles,
+      image: heroImage,
+    }));
 }

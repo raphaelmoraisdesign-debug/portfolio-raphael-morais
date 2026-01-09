@@ -1,13 +1,13 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Sparkles, Loader2 } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { SectionTitle } from "@/components/ui/section-title";
 import { Tag } from "@/components/ui/tag";
 import { ProjectCard } from "@/components/ui/project-card";
 import { HeroCentered } from "@/components/hero/HeroCentered";
-import { useFeaturedProjects } from "@/hooks/useProjects";
+import { getFeaturedProjects } from "@/data/projectsData";
 
 const services = [
   {
@@ -59,7 +59,7 @@ const stagger = {
 };
 
 export default function Index() {
-  const { data: featuredProjects, isLoading: isLoadingProjects } = useFeaturedProjects();
+  const featuredProjects = getFeaturedProjects();
 
   return (
     <PageLayout>
@@ -186,11 +186,7 @@ export default function Index() {
             </Button>
           </div>
 
-          {isLoadingProjects ? (
-            <div className="flex items-center justify-center py-12">
-              <Loader2 className="w-8 h-8 animate-spin text-accent" />
-            </div>
-          ) : featuredProjects && featuredProjects.length > 0 ? (
+          {featuredProjects.length > 0 ? (
             <motion.div 
               className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
               initial="initial"
@@ -201,13 +197,13 @@ export default function Index() {
               {featuredProjects.map((project) => (
                 <motion.div key={project.id} variants={fadeInUp}>
                   <ProjectCard 
-                    id={project.slug}
+                    id={project.id}
                     title={project.title}
-                    client={project.client || "Client"}
-                    sector={project.category}
-                    description={project.short_description}
-                    roles={project.tools?.slice(0, 3) || []}
-                    imageUrl={project.hero_image_url || undefined}
+                    client={project.client}
+                    sector={project.sector}
+                    description={project.description}
+                    roles={project.roles}
+                    imageUrl={project.image}
                   />
                 </motion.div>
               ))}
