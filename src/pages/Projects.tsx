@@ -6,7 +6,7 @@ import { ProjectCard } from "@/components/ui/project-card";
 import { cn } from "@/lib/utils";
 
 // Import project images
-import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-hero.jpg";
+import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
 import eneHero from "@/assets/projects/ene-hero.jpg";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
