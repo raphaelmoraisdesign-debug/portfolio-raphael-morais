@@ -274,31 +274,6 @@ export default function Index() {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 md:py-28">
-        <div className="container">
-          <motion.div 
-            className="text-center max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-4">
-              Un projet en tête ?
-            </h2>
-            <p className="text-lg text-text-secondary mb-8">
-              Discutons de comment je peux vous aider à créer une expérience produit exceptionnelle.
-            </p>
-            <Button asChild size="xl" variant="hero">
-              <Link to="/contact">
-                Démarrer une conversation
-                <ArrowRight className="w-5 h-5" />
-              </Link>
-            </Button>
-          </motion.div>
-        </div>
-      </section>
     </PageLayout>
   );
 }
