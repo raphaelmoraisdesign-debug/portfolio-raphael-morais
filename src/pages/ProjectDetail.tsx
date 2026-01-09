@@ -8,6 +8,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 
 // Import project images
 import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
+import bnpOmnicanaliteDiscovery from "@/assets/projects/bnp-omnicanalite-discovery.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.jpg";
 import eneHero from "@/assets/projects/ene-hero.jpg";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
@@ -72,7 +73,9 @@ const projectsData: Record<string, any> = {
           "Analyse des outils existants",
           "Mapping des parcours vendeur actuels"
         ],
-        deliverables: "Personas conseillers, parcours utilisateur AS-IS, liste des pain points priorisés"
+        deliverables: "Personas conseillers, parcours utilisateur AS-IS, liste des pain points priorisés",
+        image: bnpOmnicanaliteDiscovery,
+        imageCaption: "Logiciel existant avant la refonte"
       },
       {
         step: "02",
