@@ -197,7 +197,7 @@ export const projectsData: ProjectData[] = [
         step: "04",
         title: "Delivery & Suivi",
         summary: "Accompagnement des équipes de développement.",
-        activities: ["Handover développeurs", "Support pendant l'implémentation", "recette design"],
+        activities: ["Handover développeurs", "Support pendant l'implémentation", "Recette design"],
         deliverables: "Specs techniques, design tokens",
         image: bnpOmnicanaliteDelivery,
         imageCaption: "Comparaison avant/après de l'interface",
