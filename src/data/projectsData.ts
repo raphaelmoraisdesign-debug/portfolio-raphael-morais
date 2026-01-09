@@ -237,7 +237,7 @@ export const projectsData: ProjectData[] = [
     client: "BNP Paribas Personal Finance",
     sector: "Banque",
     description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
-    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
+    roles: ["UX Research", "Product Design", "Tests utilisateurs"],
     heroImage: bnpSouscriptionHero,
     isFeatured: true,
     challengeBusiness:
@@ -245,8 +245,8 @@ export const projectsData: ProjectData[] = [
     audienceCible: "Particuliers 25-55 ans",
     statCle: "Leader européen du crédit · Cetelem",
     role: "Product Designer",
-    duration: "6 mois",
-    year: "2024",
+    duration: "2 ans",
+    year: "De janvier 2024 à Décembre 2025",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.maze, toolLogos.jira],
     gallery: [],
     context:
@@ -256,9 +256,15 @@ export const projectsData: ProjectData[] = [
       { text: "Améliorer le taux de conversion", metric: "+25%" },
       { text: "Réduire le temps de complétion", metric: "-50%" },
     ],
-    team: ["1 Product Owner", "2 Product Designers", "2 Développeurs front-end", "1 Data Analyst"],
+    team: [
+      "1 Product Owner",
+      "1 Product Designers",
+      "2 Développeurs front-end",
+      "1 Data Analyst",
+      "1 Lead Design System",
+    ],
     collaboration:
-      "Méthodologie Lean UX avec des cycles de découverte et livraison en continu. Tests utilisateurs réguliers via Maze.",
+      "Méthodologie Lean UX avec des cycles de découverte et livraison en continu. Tests utilisateurs réguliers via UserTesting.",
     process: [
       {
         step: "01",
@@ -270,7 +276,7 @@ export const projectsData: ProjectData[] = [
           "Audit UX du parcours existant",
           "Benchmark concurrentiel",
         ],
-        deliverables: "Rapport de recherche, personas, parcours utilisateur",
+        deliverables: "Rapport de recherche, Audit UI/UX, parcours utilisateur",
       },
       {
         step: "02",
@@ -283,8 +289,12 @@ export const projectsData: ProjectData[] = [
         step: "03",
         title: "Prototypage & UI",
         summary: "Conception des interfaces haute fidélité.",
-        activities: ["Design UI responsive", "Prototypage interactif Figma", "Micro-interactions"],
-        deliverables: "Prototype interactif, UI Kit",
+        activities: [
+          "Design UI mobile first avec déclinaison desktop",
+          "Prototypage interactif Figma",
+          "Micro-interactions",
+        ],
+        deliverables: "Prototype interactif, Nouveaux composants Design System",
       },
       {
         step: "04",
