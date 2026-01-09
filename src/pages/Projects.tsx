@@ -82,7 +82,7 @@ export default function Projects() {
 
   return (
     <PageLayout>
-      <section className="py-20 md:py-28">
+      <section className="py-16 md:py-20">
         <div className="container">
           <motion.div
             initial={{ opacity: 0, y: 20 }}

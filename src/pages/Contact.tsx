@@ -52,7 +52,7 @@ export default function Contact() {
 
   return (
     <PageLayout>
-      <section className="py-20 md:py-28">
+      <section className="py-16 md:py-20">
         <div className="container">
           <div className="max-w-2xl mx-auto">
             <motion.div
