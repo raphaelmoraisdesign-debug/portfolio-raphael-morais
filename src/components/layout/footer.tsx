@@ -20,7 +20,7 @@ export function Footer() {
 
           <div className="flex items-center gap-6">
             <a 
-              href="https://linkedin.com" 
+              href="https://www.linkedin.com/in/raphael-morais-leal-860434170/" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out"
@@ -29,7 +29,7 @@ export function Footer() {
               <Linkedin className="w-5 h-5" />
             </a>
             <a 
-              href="mailto:contact@example.com"
+              href="mailto:raphaelmorais.design@gmail.com"
               className="text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out"
               aria-label="Email"
             >
