@@ -52,6 +52,17 @@ export interface ProjectResults {
   learnings: string[];
 }
 
+export interface BeforeAfterImage {
+  src: string;
+  alt: string;
+  caption: string;
+}
+
+export interface BeforeAfterImages {
+  before: BeforeAfterImage;
+  after: BeforeAfterImage;
+}
+
 export interface ProjectData {
   // Identifiant (utilisé dans l'URL)
   id: string;
@@ -83,6 +94,7 @@ export interface ProjectData {
   collaboration: string;
   process: ProcessStep[];
   results: ProjectResults;
+  beforeAfterImages?: BeforeAfterImages;
   summary: string[];
 }
 
