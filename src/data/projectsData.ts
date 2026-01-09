@@ -64,6 +64,9 @@ export interface ProjectData {
   description: string;
   roles: string[];
   heroImage: string;
+  
+  // Mise en avant
+  isFeatured?: boolean;
 
   // Détails projet
   challengeBusiness: string;
@@ -116,6 +119,7 @@ export const projectsData: ProjectData[] = [
     description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
     roles: ["Product Design", "Research", "Cadrage"],
     heroImage: bnpOmnicanaliteHero,
+    isFeatured: true,
     challengeBusiness:
       "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
     audienceCible: "Conseillers crédit en télévente",
@@ -223,6 +227,7 @@ export const projectsData: ProjectData[] = [
     description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
     roles: ["UX Research", "UI Design", "Tests utilisateurs"],
     heroImage: bnpSouscriptionHero,
+    isFeatured: true,
     challengeBusiness:
       "Réduire le taux d'abandon sur le parcours de souscription crédit tout en respectant les contraintes réglementaires bancaires.",
     audienceCible: "Particuliers 25-55 ans",
@@ -320,6 +325,7 @@ export const projectsData: ProjectData[] = [
     description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
     roles: ["UX Design", "UI Design", "Personas"],
     heroImage: eneHero,
+    isFeatured: true,
     challengeBusiness:
       "Créer une plateforme unifiée pour connecter élèves, parents et enseignants autour des services éducatifs départementaux.",
     audienceCible: "Élèves, parents et enseignants de collèges",
@@ -527,4 +533,21 @@ export function getProjectsBySector(sector: string) {
 export function getAllSectors(): string[] {
   const sectors = [...new Set(projectsData.map((p) => p.sector))];
   return ["Tous", ...sectors];
+}
+
+/**
+ * Récupère les projets mis en avant (featured)
+ */
+export function getFeaturedProjects() {
+  return projectsData
+    .filter((p) => p.isFeatured)
+    .map(({ id, title, client, sector, description, roles, heroImage }) => ({
+      id,
+      title,
+      client,
+      sector,
+      description,
+      roles,
+      image: heroImage,
+    }));
 }
