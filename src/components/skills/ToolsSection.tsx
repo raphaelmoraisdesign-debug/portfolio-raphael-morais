@@ -41,6 +41,14 @@ const toolCategories: ToolCategory[] = [
       { name: "Suite Office", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", description: "PPT, Word, Excel" },
     ]
   },
+  {
+    title: "Outils IA",
+    tools: [
+      { name: "ChatGPT", logo: "https://cdn.brandfetch.io/idR3duQxYl/w/400/h/400/theme/dark/icon.jpeg", description: "Assistant IA conversationnel" },
+      { name: "Perplexity.ai", logo: "https://cdn.brandfetch.io/id20pNPHJT/w/400/h/400/theme/dark/icon.jpeg", description: "Recherche IA avancée" },
+      { name: "Lovable.dev", logo: "https://cdn.brandfetch.io/idnPXsT3a_/w/400/h/400/theme/dark/icon.jpeg", description: "Développement assisté par IA" },
+    ]
+  },
 ];
 
 export function ToolsSection() {
