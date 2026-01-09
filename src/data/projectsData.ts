@@ -111,7 +111,7 @@ export const projectsData: ProjectData[] = [
     client: "BNP Paribas Personal Finance",
     sector: "Banque",
     description: "Conception d'une interface vendeur omnicanale pour les conseillers crédit Cetelem.",
-    roles: ["UX Design", "UI Design", "Design System"],
+    roles: ["Product design", "Research", "Design System"],
     heroImage: bnpOmnicanaliteHero,
     challengeBusiness: "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
     audienceCible: "Conseillers crédit en agence et à distance",
