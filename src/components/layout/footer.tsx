@@ -24,7 +24,7 @@ export function Footer() {
         </div>
 
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-text-tertiary">
-          <p>© 2025 Raphael MORAIS LEAL. Tous droits réservés.</p>
+          <p>© {new Date().getFullYear()} Raphael MORAIS LEAL. Tous droits réservés.</p>
           <div className="flex gap-6">
             <Link to="/projets" className="hover:text-primary transition-colors duration-250 ease-in-out">
               Projets
