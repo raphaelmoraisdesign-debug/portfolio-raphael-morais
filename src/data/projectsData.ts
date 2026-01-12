@@ -234,7 +234,7 @@ export const projectsData: ProjectData[] = [
     id: "bnp-souscription",
     title: "Parcours Souscription",
     subtitle: "Refonte du parcours de souscription crédit en ligne Cetelem",
-    client: "BNP Paribas Personal Finance",
+    client: "Formulaire de souscription B2C",
     sector: "Banque",
     description: "Refonte complète du parcours de souscription crédit en ligne pour augmenter la conversion.",
     roles: ["UX Research", "Product Design", "Tests utilisateurs"],
