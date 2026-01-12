@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ProjectCard } from "@/components/ui/project-card";
+import { RecommendationsSection } from "@/components/recommendations/RecommendationsSection";
 import { cn } from "@/lib/utils";
 import { useDevHmrRerender } from "@/hooks/use-dev-hmr-rerender";
 import { PROJECTS_DATA_UPDATED_EVENT } from "@/lib/dev-hmr";
@@ -97,6 +98,9 @@ export default function Projects() {
           )}
         </div>
       </section>
+
+      {/* Recommendations Section */}
+      <RecommendationsSection />
     </PageLayout>
   );
 }
