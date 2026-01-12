@@ -323,7 +323,7 @@ export const projectsData: ProjectData[] = [
         "Retours positifs des équipes support client",
       ],
       learnings: [
-        "Le progressive disclosure est essentiel pour les formulaires complexes",
+        "Faire apparaître les champs progressivement est clé pour que les formulaires complexes restent faciles à comprendre et à remplir",
         "Les micro-interactions rassurent l'utilisateur sur sa progression",
         "Tester tôt et souvent avec de vrais utilisateurs",
       ],
