@@ -61,7 +61,7 @@ export function ProjectCard({
             <div>
               <Tag variant="accent" size="sm" className="mb-2">{sector}</Tag>
               <h3 className="text-xl font-semibold text-foreground group-hover:text-primary transition-colors duration-250 ease-in-out">
-                {client}
+                {title}
               </h3>
             </div>
             <ArrowUpRight className="w-5 h-5 text-text-tertiary group-hover:text-primary transition-all duration-250 ease-in-out opacity-0 group-hover:opacity-100" />
