@@ -3,6 +3,7 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { SkillsRadarChart } from "@/components/skills/SkillsRadarChart";
 import { ToolsSection } from "@/components/skills/ToolsSection";
+import { RecommendationsSection } from "@/components/recommendations/RecommendationsSection";
 
 export default function Skills() {
   return (
@@ -56,6 +57,9 @@ export default function Skills() {
           <ToolsSection />
         </div>
       </section>
+
+      {/* Recommendations Section */}
+      <RecommendationsSection />
     </PageLayout>
   );
 }
