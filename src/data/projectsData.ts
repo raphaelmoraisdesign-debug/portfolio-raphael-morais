@@ -16,7 +16,7 @@ import eneHero from "@/assets/projects/ene-hero.png";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.png";
 import gbsHero from "@/assets/projects/gbs-hero.jpg";
 import grandEstHero from "@/assets/projects/grand-est-hero.jpg";
-import docalflexHero from "@/assets/projects/docalflex-hero.jpg";
+import docalflexHero from "@/assets/projects/docalflex-hero.png";
 
 // =========================================================
 // TYPES
