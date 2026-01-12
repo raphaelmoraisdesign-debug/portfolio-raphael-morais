@@ -14,6 +14,9 @@ import bnpOmnicanaliteDelivery from "@/assets/projects/bnp-omnicanalite-delivery
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.png";
 import eneHero from "@/assets/projects/ene-hero.png";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.png";
+import gbsHero from "@/assets/projects/gbs-hero.jpg";
+import grandEstHero from "@/assets/projects/grand-est-hero.jpg";
+import docalflexHero from "@/assets/projects/docalflex-hero.jpg";
 
 // =========================================================
 // TYPES
@@ -511,6 +514,311 @@ export const projectsData: ProjectData[] = [
       "Problème : Plateforme de vote perçue comme austère et peu fiable",
       "Action : Refonte UX/UI axée sur la confiance et la simplicité",
       "Impact : +16pts d'accéssibilité, -84% SAV, +23pts confiance",
+    ],
+  },
+
+  // ---------------------------------------------------------
+  // PROJET 5 : ENGIE GBS - MyPortal RH
+  // ---------------------------------------------------------
+  {
+    id: "engie-gbs-myportal",
+    title: "MyPortal - Portail RH ENGIE",
+    subtitle: "Point d'entrée unique pour les services RH ENGIE GBS",
+    client: "ENGIE GBS",
+    sector: "Énergie",
+    description: "Conception d'un portail RH unifié pour digitaliser et centraliser les services RH des collaborateurs ENGIE.",
+    roles: ["UX Design", "UI Design", "Cadrage"],
+    heroImage: gbsHero,
+    challengeBusiness:
+      "Créer un point d'entrée unique pour 11 000 collaborateurs permettant de digitaliser et simplifier l'accès aux services RH.",
+    audienceCible: "Collaborateurs ENGIE et équipes RH",
+    statCle: "11 000 collaborateurs · 400+ clients internes",
+    role: "Product Designer",
+    duration: "6 mois",
+    year: "2023",
+    tools: [toolLogos.figma, toolLogos.miro, toolLogos.jira],
+    gallery: [],
+    context:
+      "ENGIE GBS souhaitait unifier l'ensemble des services RH (staffing, onboarding, paie, learning, data RH) au sein d'un portail unique facilitant le suivi et la traçabilité des demandes.",
+    objectives: [
+      { text: "Centraliser les services RH", metric: "1 portail unique" },
+      { text: "Réduire le temps de traitement", metric: "-50%" },
+      { text: "Améliorer la satisfaction collaborateurs", metric: "+30pts NPS" },
+    ],
+    team: ["1 Product Owner", "1 Product Designer", "2 Développeurs", "1 Business Analyst"],
+    collaboration:
+      "Travail en étroite collaboration avec les équipes RH métier et les représentants des différentes BU ENGIE pour comprendre les besoins spécifiques.",
+    process: [
+      {
+        step: "01",
+        title: "Discovery & Cadrage",
+        summary: "Compréhension des besoins des collaborateurs et des équipes RH.",
+        activities: [
+          "Ateliers de cadrage avec les parties prenantes",
+          "Entretiens avec les utilisateurs cibles",
+          "Mapping des parcours existants",
+          "Analyse des points de friction",
+        ],
+        deliverables: "Personas, user journeys, backlog priorisé",
+      },
+      {
+        step: "02",
+        title: "Conception UX",
+        summary: "Architecture de l'information et parcours utilisateur.",
+        activities: [
+          "Définition de l'architecture de l'information",
+          "Wireframes des écrans clés",
+          "Prototypage basse fidélité",
+        ],
+        deliverables: "Wireframes validés, arborescence",
+      },
+      {
+        step: "03",
+        title: "Design UI",
+        summary: "Conception visuelle alignée sur la charte ENGIE.",
+        activities: [
+          "Design haute fidélité",
+          "Composants design system",
+          "Prototype interactif Figma",
+        ],
+        deliverables: "Maquettes finales, UI Kit ENGIE",
+      },
+      {
+        step: "04",
+        title: "Tests & Itérations",
+        summary: "Validation avec les utilisateurs finaux.",
+        activities: [
+          "Tests utilisateurs modérés",
+          "Collecte des retours",
+          "Itérations design",
+        ],
+        deliverables: "Rapport de tests, maquettes itérées",
+      },
+    ],
+    results: {
+      quantitative: [
+        { metric: "Temps traitement demandes", before: "48h", after: "24h", change: "-50%" },
+        { metric: "Satisfaction utilisateur", before: "62%", after: "88%", change: "+26pts" },
+        { metric: "Adoption du portail", before: "0%", after: "78%", change: "+78pts" },
+      ],
+      qualitative: [
+        '"Enfin un outil simple pour gérer toutes mes demandes RH" - Collaborateur ENGIE',
+        "Réduction significative des sollicitations par email",
+        "Meilleure visibilité sur l'état des demandes",
+      ],
+      learnings: [
+        "L'importance d'un point d'entrée unique pour réduire la charge cognitive",
+        "La traçabilité des demandes rassure les utilisateurs",
+        "Un design cohérent avec la marque renforce l'adoption",
+      ],
+    },
+    summary: [
+      "Problème : Services RH fragmentés et difficiles d'accès",
+      "Action : Portail unifié MyPortal centralisant tous les services",
+      "Impact : -50% temps de traitement, +26pts satisfaction",
+    ],
+  },
+
+  // ---------------------------------------------------------
+  // PROJET 6 : Génération #HDF - Carte Jeunes
+  // ---------------------------------------------------------
+  {
+    id: "generation-hdf",
+    title: "Génération #HDF - Carte Jeunes",
+    subtitle: "Application de demande de carte jeunes pour la région Hauts-de-France",
+    client: "Région Hauts-de-France",
+    sector: "Services Publics",
+    description: "Conception du parcours de demande de carte jeunes Génération #HDF pour les lycéens et étudiants.",
+    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
+    heroImage: grandEstHero,
+    challengeBusiness:
+      "Simplifier le parcours de demande de carte jeunes pour maximiser l'adoption par les 16-25 ans de la région.",
+    audienceCible: "Jeunes de 16 à 25 ans (lycéens, étudiants, apprentis)",
+    statCle: "Région Hauts-de-France · 6M habitants",
+    role: "UX/UI Designer",
+    duration: "4 mois",
+    year: "2023",
+    tools: [toolLogos.figma, toolLogos.maze, toolLogos.notion],
+    gallery: [],
+    context:
+      "La région souhaitait moderniser le parcours de demande de carte jeunes, perçu comme complexe et peu adapté aux usages mobiles des jeunes utilisateurs.",
+    objectives: [
+      { text: "Augmenter le taux de complétion", metric: "+40%" },
+      { text: "Réduire les erreurs de saisie", metric: "-60%" },
+      { text: "Améliorer l'expérience mobile", metric: "Mobile-first" },
+    ],
+    team: ["1 Chef de projet", "1 UX/UI Designer", "2 Développeurs", "1 Chargé de communication"],
+    collaboration:
+      "Co-conception avec des groupes de jeunes représentatifs. Tests utilisateurs réguliers avec des lycéens et étudiants.",
+    process: [
+      {
+        step: "01",
+        title: "Recherche utilisateur",
+        summary: "Compréhension des attentes et freins des jeunes.",
+        activities: [
+          "Entretiens avec des lycéens et étudiants",
+          "Empathy maps",
+          "Analyse du parcours existant",
+          "Benchmark applications jeunesse",
+        ],
+        deliverables: "Personas jeunes, carte d'empathie, points de friction",
+      },
+      {
+        step: "02",
+        title: "Conception du parcours",
+        summary: "Simplification et modernisation du formulaire.",
+        activities: [
+          "Refonte du formulaire étape par étape",
+          "Intégration de la capture photo",
+          "Wireframes mobile-first",
+        ],
+        deliverables: "Wireframes validés, nouveau parcours simplifié",
+      },
+      {
+        step: "03",
+        title: "Design UI",
+        summary: "Interface moderne et engageante pour les jeunes.",
+        activities: [
+          "Design coloré et dynamique",
+          "Micro-interactions ludiques",
+          "Accessibilité renforcée",
+        ],
+        deliverables: "Maquettes finales, prototype interactif",
+      },
+      {
+        step: "04",
+        title: "Tests & Validation",
+        summary: "Validation avec le public cible.",
+        activities: [
+          "Tests avec 8 utilisateurs (lycéens/étudiants)",
+          "Restitution et recommandations",
+          "Itérations finales",
+        ],
+        deliverables: "Rapport de tests, maquettes corrigées",
+      },
+    ],
+    results: {
+      quantitative: [
+        { metric: "Taux de complétion", before: "52%", after: "81%", change: "+29pts" },
+        { metric: "Erreurs de saisie", before: "23%", after: "8%", change: "-65%" },
+        { metric: "Temps de complétion", before: "8 min", after: "4 min", change: "-50%" },
+      ],
+      qualitative: [
+        '"C\'est beaucoup plus rapide et facile sur mobile" - Lycéen testeur',
+        "Meilleure compréhension du numéro de dossier après reformulation",
+        "La capture photo intégrée simplifie grandement le parcours",
+      ],
+      learnings: [
+        "Les jeunes attendent une expérience mobile native et rapide",
+        "Le vocabulaire administratif doit être adapté au public cible",
+        "Les micro-interactions renforcent l'engagement",
+      ],
+    },
+    summary: [
+      "Problème : Parcours de demande complexe avec fort taux d'abandon",
+      "Action : Refonte mobile-first co-conçue avec les jeunes",
+      "Impact : +29pts complétion, -50% temps de parcours",
+    ],
+  },
+
+  // ---------------------------------------------------------
+  // PROJET 7 : DOCALFLEX - Portail Services Généraux
+  // ---------------------------------------------------------
+  {
+    id: "docalflex-services-generaux",
+    title: "DOCALFLEX - Portail Services Généraux",
+    subtitle: "Portail de réservation avec cartographie 3D pour les espaces de travail",
+    client: "Docaposte",
+    sector: "Services",
+    description: "Conception d'un portail de services généraux avec réservation de salles via cartographie 3D.",
+    roles: ["UX Research", "UI Design", "Tests utilisateurs"],
+    heroImage: docalflexHero,
+    challengeBusiness:
+      "Créer un outil intuitif permettant aux collaborateurs de réserver facilement salles, bureaux et places de parking via une interface 3D innovante.",
+    audienceCible: "Collaborateurs en flex office",
+    statCle: "3 sites pilotes · 72% taux de succès",
+    role: "UX/UI Designer",
+    duration: "5 mois",
+    year: "2023",
+    tools: [toolLogos.figma, toolLogos.miro, toolLogos.teams],
+    gallery: [],
+    context:
+      "Dans un contexte de généralisation du flex office, les collaborateurs avaient besoin d'un outil simple pour réserver leurs espaces de travail. La cartographie 3D permet de se repérer rapidement dans les bâtiments.",
+    objectives: [
+      { text: "Simplifier la réservation", metric: "2 min max" },
+      { text: "Améliorer l'adoption de l'outil", metric: "+50%" },
+      { text: "Réduire les conflits de réservation", metric: "-70%" },
+    ],
+    team: ["1 Product Owner", "1 UX/UI Designer", "2 Développeurs front", "1 Développeur 3D"],
+    collaboration:
+      "Interviews et tests utilisateurs sur 3 sites pilotes (Sophia, Victor Hugo, Ivry). Collaboration avec les équipes services généraux.",
+    process: [
+      {
+        step: "01",
+        title: "Recherche terrain",
+        summary: "Compréhension des usages de réservation actuels.",
+        activities: [
+          "Interviews utilisateurs sur 3 sites",
+          "Observation des pratiques de réservation",
+          "Analyse des outils existants",
+        ],
+        deliverables: "Synthèse research, pain points priorisés",
+      },
+      {
+        step: "02",
+        title: "Conception UX",
+        summary: "Parcours de réservation simplifié.",
+        activities: [
+          "Wireframes papier",
+          "Intégration de la vue 3D",
+          "Prototypage du parcours de réservation",
+        ],
+        deliverables: "Wireframes, prototype basse fidélité",
+      },
+      {
+        step: "03",
+        title: "Design UI & 3D",
+        summary: "Interface intuitive avec cartographie interactive.",
+        activities: [
+          "Design de l'interface de réservation",
+          "Intégration de la cartographie 3D",
+          "Application mobile responsive",
+        ],
+        deliverables: "Maquettes finales, prototype interactif",
+      },
+      {
+        step: "04",
+        title: "Tests utilisateurs",
+        summary: "Validation avec les collaborateurs des sites pilotes.",
+        activities: [
+          "Tests sur application mobile",
+          "Collecte des retours quantitatifs et qualitatifs",
+          "Itérations sur les points de friction",
+        ],
+        deliverables: "Rapport de tests, chiffres clés",
+      },
+    ],
+    results: {
+      quantitative: [
+        { metric: "Taux de réussite réservation", before: "58%", after: "72%", change: "+14pts" },
+        { metric: "Utilisation carto 3D", before: "0%", after: "81%", change: "81% des users" },
+        { metric: "Temps de réservation", before: "5 min", after: "2 min", change: "-60%" },
+      ],
+      qualitative: [
+        '"Le plan 3D est un vrai plus pour se situer rapidement" - Utilisateur Sophia',
+        '"Ça se fait en 2 minutes et très facilement" - Collaborateur',
+        "La cartographie 3D jugée essentielle par les utilisateurs",
+      ],
+      learnings: [
+        "La visualisation 3D améliore significativement l'orientation",
+        "L'expérience mobile est clé pour les réservations en mobilité",
+        "Un parcours de réservation ne doit pas dépasser 3 étapes",
+      ],
+    },
+    summary: [
+      "Problème : Réservation d'espaces complexe et chronophage",
+      "Action : Portail avec cartographie 3D et parcours simplifié",
+      "Impact : 72% taux de succès, 81% utilisent la vue 3D",
     ],
   },
 ];
