@@ -12,7 +12,7 @@ import bnpOmnicanaliteConception from "@/assets/projects/bnp-omnicanalite-concep
 import bnpOmnicanaliteTest from "@/assets/projects/bnp-omnicanalite-test.png";
 import bnpOmnicanaliteDelivery from "@/assets/projects/bnp-omnicanalite-delivery.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.png";
-import eneHero from "@/assets/projects/ene-hero.jpg";
+import eneHero from "@/assets/projects/ene-hero.png";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.jpg";
 
 // =========================================================
