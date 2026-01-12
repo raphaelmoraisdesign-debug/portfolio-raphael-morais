@@ -526,7 +526,8 @@ export const projectsData: ProjectData[] = [
     subtitle: "Point d'entrée unique pour les services RH ENGIE GBS",
     client: "ENGIE GBS",
     sector: "Énergie",
-    description: "Conception d'un portail RH unifié pour digitaliser et centraliser les services RH des collaborateurs ENGIE.",
+    description:
+      "Conception d'un portail RH unifié pour digitaliser et centraliser les services RH des collaborateurs ENGIE.",
     roles: ["UX Design", "UI Design", "Cadrage"],
     heroImage: gbsHero,
     challengeBusiness:
@@ -576,22 +577,14 @@ export const projectsData: ProjectData[] = [
         step: "03",
         title: "Design UI",
         summary: "Conception visuelle alignée sur la charte ENGIE.",
-        activities: [
-          "Design haute fidélité",
-          "Composants design system",
-          "Prototype interactif Figma",
-        ],
+        activities: ["Design haute fidélité", "Composants design system", "Prototype interactif Figma"],
         deliverables: "Maquettes finales, UI Kit ENGIE",
       },
       {
         step: "04",
         title: "Tests & Itérations",
         summary: "Validation avec les utilisateurs finaux.",
-        activities: [
-          "Tests utilisateurs modérés",
-          "Collecte des retours",
-          "Itérations design",
-        ],
+        activities: ["Tests utilisateurs modérés", "Collecte des retours", "Itérations design"],
         deliverables: "Rapport de tests, maquettes itérées",
       },
     ],
@@ -678,11 +671,7 @@ export const projectsData: ProjectData[] = [
         step: "03",
         title: "Design UI",
         summary: "Interface moderne et engageante pour les jeunes.",
-        activities: [
-          "Design coloré et dynamique",
-          "Micro-interactions ludiques",
-          "Accessibilité renforcée",
-        ],
+        activities: ["Design coloré et dynamique", "Micro-interactions ludiques", "Accessibilité renforcée"],
         deliverables: "Maquettes finales, prototype interactif",
       },
       {
@@ -726,7 +715,7 @@ export const projectsData: ProjectData[] = [
   // ---------------------------------------------------------
   {
     id: "docalflex-services-generaux",
-    title: "DOCALFLEX - Portail Services Généraux",
+    title: "DOCALFLEX - Refonte et amélioration d'intranet",
     subtitle: "Portail de réservation avec cartographie 3D pour les espaces de travail",
     client: "Docaposte",
     sector: "Services",
@@ -737,7 +726,7 @@ export const projectsData: ProjectData[] = [
       "Créer un outil intuitif permettant aux collaborateurs de réserver facilement salles, bureaux et places de parking via une interface 3D innovante.",
     audienceCible: "Collaborateurs en flex office",
     statCle: "3 sites pilotes · 72% taux de succès",
-    role: "UX/UI Designer",
+    role: "Ux Designer",
     duration: "5 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.teams],
@@ -749,9 +738,9 @@ export const projectsData: ProjectData[] = [
       { text: "Améliorer l'adoption de l'outil", metric: "+50%" },
       { text: "Réduire les conflits de réservation", metric: "-70%" },
     ],
-    team: ["1 Product Owner", "1 UX/UI Designer", "2 Développeurs front", "1 Développeur 3D"],
+    team: ["1 Product Owner", "1 UX Designer", "1 UI Designer", "2 Développeurs front", "1 Développeur 3D"],
     collaboration:
-      "Interviews et tests utilisateurs sur 3 sites pilotes (Sophia, Victor Hugo, Ivry). Collaboration avec les équipes services généraux.",
+      "Interviews et tests utilisateurs sur 3 sites pilotes (Sophia antipoli, Marseille, Ivry). Collaboration avec les équipes services généraux.",
     process: [
       {
         step: "01",
@@ -768,11 +757,7 @@ export const projectsData: ProjectData[] = [
         step: "02",
         title: "Conception UX",
         summary: "Parcours de réservation simplifié.",
-        activities: [
-          "Wireframes papier",
-          "Intégration de la vue 3D",
-          "Prototypage du parcours de réservation",
-        ],
+        activities: ["Wireframes papier", "Intégration de la vue 3D", "Prototypage du parcours de réservation"],
         deliverables: "Wireframes, prototype basse fidélité",
       },
       {
@@ -805,7 +790,7 @@ export const projectsData: ProjectData[] = [
         { metric: "Temps de réservation", before: "5 min", after: "2 min", change: "-60%" },
       ],
       qualitative: [
-        '"Le plan 3D est un vrai plus pour se situer rapidement" - Utilisateur Sophia',
+        '"Le plan 3D est un vrai plus pour se situer rapidement" - Collaborateur',
         '"Ça se fait en 2 minutes et très facilement" - Collaborateur',
         "La cartographie 3D jugée essentielle par les utilisateurs",
       ],
