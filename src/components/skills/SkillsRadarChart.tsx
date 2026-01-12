@@ -60,14 +60,14 @@ const CustomTooltip = ({ active, payload }: any) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     return (
-      <div className="bg-background border border-border rounded-lg p-4 shadow-lg max-w-xs">
-        <p className="font-display font-semibold text-foreground mb-1">
+      <div className="bg-slate-900/95 backdrop-blur-sm border border-slate-700/50 rounded-xl p-4 shadow-2xl max-w-xs">
+        <p className="font-display font-semibold text-white mb-1">
           {data.fullName}
         </p>
-        <p className="text-sm text-text-secondary mb-2">
+        <p className="text-sm text-slate-300 mb-2">
           Niveau : {data.level}/10
         </p>
-        <p className="text-sm text-text-secondary">
+        <p className="text-sm text-slate-400">
           {data.description}
         </p>
       </div>
@@ -76,63 +76,162 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-export function SkillsRadarChart() {
-  const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+// Custom gradient definition component
+const GradientDefs = () => (
+  <defs>
+    <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#F97316" stopOpacity={0.9} />
+      <stop offset="50%" stopColor="#EC4899" stopOpacity={0.7} />
+      <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0.6} />
+    </linearGradient>
+    <linearGradient id="skillStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stopColor="#FDBA74" />
+      <stop offset="100%" stopColor="#C4B5FD" />
+    </linearGradient>
+    <radialGradient id="bgGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stopColor="#1E1B4B" stopOpacity={0.3} />
+      <stop offset="100%" stopColor="#0F172A" stopOpacity={0.1} />
+    </radialGradient>
+  </defs>
+);
 
-  // Primary color: #1E1AFD
-  const primaryColor = "hsl(241, 98%, 55%)";
+export function SkillsRadarChart() {
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   return (
     <div className="w-full">
-      <div className="w-full h-[400px] md:h-[500px] lg:h-[550px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={skillsData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
-            <PolarGrid 
-              stroke="hsl(var(--border))" 
-              strokeOpacity={0.5}
-            />
-            <PolarAngleAxis 
-              dataKey="skill" 
-              tick={{ 
-                fill: "hsl(var(--text-secondary))", 
-                fontSize: 12,
-                fontWeight: 500
-              }}
-              className="text-xs md:text-sm"
-            />
-            <PolarRadiusAxis 
-              angle={30} 
-              domain={[0, 10]} 
-              tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
-              tickCount={6}
-            />
-            <Radar
-              name="Niveau"
-              dataKey="level"
-              stroke={primaryColor}
-              fill={primaryColor}
-              fillOpacity={0.25}
-              strokeWidth={2}
-            />
-            <Tooltip content={<CustomTooltip />} />
-          </RadarChart>
-        </ResponsiveContainer>
+      {/* Dark container with gradient background */}
+      <div className="relative bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 rounded-3xl p-6 md:p-10 overflow-hidden">
+        {/* Decorative background elements */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-indigo-500/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-1/4 right-1/4 w-64 h-64 bg-purple-500/20 rounded-full blur-3xl" />
+        </div>
+
+        <div className="relative w-full h-[400px] md:h-[500px] lg:h-[550px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart data={skillsData} margin={{ top: 40, right: 60, bottom: 40, left: 60 }}>
+              <GradientDefs />
+              <PolarGrid 
+                stroke="#475569" 
+                strokeOpacity={0.3}
+                gridType="polygon"
+              />
+              <PolarAngleAxis 
+                dataKey="skill" 
+                tick={({ x, y, payload, index }) => {
+                  const isActive = activeIndex === index;
+                  return (
+                    <g transform={`translate(${x},${y})`}>
+                      <text
+                        x={0}
+                        y={0}
+                        textAnchor="middle"
+                        fill={isActive ? "#F9FAFB" : "#94A3B8"}
+                        fontSize={12}
+                        fontWeight={isActive ? 600 : 500}
+                        className="transition-all duration-200"
+                      >
+                        {payload.value}
+                      </text>
+                    </g>
+                  );
+                }}
+              />
+              <PolarRadiusAxis 
+                angle={30} 
+                domain={[0, 10]} 
+                tick={false}
+                axisLine={false}
+              />
+              <Radar
+                name="Niveau"
+                dataKey="level"
+                stroke="url(#skillStroke)"
+                fill="url(#skillGradient)"
+                fillOpacity={0.8}
+                strokeWidth={3}
+                style={{
+                  filter: "drop-shadow(0 0 20px rgba(249, 115, 22, 0.3))",
+                }}
+              />
+              <Tooltip content={<CustomTooltip />} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Legend */}
+        <div className="relative flex flex-wrap justify-center gap-4 mt-6">
+          {skillsData.map((skill, index) => (
+            <button
+              key={skill.skill}
+              className={cn(
+                "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200",
+                "bg-slate-800/50 border border-slate-700/50 backdrop-blur-sm",
+                "hover:bg-slate-700/50 hover:border-slate-600",
+                activeIndex === index && "bg-slate-700/70 border-slate-500"
+              )}
+              onMouseEnter={() => setActiveIndex(index)}
+              onMouseLeave={() => setActiveIndex(null)}
+            >
+              <span 
+                className="w-2 h-2 rounded-full"
+                style={{
+                  background: `linear-gradient(135deg, #F97316, #8B5CF6)`
+                }}
+              />
+              <span className={cn(
+                "text-sm font-medium transition-colors",
+                activeIndex === index ? "text-white" : "text-slate-300"
+              )}>
+                {skill.skill}
+              </span>
+              {skill.isLead && (
+                <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-300 border border-indigo-500/30">
+                  Lead
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
       </div>
 
-      {/* Legend on mobile */}
-      <div className="mt-8 grid grid-cols-2 gap-4 md:hidden">
-        {skillsData.map((skill) => (
+      {/* Skills cards on mobile */}
+      <div className="mt-8 grid grid-cols-1 gap-4 md:hidden">
+        {skillsData.map((skill, index) => (
           <div 
             key={skill.skill}
-            className="bg-background border border-border rounded-lg p-3"
+            className="bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700/50 rounded-xl p-4"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <p className="font-medium text-sm text-foreground">{skill.skill}</p>
+            <div className="flex items-center justify-between mb-2">
+              <div className="flex items-center gap-2">
+                <span 
+                  className="w-3 h-3 rounded-full"
+                  style={{
+                    background: `linear-gradient(135deg, #F97316, #8B5CF6)`
+                  }}
+                />
+                <p className="font-medium text-white">{skill.fullName}</p>
+              </div>
               {skill.isLead && (
-                <Tag variant="primary" size="sm">Lead</Tag>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-indigo-500/30 text-indigo-300 border border-indigo-500/30">
+                  Lead
+                </span>
               )}
             </div>
-            <p className="text-xs text-text-secondary">Niveau {skill.level}/10</p>
+            <div className="flex items-center gap-3">
+              <div className="flex-1 h-2 bg-slate-700 rounded-full overflow-hidden">
+                <div 
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${skill.level * 10}%`,
+                    background: `linear-gradient(90deg, #F97316, #8B5CF6)`
+                  }}
+                />
+              </div>
+              <span className="text-sm text-slate-400 font-medium">{skill.level}/10</span>
+            </div>
+            <p className="text-xs text-slate-400 mt-2">{skill.description}</p>
           </div>
         ))}
       </div>
