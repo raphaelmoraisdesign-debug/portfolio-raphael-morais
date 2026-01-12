@@ -4,6 +4,8 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { ProjectCard } from "@/components/ui/project-card";
 import { cn } from "@/lib/utils";
+import { useDevHmrRerender } from "@/hooks/use-dev-hmr-rerender";
+import { PROJECTS_DATA_UPDATED_EVENT } from "@/lib/dev-hmr";
 import { getAllProjectsForCards, getAllSectors, getProjectsBySector } from "@/data/projectsData";
 
 const fadeInUp = {
@@ -21,6 +23,8 @@ const stagger = {
 };
 
 export default function Projects() {
+  useDevHmrRerender(PROJECTS_DATA_UPDATED_EVENT);
+
   const [activeFilter, setActiveFilter] = useState("Tous");
   const sectors = getAllSectors();
   const filteredProjects = getProjectsBySector(activeFilter);
