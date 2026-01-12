@@ -124,14 +124,16 @@ export default function ProjectDetail() {
             {project.process && project.process.length > 0 && (
               <div className="mb-8">
                 <h3 className="text-lg font-semibold text-foreground mb-3">Principales actions menées</h3>
-                <ul className="space-y-2">
+                <div className="flex flex-wrap gap-2">
                   {project.process.slice(0, 4).map((step: any, i: number) => (
-                    <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                      <span className="text-primary mt-0.5">•</span>
+                    <span 
+                      key={i} 
+                      className="px-3 py-1.5 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
+                    >
                       {step.title}
-                    </li>
+                    </span>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
 
