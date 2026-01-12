@@ -146,20 +146,20 @@ export function SkillsRadarChart() {
           <svg 
             viewBox={`0 0 ${size} ${size}`} 
             className="w-full max-w-[500px] h-auto"
-            style={{ filter: "drop-shadow(0 0 40px rgba(249, 115, 22, 0.15))" }}
+            style={{ filter: "drop-shadow(0 0 40px rgba(1, 1, 255, 0.2))" }}
           >
             <defs>
               <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#F97316" stopOpacity={0.95} />
-                <stop offset="50%" stopColor="#EC4899" stopOpacity={0.8} />
-                <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0.7} />
+                <stop offset="0%" stopColor="#0101FF" stopOpacity={0.4} />
+                <stop offset="50%" stopColor="#3333FF" stopOpacity={0.25} />
+                <stop offset="100%" stopColor="#0101FF" stopOpacity={0.15} />
               </linearGradient>
               <linearGradient id="skillStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stopColor="#FDBA74" />
-                <stop offset="100%" stopColor="#C4B5FD" />
+                <stop offset="0%" stopColor="#0101FF" />
+                <stop offset="100%" stopColor="#5555FF" />
               </linearGradient>
               <filter id="glow">
-                <feGaussianBlur stdDeviation="8" result="coloredBlur"/>
+                <feGaussianBlur stdDeviation="6" result="coloredBlur"/>
                 <feMerge>
                   <feMergeNode in="coloredBlur"/>
                   <feMergeNode in="SourceGraphic"/>
@@ -218,7 +218,7 @@ export function SkillsRadarChart() {
                 cx={point.x}
                 cy={point.y}
                 r={activeIndex === i ? 8 : 5}
-                fill={activeIndex === i ? "#FDBA74" : "#F97316"}
+                fill={activeIndex === i ? "#5555FF" : "#0101FF"}
                 stroke="#fff"
                 strokeWidth={2}
                 className="cursor-pointer transition-all duration-200"
@@ -233,7 +233,7 @@ export function SkillsRadarChart() {
                 initial={{ scale: 0 }}
                 animate={{ scale: 1 }}
                 transition={{ duration: 0.4, delay: 0.5 + i * 0.1 }}
-                style={{ filter: activeIndex === i ? "drop-shadow(0 0 10px rgba(253, 186, 116, 0.8))" : "none" }}
+                style={{ filter: activeIndex === i ? "drop-shadow(0 0 10px rgba(1, 1, 255, 0.8))" : "none" }}
               />
             ))}
             
@@ -311,7 +311,7 @@ export function SkillsRadarChart() {
               <span 
                 className="w-2 h-2 rounded-full"
                 style={{
-                  background: `linear-gradient(135deg, #F97316, #8B5CF6)`
+                  background: `linear-gradient(135deg, #0101FF, #5555FF)`
                 }}
               />
               <span className={cn(
@@ -342,7 +342,7 @@ export function SkillsRadarChart() {
                 <span 
                   className="w-3 h-3 rounded-full"
                   style={{
-                    background: `linear-gradient(135deg, #F97316, #8B5CF6)`
+                    background: `linear-gradient(135deg, #0101FF, #5555FF)`
                   }}
                 />
                 <p className="font-medium text-white">{skill.fullName}</p>
@@ -359,7 +359,7 @@ export function SkillsRadarChart() {
                   className="h-full rounded-full"
                   style={{
                     width: `${skill.level * 10}%`,
-                    background: `linear-gradient(90deg, #F97316, #8B5CF6)`
+                    background: `linear-gradient(90deg, #0101FF, #5555FF)`
                   }}
                 />
               </div>
