@@ -14,7 +14,7 @@ import bnpOmnicanaliteDelivery from "@/assets/projects/bnp-omnicanalite-delivery
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.png";
 import eneHero from "@/assets/projects/ene-hero.png";
 import polluxVoxalyHero from "@/assets/projects/pollux-voxaly-hero.png";
-import gbsHero from "@/assets/projects/gbs-hero.jpg";
+import gbsHero from "@/assets/projects/gbs-hero.png";
 import grandEstHero from "@/assets/projects/grand-est-hero.jpg";
 import docalflexHero from "@/assets/projects/docalflex-hero.png";
 
