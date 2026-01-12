@@ -104,8 +104,12 @@ export default function ProjectDetail() {
                 {project.client && <span className="text-text-secondary">{project.client} / </span>}
                 {project.title}
               </h1>
-              <p className="text-lg text-text-secondary">{project.role}</p>
-              <p className="text-text-tertiary">{project.year}</p>
+              <div className="flex flex-wrap items-center gap-2 mt-3">
+                <span className="px-3 py-1 text-sm font-medium bg-primary text-primary-foreground rounded-full">
+                  {project.role}
+                </span>
+                <span className="text-text-tertiary text-sm">{project.year}</span>
+              </div>
             </div>
 
             {/* La mission */}
