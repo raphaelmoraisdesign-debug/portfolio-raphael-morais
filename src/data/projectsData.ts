@@ -358,7 +358,7 @@ export const projectsData: ProjectData[] = [
     tools: [toolLogos.figma, toolLogos.notion, toolLogos.miro],
     gallery: [],
     context:
-      "Les départements souhaitaient proposer un espace numérique unifié pour accéder aux services éducatifs : emplois du temps, notes, communication, ressources pédagogiques.",
+      "L'état souhaite proposer un espace numérique unifié pour accéder aux services éducatifs : emplois du temps, notes, communication, ressources pédagogiques.",
     objectives: [
       { text: "Centraliser les services éducatifs", metric: "1 plateforme" },
       { text: "Améliorer l'adoption parents", metric: "+60%" },
