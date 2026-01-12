@@ -342,10 +342,10 @@ export const projectsData: ProjectData[] = [
     id: "ene-plateforme-educative",
     title: "ENE - Espace Numérique Éducatif",
     subtitle: "Plateforme éducative numérique pour les collèges",
-    client: "JUNVA SAS",
+    client: "Ministère de l'Education nationale",
     sector: "Éducation",
     description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
-    roles: ["UX Design", "UI Design", "Personas"],
+    roles: ["UX Design", "UI Design", "Ux researcher"],
     heroImage: eneHero,
     isFeatured: true,
     challengeBusiness:
@@ -362,7 +362,7 @@ export const projectsData: ProjectData[] = [
     objectives: [
       { text: "Centraliser les services éducatifs", metric: "1 plateforme" },
       { text: "Améliorer l'adoption parents", metric: "+60%" },
-      { text: "Réduire les demandes support", metric: "-40%" },
+      { text: "Adoption de la solution", metric: "12 départments intéréssés lors de l'appel d'offre" },
     ],
     team: ["1 Chef de projet", "1 UX/UI Designer", "2 Développeurs", "1 Intégrateur"],
     collaboration:
@@ -377,7 +377,7 @@ export const projectsData: ProjectData[] = [
           "Entretiens avec les parties prenantes",
           "Analyse des solutions existantes",
         ],
-        deliverables: "3 personas détaillés, carte des besoins",
+        deliverables: "4 personas détaillés, carte des besoins",
       },
       {
         step: "02",
@@ -430,12 +430,12 @@ export const projectsData: ProjectData[] = [
   // ---------------------------------------------------------
   {
     id: "pollux-voxaly",
-    title: "POLLUX - Vote Électronique",
-    subtitle: "Refonte de la plateforme de vote électronique professionnel",
+    title: "Voxaly - Vote Électronique",
+    subtitle: "Refonte d'une plateforme d'Élections electronique CSE",
     client: "Docaposte / Voxaly",
     sector: "Services",
     description: "Refonte de l'expérience de vote électronique professionnel pour les élections d'entreprise.",
-    roles: ["UX Research", "UI Design", "Ateliers"],
+    roles: ["UX Research", "UI Design", "Animation d'ateliers"],
     heroImage: polluxVoxalyHero,
     challengeBusiness:
       "Moderniser et sécuriser l'expérience de vote électronique pour les élections professionnelles d'entreprise.",
@@ -492,14 +492,14 @@ export const projectsData: ProjectData[] = [
     ],
     results: {
       quantitative: [
-        { metric: "Taux participation", before: "62%", after: "78%", change: "+16pts" },
-        { metric: "Erreurs de vote", before: "5%", after: "0.8%", change: "-84%" },
+        { metric: "Taux d'accéssibilité", before: "32%", after: "92%", change: "+60pts" },
+        { metric: "Utilisateurs ayant besoin d'aide'", before: "5%", after: "0.8%", change: "-84%" },
         { metric: "Confiance perçue", before: "68%", after: "91%", change: "+23pts" },
       ],
       qualitative: [
         '"Le nouveau parcours est rassurant et professionnel" - DRH',
         "Certification sécurité obtenue",
-        "Accessibilité RGAA niveau AA",
+        "Accessibilité RGAA niveau AAA",
       ],
       learnings: [
         "La confiance se construit par la clarté et la transparence",
@@ -510,7 +510,7 @@ export const projectsData: ProjectData[] = [
     summary: [
       "Problème : Plateforme de vote perçue comme austère et peu fiable",
       "Action : Refonte UX/UI axée sur la confiance et la simplicité",
-      "Impact : +16pts participation, -84% erreurs, +23pts confiance",
+      "Impact : +16pts d'accéssibilité, -84% SAV, +23pts confiance",
     ],
   },
 ];
