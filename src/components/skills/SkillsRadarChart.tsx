@@ -76,25 +76,6 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
-// Custom gradient definition component
-const GradientDefs = () => (
-  <defs>
-    <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#F97316" stopOpacity={0.9} />
-      <stop offset="50%" stopColor="#EC4899" stopOpacity={0.7} />
-      <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0.6} />
-    </linearGradient>
-    <linearGradient id="skillStroke" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stopColor="#FDBA74" />
-      <stop offset="100%" stopColor="#C4B5FD" />
-    </linearGradient>
-    <radialGradient id="bgGradient" cx="50%" cy="50%" r="50%">
-      <stop offset="0%" stopColor="#1E1B4B" stopOpacity={0.3} />
-      <stop offset="100%" stopColor="#0F172A" stopOpacity={0.1} />
-    </radialGradient>
-  </defs>
-);
-
 export function SkillsRadarChart() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -109,9 +90,22 @@ export function SkillsRadarChart() {
         </div>
 
         <div className="relative w-full h-[400px] md:h-[500px] lg:h-[550px]">
+          {/* SVG Gradient Definitions */}
+          <svg width="0" height="0" className="absolute">
+            <defs>
+              <linearGradient id="skillGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#F97316" stopOpacity={0.9} />
+                <stop offset="50%" stopColor="#EC4899" stopOpacity={0.7} />
+                <stop offset="100%" stopColor="#8B5CF6" stopOpacity={0.6} />
+              </linearGradient>
+              <linearGradient id="skillStroke" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stopColor="#FDBA74" />
+                <stop offset="100%" stopColor="#C4B5FD" />
+              </linearGradient>
+            </defs>
+          </svg>
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={skillsData} margin={{ top: 40, right: 60, bottom: 40, left: 60 }}>
-              <GradientDefs />
               <PolarGrid 
                 stroke="#475569" 
                 strokeOpacity={0.3}
