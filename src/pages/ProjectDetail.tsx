@@ -5,6 +5,8 @@ import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
+import { useDevHmrRerender } from "@/hooks/use-dev-hmr-rerender";
+import { PROJECTS_DATA_UPDATED_EVENT } from "@/lib/dev-hmr";
 
 import { getProjectById } from "@/data/projectsData";
 
@@ -24,6 +26,8 @@ const fadeInUp = {
 };
 
 export default function ProjectDetail() {
+  useDevHmrRerender(PROJECTS_DATA_UPDATED_EVENT);
+
   const { id } = useParams<{ id: string }>();
   const project = id ? getProjectById(id) : null;
 
