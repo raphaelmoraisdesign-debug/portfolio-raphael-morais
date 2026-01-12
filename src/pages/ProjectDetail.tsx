@@ -63,82 +63,77 @@ export default function ProjectDetail() {
         </div>
       </nav>
 
-      {/* HERO SECTION - Full-width banner */}
-      <header className="relative min-h-[70vh] bg-gradient-to-br from-background via-background to-[hsl(230,100%,97%)] overflow-hidden">
-        <div className="container h-full">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-center min-h-[70vh] py-12 lg:py-0">
-            {/* Left side - Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
-              className="order-2 lg:order-1"
-            >
-              <Link
-                to="/projets"
-                className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out mb-6"
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Retour aux projets
-              </Link>
-
-              <h1 className="text-4xl md:text-[56px] font-display font-bold text-foreground leading-tight mb-4">
-                {project.title}
-              </h1>
-              <h2 className="text-xl md:text-[28px] font-medium text-text-secondary mb-6">{project.subtitle}</h2>
-
-              {/* Tags badges */}
-              <div className="flex flex-wrap gap-3 mb-6">
-                <Tag variant="primary" className="bg-primary text-primary-foreground">
-                  {project.role}
-                </Tag>
-                <Tag variant="primary" className="bg-primary text-primary-foreground">
-                  {project.duration}
-                </Tag>
-                <Tag variant="primary" className="bg-primary text-primary-foreground">
-                  {project.year}
-                </Tag>
-              </div>
-
-              {/* Challenge business */}
-              <p className="text-lg md:text-xl italic text-primary font-medium">"{project.challengeBusiness}"</p>
-            </motion.div>
-
-            {/* Right side - Hero Image */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="order-1 lg:order-2 flex justify-center lg:justify-end"
-            >
-              <div className="relative w-full max-w-lg">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-primary/5 rounded-2xl transform rotate-3" />
-                <img
-                  src={project.heroImage}
-                  alt={`${project.title} - Aperçu`}
-                  className="relative w-full h-auto rounded-2xl shadow-elevated object-cover aspect-[4/3]"
-                />
-              </div>
-            </motion.div>
-          </div>
-        </div>
-
-        {/* CTA Sticky bottom hero */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.8 }}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2"
-        >
-          <a
-            href="#info"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary-dark transition-colors duration-250 ease-in-out shadow-soft hover:shadow-elevated"
+      {/* HERO SECTION - Text content on white background */}
+      <header className="bg-card">
+        <div className="container py-12 lg:py-16">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl"
           >
-            Aller au process
-            <ChevronDown className="w-4 h-4 animate-bounce" />
-          </a>
-        </motion.div>
+            <Link
+              to="/projets"
+              className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out mb-6"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Retour aux projets
+            </Link>
+
+            <h1 className="text-4xl md:text-[56px] font-display font-bold text-foreground leading-tight mb-4">
+              {project.title}
+            </h1>
+            <h2 className="text-xl md:text-[28px] font-medium text-text-secondary mb-6">{project.subtitle}</h2>
+
+            {/* Tags badges */}
+            <div className="flex flex-wrap gap-3 mb-6">
+              <Tag variant="primary" className="bg-primary text-primary-foreground">
+                {project.role}
+              </Tag>
+              <Tag variant="primary" className="bg-primary text-primary-foreground">
+                {project.duration}
+              </Tag>
+              <Tag variant="primary" className="bg-primary text-primary-foreground">
+                {project.year}
+              </Tag>
+            </div>
+
+            {/* Challenge business */}
+            <p className="text-lg md:text-xl italic text-primary font-medium">"{project.challengeBusiness}"</p>
+          </motion.div>
+        </div>
       </header>
+
+      {/* HERO IMAGE - Full width */}
+      <section className="w-full">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="relative w-full"
+        >
+          <img
+            src={project.heroImage}
+            alt={`${project.title} - Aperçu`}
+            className="w-full h-auto max-h-[70vh] object-cover"
+          />
+          {/* CTA centered on image */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.8 }}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2"
+          >
+            <a
+              href="#info"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary-dark transition-colors duration-250 ease-in-out shadow-soft hover:shadow-elevated"
+            >
+              Aller au process
+              <ChevronDown className="w-4 h-4 animate-bounce" />
+            </a>
+          </motion.div>
+        </motion.div>
+      </section>
 
       {/* Main Content */}
       <div className="container py-section-mobile md:py-section">
