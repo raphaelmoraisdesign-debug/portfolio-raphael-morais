@@ -76,19 +76,43 @@ const CustomTooltip = ({ active, payload }: any) => {
   return null;
 };
 
+// Custom tick component for highlighting
+const CustomTick = ({ payload, x, y, textAnchor, hoveredSkill }: any) => {
+  const isHovered = hoveredSkill === payload.value;
+  return (
+    <text
+      x={x}
+      y={y}
+      textAnchor={textAnchor}
+      fill={isHovered ? "hsl(241, 98%, 55%)" : "hsl(var(--text-secondary))"}
+      fontSize={12}
+      fontWeight={isHovered ? 600 : 500}
+      style={{ transition: "all 0.2s ease" }}
+    >
+      {payload.value}
+    </text>
+  );
+};
+
 export function SkillsRadarChart() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
 
   // Primary color: #1E1AFD
   const primaryColor = "hsl(241, 98%, 55%)";
 
+  // Create data with highlight for hovered skill
+  const chartData = skillsData.map(item => ({
+    ...item,
+    highlightLevel: item.skill === hoveredSkill ? item.level : 0
+  }));
+
   return (
     <div className="w-full">
-      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+      <div className="flex flex-col lg:flex-row gap-6 lg:gap-10 items-center">
         {/* Radar Chart */}
-        <div className="w-full lg:w-1/2 h-[400px] md:h-[500px] lg:h-[450px]">
+        <div className="w-full lg:w-1/2 h-[400px] md:h-[450px] lg:h-[420px]">
           <ResponsiveContainer width="100%" height="100%">
-            <RadarChart data={skillsData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
+            <RadarChart data={chartData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
               <PolarGrid 
                 gridType="circle"
                 stroke="hsl(var(--border))" 
@@ -96,11 +120,7 @@ export function SkillsRadarChart() {
               />
               <PolarAngleAxis 
                 dataKey="skill" 
-                tick={{ 
-                  fill: "hsl(var(--text-secondary))", 
-                  fontSize: 12,
-                  fontWeight: 500
-                }}
+                tick={(props) => <CustomTick {...props} hoveredSkill={hoveredSkill} />}
                 className="text-xs md:text-sm"
               />
               <PolarRadiusAxis 
@@ -109,62 +129,95 @@ export function SkillsRadarChart() {
                 tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
                 tickCount={6}
               />
+              {/* Base radar - dims when hovering */}
               <Radar
                 name="Niveau"
                 dataKey="level"
                 stroke={primaryColor}
                 fill={primaryColor}
-                fillOpacity={0.25}
-                strokeWidth={2}
+                fillOpacity={hoveredSkill ? 0.1 : 0.25}
+                strokeWidth={hoveredSkill ? 1 : 2}
+                strokeOpacity={hoveredSkill ? 0.3 : 1}
               />
+              {/* Highlight radar - shows only hovered skill */}
+              {hoveredSkill && (
+                <Radar
+                  name="Highlight"
+                  dataKey="highlightLevel"
+                  stroke={primaryColor}
+                  fill={primaryColor}
+                  fillOpacity={0.4}
+                  strokeWidth={3}
+                  dot={{ fill: primaryColor, r: 6 }}
+                />
+              )}
               <Tooltip content={<CustomTooltip />} />
             </RadarChart>
           </ResponsiveContainer>
         </div>
 
-        {/* Skills descriptions - Desktop */}
-        <div className="hidden lg:flex flex-col gap-4 w-full lg:w-1/2">
+        {/* Skills descriptions - Desktop (more discreet) */}
+        <div className="hidden lg:flex flex-col gap-1.5 w-full lg:w-1/2">
           {skillsData.map((skill) => (
             <div 
               key={skill.skill}
-              className="group flex items-start gap-4 p-4 rounded-xl border border-border bg-background hover:border-primary/30 hover:bg-primary/5 transition-all duration-250"
+              className={cn(
+                "group flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200",
+                hoveredSkill === skill.skill 
+                  ? "bg-primary/10 border border-primary/20" 
+                  : "hover:bg-muted/40 border border-transparent"
+              )}
+              onMouseEnter={() => setHoveredSkill(skill.skill)}
+              onMouseLeave={() => setHoveredSkill(null)}
             >
-              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span className="text-primary font-display font-bold text-lg">{skill.level}</span>
+              <div className={cn(
+                "flex-shrink-0 w-7 h-7 rounded flex items-center justify-center text-xs font-display font-semibold transition-all duration-200",
+                hoveredSkill === skill.skill 
+                  ? "bg-primary text-white" 
+                  : "bg-muted/60 text-text-secondary"
+              )}>
+                {skill.level}
               </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2 mb-1">
-                  <h4 className="font-display font-semibold text-foreground">{skill.fullName}</h4>
+              <div className="flex-1 min-w-0">
+                <div className="flex items-center gap-2">
+                  <h4 className={cn(
+                    "text-sm transition-colors duration-200 truncate",
+                    hoveredSkill === skill.skill ? "text-foreground font-medium" : "text-text-secondary"
+                  )}>
+                    {skill.fullName}
+                  </h4>
                   {skill.isLead && (
                     <Tag variant="primary" size="sm">Lead</Tag>
                   )}
                 </div>
-                <p className="text-sm text-text-secondary leading-relaxed">{skill.description}</p>
+                <p className={cn(
+                  "text-xs text-text-secondary/60 truncate transition-all duration-200",
+                  hoveredSkill === skill.skill ? "opacity-100 text-text-secondary/80" : "opacity-60"
+                )}>
+                  {skill.description}
+                </p>
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Legend on mobile/tablet */}
-      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
+      {/* Legend on mobile/tablet (compact) */}
+      <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2 lg:hidden">
         {skillsData.map((skill) => (
           <div 
             key={skill.skill}
-            className="bg-background border border-border rounded-lg p-4"
+            className="flex items-center gap-2 px-2.5 py-2 rounded-lg bg-muted/20 border border-border/40"
           >
-            <div className="flex items-center gap-3 mb-2">
-              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                <span className="text-primary font-display font-bold">{skill.level}</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <p className="font-medium text-foreground">{skill.skill}</p>
-                {skill.isLead && (
-                  <Tag variant="primary" size="sm">Lead</Tag>
-                )}
-              </div>
+            <span className="flex-shrink-0 w-6 h-6 rounded text-xs bg-primary/10 text-primary font-semibold flex items-center justify-center">
+              {skill.level}
+            </span>
+            <div className="min-w-0">
+              <p className="text-xs text-text-secondary truncate">{skill.skill}</p>
+              {skill.isLead && (
+                <Tag variant="primary" size="sm" className="mt-0.5">Lead</Tag>
+              )}
             </div>
-            <p className="text-sm text-text-secondary">{skill.description}</p>
           </div>
         ))}
       </div>
