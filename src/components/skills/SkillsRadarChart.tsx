@@ -88,6 +88,7 @@ export function SkillsRadarChart() {
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={skillsData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
             <PolarGrid 
+              gridType="circle"
               stroke="hsl(var(--border))" 
               strokeOpacity={0.5}
             />
