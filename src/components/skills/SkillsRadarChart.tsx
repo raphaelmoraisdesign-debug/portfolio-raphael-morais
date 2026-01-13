@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import {
   Radar,
   RadarChart,
@@ -158,9 +159,16 @@ export function SkillsRadarChart() {
 
         {/* Skills descriptions - Desktop (more discreet) */}
         <div className="hidden lg:flex flex-col gap-1.5 w-full lg:w-1/2">
-          {skillsData.map((skill) => (
-            <div 
+          {skillsData.map((skill, index) => (
+            <motion.div 
               key={skill.skill}
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ 
+                duration: 0.4, 
+                delay: index * 0.1,
+                ease: [0.25, 0.46, 0.45, 0.94]
+              }}
               className={cn(
                 "group flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200",
                 hoveredSkill === skill.skill 
@@ -197,7 +205,7 @@ export function SkillsRadarChart() {
                   {skill.description}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>
