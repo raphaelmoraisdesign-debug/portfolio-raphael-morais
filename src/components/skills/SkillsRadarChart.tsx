@@ -34,10 +34,10 @@ const skillsData = [
     isLead: false,
   },
   {
-    skill: "Lead Design",
-    fullName: "Lead Design",
-    level: 4,
-    description: "Staffing / Process et rituels d'équipes",
+    skill: "Accessibilité",
+    fullName: "Accessibilité",
+    level: 6.5,
+    description: "W3C / RGAA",
     isLead: false,
   },
   {
