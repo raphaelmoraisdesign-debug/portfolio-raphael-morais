@@ -1,59 +1,51 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
-import {
-  Radar,
-  RadarChart,
-  PolarGrid,
-  PolarAngleAxis,
-  PolarRadiusAxis,
-  ResponsiveContainer,
-  Tooltip,
-} from "recharts";
+import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { cn } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
 
 const skillsData = [
-  { 
-    skill: "Discovery & Research", 
+  {
+    skill: "Discovery & Research",
     fullName: "Discovery & UX Research",
-    level: 9, 
+    level: 8.5,
     description: "Observation terrain / Tests & entretiens utilisateurs / Audit UX",
-    isLead: false
+    isLead: false,
   },
-  { 
-    skill: "Strategic Design", 
+  {
+    skill: "Strategic Design",
     fullName: "Strategic Design",
-    level: 8, 
+    level: 7.5,
     description: "Discovery / Co-définition de la vision produit / Priorisation",
-    isLead: false
+    isLead: false,
   },
-  { 
-    skill: "Méthodologie", 
+  {
+    skill: "Méthodologie",
     fullName: "Méthodologie",
-    level: 9, 
+    level: 7.5,
     description: "Design Thinking / Lean UX / Agilité",
-    isLead: false
+    isLead: false,
   },
-  { 
-    skill: "UX Design", 
+  {
+    skill: "UX Design",
     fullName: "UX Design",
-    level: 9, 
+    level: 9,
     description: "Facilitation d'ateliers / Parcours utilisateurs / Experience map / Wireframes",
-    isLead: false
+    isLead: false,
   },
-  { 
-    skill: "Lead Design", 
+  {
+    skill: "Lead Design",
     fullName: "Lead Design",
-    level: 8, 
+    level: 4,
     description: "Staffing / Process et rituels d'équipes",
-    isLead: true
+    isLead: false,
   },
-  { 
-    skill: "UI & Design System", 
+  {
+    skill: "UI & Design System",
     fullName: "UI Design & Design System",
-    level: 8, 
+    level: 7,
     description: "Maquettes / Prototypage",
-    isLead: false
+    isLead: false,
   },
 ];
 
@@ -62,15 +54,9 @@ const CustomTooltip = ({ active, payload }: any) => {
     const data = payload[0].payload;
     return (
       <div className="bg-background border border-border rounded-lg p-4 shadow-lg max-w-xs">
-        <p className="font-display font-semibold text-foreground mb-1">
-          {data.fullName}
-        </p>
-        <p className="text-sm text-text-secondary mb-2">
-          Niveau : {data.level}/10
-        </p>
-        <p className="text-sm text-text-secondary">
-          {data.description}
-        </p>
+        <p className="font-display font-semibold text-foreground mb-1">{data.fullName}</p>
+        <p className="text-sm text-text-secondary mb-2">Niveau : {data.level}/10</p>
+        <p className="text-sm text-text-secondary">{data.description}</p>
       </div>
     );
   }
@@ -102,9 +88,9 @@ export function SkillsRadarChart() {
   const primaryColor = "hsl(241, 98%, 55%)";
 
   // Create data with highlight for hovered skill
-  const chartData = skillsData.map(item => ({
+  const chartData = skillsData.map((item) => ({
     ...item,
-    highlightLevel: item.skill === hoveredSkill ? item.level : 0
+    highlightLevel: item.skill === hoveredSkill ? item.level : 0,
   }));
 
   return (
@@ -114,19 +100,15 @@ export function SkillsRadarChart() {
         <div className="w-full lg:w-1/2 h-[400px] md:h-[450px] lg:h-[420px]">
           <ResponsiveContainer width="100%" height="100%">
             <RadarChart data={chartData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
-              <PolarGrid 
-                gridType="circle"
-                stroke="hsl(var(--border))" 
-                strokeOpacity={0.5}
-              />
-              <PolarAngleAxis 
-                dataKey="skill" 
+              <PolarGrid gridType="circle" stroke="hsl(var(--border))" strokeOpacity={0.5} />
+              <PolarAngleAxis
+                dataKey="skill"
                 tick={(props) => <CustomTick {...props} hoveredSkill={hoveredSkill} />}
                 className="text-xs md:text-sm"
               />
-              <PolarRadiusAxis 
-                angle={30} 
-                domain={[0, 10]} 
+              <PolarRadiusAxis
+                angle={30}
+                domain={[0, 10]}
                 tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
                 tickCount={6}
               />
@@ -160,48 +142,54 @@ export function SkillsRadarChart() {
         {/* Skills descriptions - Desktop (more discreet) */}
         <div className="hidden lg:flex flex-col gap-1.5 w-full lg:w-1/2">
           {skillsData.map((skill, index) => (
-            <motion.div 
+            <motion.div
               key={skill.skill}
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              transition={{ 
-                duration: 0.4, 
+              transition={{
+                duration: 0.4,
                 delay: index * 0.1,
-                ease: [0.25, 0.46, 0.45, 0.94]
+                ease: [0.25, 0.46, 0.45, 0.94],
               }}
               className={cn(
                 "group flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer transition-all duration-200",
-                hoveredSkill === skill.skill 
-                  ? "bg-primary/10 border border-primary/20" 
-                  : "hover:bg-muted/40 border border-transparent"
+                hoveredSkill === skill.skill
+                  ? "bg-primary/10 border border-primary/20"
+                  : "hover:bg-muted/40 border border-transparent",
               )}
               onMouseEnter={() => setHoveredSkill(skill.skill)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
-              <div className={cn(
-                "flex-shrink-0 w-7 h-7 rounded flex items-center justify-center text-xs font-display font-semibold transition-all duration-200",
-                hoveredSkill === skill.skill 
-                  ? "bg-primary text-white" 
-                  : "bg-muted/60 text-text-secondary"
-              )}>
+              <div
+                className={cn(
+                  "flex-shrink-0 w-7 h-7 rounded flex items-center justify-center text-xs font-display font-semibold transition-all duration-200",
+                  hoveredSkill === skill.skill ? "bg-primary text-white" : "bg-muted/60 text-text-secondary",
+                )}
+              >
                 {skill.level}
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <h4 className={cn(
-                    "text-sm transition-colors duration-200 truncate",
-                    hoveredSkill === skill.skill ? "text-foreground font-medium" : "text-text-secondary"
-                  )}>
+                  <h4
+                    className={cn(
+                      "text-sm transition-colors duration-200 truncate",
+                      hoveredSkill === skill.skill ? "text-foreground font-medium" : "text-text-secondary",
+                    )}
+                  >
                     {skill.fullName}
                   </h4>
                   {skill.isLead && (
-                    <Tag variant="primary" size="sm">Lead</Tag>
+                    <Tag variant="primary" size="sm">
+                      Lead
+                    </Tag>
                   )}
                 </div>
-                <p className={cn(
-                  "text-xs text-text-secondary/60 truncate transition-all duration-200",
-                  hoveredSkill === skill.skill ? "opacity-100 text-text-secondary/80" : "opacity-60"
-                )}>
+                <p
+                  className={cn(
+                    "text-xs text-text-secondary/60 truncate transition-all duration-200",
+                    hoveredSkill === skill.skill ? "opacity-100 text-text-secondary/80" : "opacity-60",
+                  )}
+                >
                   {skill.description}
                 </p>
               </div>
@@ -213,7 +201,7 @@ export function SkillsRadarChart() {
       {/* Legend on mobile/tablet (compact) */}
       <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2 lg:hidden">
         {skillsData.map((skill) => (
-          <div 
+          <div
             key={skill.skill}
             className="flex items-center gap-2 px-2.5 py-2 rounded-lg bg-muted/20 border border-border/40"
           >
@@ -223,7 +211,9 @@ export function SkillsRadarChart() {
             <div className="min-w-0">
               <p className="text-xs text-text-secondary truncate">{skill.skill}</p>
               {skill.isLead && (
-                <Tag variant="primary" size="sm" className="mt-0.5">Lead</Tag>
+                <Tag variant="primary" size="sm" className="mt-0.5">
+                  Lead
+                </Tag>
               )}
             </div>
           </div>
