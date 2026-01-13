@@ -97,22 +97,58 @@ export default function AdminProjectEdit() {
     }
   };
 
+  // Allowed image types (excluding SVG to prevent XSS)
+  const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+
+  const validateImageFile = (file: File): string | null => {
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      return 'Type de fichier non autorisé. Utilisez JPG, PNG, WebP ou GIF.';
+    }
+    if (file.size > MAX_FILE_SIZE) {
+      return 'Fichier trop volumineux. Maximum 5MB.';
+    }
+    return null;
+  };
+
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
+      const validationError = validateImageFile(file);
+      if (validationError) {
+        toast.error(validationError);
+        e.target.value = ''; // Reset input
+        return;
+      }
       setHeroImage(file);
       setHeroPreview(URL.createObjectURL(file));
     }
   };
 
   const uploadImage = async (file: File): Promise<string> => {
-    const fileExt = file.name.split(".").pop();
-    const fileName = `${formData.slug}-${Date.now()}.${fileExt}`;
+    // Re-validate before upload (defense in depth)
+    const validationError = validateImageFile(file);
+    if (validationError) {
+      throw new Error(validationError);
+    }
+
+    // Use MIME type for extension, not user-provided filename
+    const mimeToExt: Record<string, string> = {
+      'image/jpeg': 'jpg',
+      'image/png': 'png',
+      'image/webp': 'webp',
+      'image/gif': 'gif',
+    };
+    const ext = mimeToExt[file.type] || 'jpg';
+    const fileName = `${formData.slug}-${Date.now()}.${ext}`;
     const filePath = `heroes/${fileName}`;
 
     const { error: uploadError } = await supabase.storage
       .from("project-images")
-      .upload(filePath, file);
+      .upload(filePath, file, {
+        contentType: file.type,
+        upsert: false
+      });
 
     if (uploadError) throw uploadError;
 
@@ -331,7 +367,7 @@ export default function AdminProjectEdit() {
                 <span className="text-sm text-text-secondary">Cliquez pour uploader une image</span>
                 <input
                   type="file"
-                  accept="image/*"
+                  accept=".jpg,.jpeg,.png,.webp,.gif"
                   onChange={handleImageChange}
                   className="hidden"
                 />
