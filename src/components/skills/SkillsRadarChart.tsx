@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { motion } from "framer-motion";
+import { useState, useEffect } from "react";
+import { motion, useMotionValue, useSpring, useTransform } from "framer-motion";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { cn } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
@@ -98,14 +98,40 @@ const CustomTick = ({ payload, x, y, textAnchor, hoveredSkill }: any) => {
 
 export function SkillsRadarChart() {
   const [hoveredSkill, setHoveredSkill] = useState<string | null>(null);
+  const [animationProgress, setAnimationProgress] = useState(0);
+
+  // Animation d'entrée progressive
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setAnimationProgress(1);
+    }, 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Spring animation for smooth progression
+  const springProgress = useSpring(animationProgress, {
+    stiffness: 50,
+    damping: 20,
+    duration: 1.2,
+  });
+
+  // State to track animated value
+  const [animatedValue, setAnimatedValue] = useState(0);
+
+  useEffect(() => {
+    return springProgress.on("change", (latest) => {
+      setAnimatedValue(latest);
+    });
+  }, [springProgress]);
 
   // Primary color: #1E1AFD
   const primaryColor = "hsl(241, 98%, 55%)";
 
-  // Create data with highlight for hovered skill
+  // Create data with highlight for hovered skill and animation
   const chartData = skillsData.map((item) => ({
     ...item,
-    highlightLevel: item.skill === hoveredSkill ? item.level : 0,
+    level: item.level * animatedValue,
+    highlightLevel: item.skill === hoveredSkill ? item.level * animatedValue : 0,
   }));
 
   return (
