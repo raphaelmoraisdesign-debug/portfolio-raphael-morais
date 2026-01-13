@@ -179,7 +179,7 @@ export function SkillsRadarChart() {
                 className={cn(
                   "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
                   hoveredSkill === skill.skill 
-                    ? "bg-primary text-white" 
+                    ? "bg-primary text-white animate-pulse" 
                     : "bg-muted/60 text-text-secondary",
                 )}
               >
