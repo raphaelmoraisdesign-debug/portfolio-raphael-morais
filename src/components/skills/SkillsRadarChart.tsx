@@ -3,14 +3,25 @@ import { motion } from "framer-motion";
 import { Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, ResponsiveContainer, Tooltip } from "recharts";
 import { cn } from "@/lib/utils";
 import { Tag } from "@/components/ui/tag";
+import { Search, Compass, Lightbulb, PenTool, Accessibility, Palette, LucideIcon } from "lucide-react";
 
-const skillsData = [
+interface SkillData {
+  skill: string;
+  fullName: string;
+  level: number;
+  description: string;
+  isLead: boolean;
+  icon: LucideIcon;
+}
+
+const skillsData: SkillData[] = [
   {
     skill: "Discovery & Research",
     fullName: "Discovery & UX Research",
     level: 8.5,
     description: "Observation terrain / Tests & entretiens utilisateurs / Audit UX",
     isLead: false,
+    icon: Search,
   },
   {
     skill: "Strategic Design",
@@ -18,6 +29,7 @@ const skillsData = [
     level: 7.5,
     description: "Discovery / Co-définition de la vision produit / Priorisation",
     isLead: false,
+    icon: Compass,
   },
   {
     skill: "Méthodologie",
@@ -25,6 +37,7 @@ const skillsData = [
     level: 7.5,
     description: "Design Thinking / Lean UX / Agilité",
     isLead: false,
+    icon: Lightbulb,
   },
   {
     skill: "UX Design",
@@ -32,6 +45,7 @@ const skillsData = [
     level: 9,
     description: "Facilitation d'ateliers / Parcours utilisateurs / Experience map / Wireframes",
     isLead: false,
+    icon: PenTool,
   },
   {
     skill: "Accessibilité",
@@ -39,6 +53,7 @@ const skillsData = [
     level: 6.5,
     description: "W3C / RGAA",
     isLead: false,
+    icon: Accessibility,
   },
   {
     skill: "UI & Design System",
@@ -46,6 +61,7 @@ const skillsData = [
     level: 7,
     description: "Maquettes / Prototypage",
     isLead: false,
+    icon: Palette,
   },
 ];
 
@@ -159,6 +175,16 @@ export function SkillsRadarChart() {
               onMouseEnter={() => setHoveredSkill(skill.skill)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
+              <div
+                className={cn(
+                  "flex-shrink-0 w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200",
+                  hoveredSkill === skill.skill 
+                    ? "bg-primary text-white" 
+                    : "bg-muted/60 text-text-secondary",
+                )}
+              >
+                <skill.icon className="w-4 h-4" />
+              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <h4
@@ -196,6 +222,9 @@ export function SkillsRadarChart() {
             key={skill.skill}
             className="flex items-center gap-2 px-2.5 py-2 rounded-lg bg-muted/20 border border-border/40"
           >
+            <div className="flex-shrink-0 w-6 h-6 rounded bg-primary/10 text-primary flex items-center justify-center">
+              <skill.icon className="w-3.5 h-3.5" />
+            </div>
             <div className="min-w-0">
               <p className="text-xs text-text-secondary truncate">{skill.skill}</p>
               {skill.isLead && (
