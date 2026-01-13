@@ -84,56 +84,87 @@ export function SkillsRadarChart() {
 
   return (
     <div className="w-full">
-      <div className="w-full h-[400px] md:h-[500px] lg:h-[550px]">
-        <ResponsiveContainer width="100%" height="100%">
-          <RadarChart data={skillsData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
-            <PolarGrid 
-              gridType="circle"
-              stroke="hsl(var(--border))" 
-              strokeOpacity={0.5}
-            />
-            <PolarAngleAxis 
-              dataKey="skill" 
-              tick={{ 
-                fill: "hsl(var(--text-secondary))", 
-                fontSize: 12,
-                fontWeight: 500
-              }}
-              className="text-xs md:text-sm"
-            />
-            <PolarRadiusAxis 
-              angle={30} 
-              domain={[0, 10]} 
-              tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
-              tickCount={6}
-            />
-            <Radar
-              name="Niveau"
-              dataKey="level"
-              stroke={primaryColor}
-              fill={primaryColor}
-              fillOpacity={0.25}
-              strokeWidth={2}
-            />
-            <Tooltip content={<CustomTooltip />} />
-          </RadarChart>
-        </ResponsiveContainer>
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-center">
+        {/* Radar Chart */}
+        <div className="w-full lg:w-1/2 h-[400px] md:h-[500px] lg:h-[450px]">
+          <ResponsiveContainer width="100%" height="100%">
+            <RadarChart data={skillsData} margin={{ top: 20, right: 30, bottom: 20, left: 30 }}>
+              <PolarGrid 
+                gridType="circle"
+                stroke="hsl(var(--border))" 
+                strokeOpacity={0.5}
+              />
+              <PolarAngleAxis 
+                dataKey="skill" 
+                tick={{ 
+                  fill: "hsl(var(--text-secondary))", 
+                  fontSize: 12,
+                  fontWeight: 500
+                }}
+                className="text-xs md:text-sm"
+              />
+              <PolarRadiusAxis 
+                angle={30} 
+                domain={[0, 10]} 
+                tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
+                tickCount={6}
+              />
+              <Radar
+                name="Niveau"
+                dataKey="level"
+                stroke={primaryColor}
+                fill={primaryColor}
+                fillOpacity={0.25}
+                strokeWidth={2}
+              />
+              <Tooltip content={<CustomTooltip />} />
+            </RadarChart>
+          </ResponsiveContainer>
+        </div>
+
+        {/* Skills descriptions - Desktop */}
+        <div className="hidden lg:flex flex-col gap-4 w-full lg:w-1/2">
+          {skillsData.map((skill) => (
+            <div 
+              key={skill.skill}
+              className="group flex items-start gap-4 p-4 rounded-xl border border-border bg-background hover:border-primary/30 hover:bg-primary/5 transition-all duration-250"
+            >
+              <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
+                <span className="text-primary font-display font-bold text-lg">{skill.level}</span>
+              </div>
+              <div className="flex-1">
+                <div className="flex items-center gap-2 mb-1">
+                  <h4 className="font-display font-semibold text-foreground">{skill.fullName}</h4>
+                  {skill.isLead && (
+                    <Tag variant="primary" size="sm">Lead</Tag>
+                  )}
+                </div>
+                <p className="text-sm text-text-secondary leading-relaxed">{skill.description}</p>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Legend on mobile */}
-      <div className="mt-8 grid grid-cols-2 gap-4 md:hidden">
+      {/* Legend on mobile/tablet */}
+      <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 lg:hidden">
         {skillsData.map((skill) => (
           <div 
             key={skill.skill}
-            className="bg-background border border-border rounded-lg p-3"
+            className="bg-background border border-border rounded-lg p-4"
           >
-            <div className="flex items-center gap-2 mb-1">
-              <p className="font-medium text-sm text-foreground">{skill.skill}</p>
-              {skill.isLead && (
-                <Tag variant="primary" size="sm">Lead</Tag>
-              )}
+            <div className="flex items-center gap-3 mb-2">
+              <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <span className="text-primary font-display font-bold">{skill.level}</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <p className="font-medium text-foreground">{skill.skill}</p>
+                {skill.isLead && (
+                  <Tag variant="primary" size="sm">Lead</Tag>
+                )}
+              </div>
             </div>
-            <p className="text-xs text-text-secondary">Niveau {skill.level}/10</p>
+            <p className="text-sm text-text-secondary">{skill.description}</p>
           </div>
         ))}
       </div>
