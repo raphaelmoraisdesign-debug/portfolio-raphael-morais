@@ -55,7 +55,6 @@ const CustomTooltip = ({ active, payload }: any) => {
     return (
       <div className="bg-background border border-border rounded-lg p-4 shadow-lg max-w-xs">
         <p className="font-display font-semibold text-foreground mb-1">{data.fullName}</p>
-        <p className="text-sm text-text-secondary mb-2">Niveau : {data.level}/10</p>
         <p className="text-sm text-text-secondary">{data.description}</p>
       </div>
     );
@@ -109,8 +108,8 @@ export function SkillsRadarChart() {
               <PolarRadiusAxis
                 angle={30}
                 domain={[0, 10]}
-                tick={{ fill: "hsl(var(--text-secondary))", fontSize: 10 }}
-                tickCount={6}
+                tick={false}
+                axisLine={false}
               />
               {/* Base radar - dims when hovering */}
               <Radar
@@ -160,14 +159,6 @@ export function SkillsRadarChart() {
               onMouseEnter={() => setHoveredSkill(skill.skill)}
               onMouseLeave={() => setHoveredSkill(null)}
             >
-              <div
-                className={cn(
-                  "flex-shrink-0 w-7 h-7 rounded flex items-center justify-center text-xs font-display font-semibold transition-all duration-200",
-                  hoveredSkill === skill.skill ? "bg-primary text-white" : "bg-muted/60 text-text-secondary",
-                )}
-              >
-                {skill.level}
-              </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
                   <h4
@@ -205,9 +196,6 @@ export function SkillsRadarChart() {
             key={skill.skill}
             className="flex items-center gap-2 px-2.5 py-2 rounded-lg bg-muted/20 border border-border/40"
           >
-            <span className="flex-shrink-0 w-6 h-6 rounded text-xs bg-primary/10 text-primary font-semibold flex items-center justify-center">
-              {skill.level}
-            </span>
             <div className="min-w-0">
               <p className="text-xs text-text-secondary truncate">{skill.skill}</p>
               {skill.isLead && (
