@@ -31,7 +31,15 @@ const services = [
   },
 ];
 
-const clients = ["Banque & Finance", "Sercice Publique", "B2B", "B2C", "B2E", "Grands Comptes"];
+const clients = [
+  "Banque & Finance",
+  "Sercice Publique",
+  "B2B",
+  "B2C",
+  "Outils Internes",
+  "Grands Comptes",
+  "Ressource Humaines",
+];
 
 const methodology = [
   {
