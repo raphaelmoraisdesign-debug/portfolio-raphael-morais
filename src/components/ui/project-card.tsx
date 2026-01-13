@@ -30,10 +30,10 @@ export function ProjectCard({
   const imageSrc = image || imageUrl;
   
   return (
-    <Link to={`/projet/${id}`}>
+    <Link to={`/projet/${id}`} className="h-full">
       <motion.article
         className={cn(
-          "group relative bg-card rounded-xl overflow-hidden shadow-card border border-transparent",
+          "group relative bg-card rounded-xl overflow-hidden shadow-card border border-transparent h-full flex flex-col",
           "transition-all duration-250 ease-in-out hover:shadow-card-hover hover:border-primary hover:-translate-y-0.5",
           className
         )}
@@ -56,7 +56,7 @@ export function ProjectCard({
         </div>
 
         {/* Content */}
-        <div className="p-6">
+        <div className="p-6 flex flex-col flex-1">
           <div className="flex items-start justify-between gap-4 mb-3">
             <div>
               <Tag variant="accent" size="sm" className="mb-2">{sector}</Tag>
@@ -71,7 +71,7 @@ export function ProjectCard({
             {description}
           </p>
 
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-2 mt-auto">
             {roles.map((role) => (
               <Tag 
                 key={role} 
