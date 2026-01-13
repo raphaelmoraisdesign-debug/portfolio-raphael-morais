@@ -64,7 +64,7 @@ export default function ProjectDetail() {
       </nav>
 
       {/* HERO SECTION - Image left, content panel right */}
-      <header className="relative min-h-[80vh] lg:min-h-[85vh] overflow-hidden">
+      <header className="relative min-h-[60vh] md:min-h-[70vh] lg:min-h-[85vh] overflow-hidden">
         {/* Background Image - Full width */}
         <motion.div
           initial={{ opacity: 0, scale: 1.05 }}
@@ -78,61 +78,61 @@ export default function ProjectDetail() {
             className="w-full h-full object-cover"
           />
           {/* Subtle gradient overlay for better readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-white/30" />
+          <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-black/40 md:from-black/10 via-black/20 md:via-transparent to-white/80 md:to-white/30" />
         </motion.div>
 
-        {/* Content Panel - Right side */}
-        <div className="relative h-full min-h-[80vh] lg:min-h-[85vh] flex items-center justify-end">
+        {/* Content Panel - Right side on desktop, bottom overlay on mobile */}
+        <div className="relative h-full min-h-[60vh] md:min-h-[70vh] lg:min-h-[85vh] flex items-end md:items-center md:justify-end">
           <motion.div
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="w-full lg:w-[45%] xl:w-[40%] bg-card/95 backdrop-blur-sm lg:bg-card p-8 md:p-10 lg:p-12 lg:rounded-l-3xl lg:shadow-elevated min-h-[80vh] lg:min-h-[85vh] flex flex-col justify-center"
+            className="w-full lg:w-[45%] xl:w-[40%] bg-card/95 backdrop-blur-sm p-5 sm:p-6 md:p-10 lg:p-12 md:rounded-l-3xl lg:shadow-elevated flex flex-col justify-center"
           >
             {/* Back link */}
             <Link
               to="/projets"
-              className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out mb-8 text-sm"
+              className="inline-flex items-center gap-2 text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out mb-4 md:mb-8 text-xs md:text-sm"
             >
-              <ArrowLeft className="w-4 h-4" />
+              <ArrowLeft className="w-3 h-3 md:w-4 md:h-4" />
               Retour aux projets
             </Link>
 
             {/* Title block */}
-            <div className="mb-8">
-              <h1 className="text-3xl md:text-4xl lg:text-[42px] font-display font-bold text-foreground leading-tight mb-2">
+            <div className="mb-4 md:mb-8">
+              <h1 className="text-xl sm:text-2xl md:text-4xl lg:text-[42px] font-display font-bold text-foreground leading-tight mb-2">
                 {project.client && <span className="text-text-secondary">{project.client} / </span>}
                 {project.title}
               </h1>
-              <p className="text-text-tertiary text-sm mt-2">{project.year}</p>
-              <div className="flex flex-wrap items-center gap-2 mt-3">
-                <span className="px-3 py-1 text-sm font-medium bg-primary text-primary-foreground rounded-full">
+              <p className="text-text-tertiary text-xs md:text-sm mt-2">{project.year}</p>
+              <div className="flex flex-wrap items-center gap-2 mt-2 md:mt-3">
+                <span className="px-2 md:px-3 py-1 text-xs md:text-sm font-medium bg-primary text-primary-foreground rounded-full">
                   {project.role}
                 </span>
               </div>
             </div>
 
             {/* La mission */}
-            <div className="mb-6">
-              <h3 className="text-lg font-semibold text-foreground mb-2">La mission</h3>
-              <p className="text-text-secondary leading-relaxed">{project.subtitle}</p>
+            <div className="mb-4 md:mb-6">
+              <h3 className="text-base md:text-lg font-semibold text-foreground mb-1 md:mb-2">La mission</h3>
+              <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.subtitle}</p>
             </div>
 
-            {/* Contexte */}
-            <div className="mb-6">
+            {/* Contexte - Hidden on mobile for brevity */}
+            <div className="hidden md:block mb-6">
               <h3 className="text-lg font-semibold text-foreground mb-2">Contexte</h3>
               <p className="text-text-secondary leading-relaxed text-sm">{project.context}</p>
             </div>
 
             {/* Principales actions menées */}
             {project.process && project.process.length > 0 && (
-              <div className="mb-8">
-                <h3 className="text-lg font-semibold text-foreground mb-3">Principales actions menées</h3>
-                <div className="flex flex-wrap gap-2">
+              <div className="mb-4 md:mb-8">
+                <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 md:mb-3">Principales actions menées</h3>
+                <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {project.process.slice(0, 4).map((step: any, i: number) => (
                     <span 
                       key={i} 
-                      className="px-3 py-1.5 text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
+                      className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
                     >
                       {step.title}
                     </span>
@@ -144,7 +144,7 @@ export default function ProjectDetail() {
             {/* CTA */}
             <a
               href="#info"
-              className="inline-flex items-center gap-2 text-primary font-medium hover:gap-3 transition-all duration-250 ease-in-out"
+              className="inline-flex items-center gap-2 text-primary font-medium text-sm md:text-base hover:gap-3 transition-all duration-250 ease-in-out"
             >
               Voir le détail du projet
               <ChevronDown className="w-4 h-4" />
@@ -164,17 +164,17 @@ export default function ProjectDetail() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <div className="bg-card rounded-2xl border border-primary/20 shadow-soft p-6 md:p-10">
-              <div className="grid md:grid-cols-2 gap-8 md:gap-12">
+            <div className="bg-card rounded-xl md:rounded-2xl border border-primary/20 shadow-soft p-4 sm:p-6 md:p-10">
+              <div className="grid md:grid-cols-2 gap-6 md:gap-12">
                 {/* Column 1 - À propos du client */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                      <Building2 className="w-6 h-6 text-primary" />
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                      <Building2 className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                     </div>
-                    <h3 className="text-2xl font-display font-semibold text-foreground">{project.client}</h3>
+                    <h3 className="text-lg md:text-2xl font-display font-semibold text-foreground">{project.client}</h3>
                   </div>
-                  <div className="space-y-2 text-text-secondary">
+                  <div className="space-y-1 md:space-y-2 text-text-secondary text-sm md:text-base">
                     <p className="flex items-center gap-2">
                       <span className="font-medium text-foreground">Secteur :</span> {project.sector}
                     </p>
@@ -182,30 +182,30 @@ export default function ProjectDetail() {
                       <span className="font-medium text-foreground">Audience :</span> {project.audienceCible}
                     </p>
                   </div>
-                  <div className="pt-2">
-                    <p className="text-sm text-primary font-medium bg-primary/5 rounded-lg px-3 py-2 inline-block">
+                  <div className="pt-1 md:pt-2">
+                    <p className="text-xs md:text-sm text-primary font-medium bg-primary/5 rounded-lg px-2 md:px-3 py-1.5 md:py-2 inline-block">
                       {project.statCle}
                     </p>
                   </div>
                 </div>
 
                 {/* Column 2 - Contexte & Problème */}
-                <div className="space-y-4">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                      <AlertTriangle className="w-6 h-6 text-amber-600" />
+                <div className="space-y-3 md:space-y-4">
+                  <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
+                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
+                      <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-amber-600" />
                     </div>
-                    <h3 className="text-2xl font-display font-semibold text-foreground">Problème business</h3>
+                    <h3 className="text-lg md:text-2xl font-display font-semibold text-foreground">Problème business</h3>
                   </div>
-                  <p className="text-text-secondary leading-relaxed">{project.context}</p>
-                  <div className="space-y-3 pt-2">
+                  <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.context}</p>
+                  <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
                     {project.objectives.map((obj: { text: string; metric: string }, i: number) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between gap-4 py-2 border-b border-border/50 last:border-0"
+                        className="flex items-center justify-between gap-2 md:gap-4 py-1.5 md:py-2 border-b border-border/50 last:border-0"
                       >
-                        <span className="text-text-secondary">{obj.text}</span>
-                        <span className="font-semibold text-primary whitespace-nowrap">{obj.metric}</span>
+                        <span className="text-text-secondary text-sm md:text-base">{obj.text}</span>
+                        <span className="font-semibold text-primary whitespace-nowrap text-sm md:text-base">{obj.metric}</span>
                       </div>
                     ))}
                   </div>
@@ -225,7 +225,7 @@ export default function ProjectDetail() {
             <h4 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-6">
               Outils utilisés sur ce projet
             </h4>
-            <div className="flex flex-wrap justify-center gap-6 md:gap-10">
+            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
               {project.tools.map((tool: { name: string; logo: string }, i: number) => (
                 <motion.div
                   key={tool.name}
@@ -234,20 +234,20 @@ export default function ProjectDetail() {
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.3 }}
                   whileHover={{ scale: 1.1 }}
-                  className="group flex flex-col items-center gap-2"
+                  className="group flex flex-col items-center gap-1.5 md:gap-2"
                 >
-                  <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-card border border-border shadow-soft flex items-center justify-center group-hover:shadow-elevated group-hover:border-primary/30 transition-all duration-250 ease-in-out">
+                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full bg-card border border-border shadow-soft flex items-center justify-center group-hover:shadow-elevated group-hover:border-primary/30 transition-all duration-250 ease-in-out">
                     <img
                       src={tool.logo}
                       alt={tool.name}
-                      className="w-8 h-8 md:w-10 md:h-10 object-contain"
+                      className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 object-contain"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
                           `https://ui-avatars.com/api/?name=${tool.name}&background=1E1AFD&color=fff`;
                       }}
                     />
                   </div>
-                  <span className="text-xs font-medium text-text-secondary group-hover:text-primary transition-colors duration-250">
+                  <span className="text-[10px] sm:text-xs font-medium text-text-secondary group-hover:text-primary transition-colors duration-250">
                     {tool.name}
                   </span>
                 </motion.div>
@@ -342,28 +342,28 @@ export default function ProjectDetail() {
             variants={fadeInUp}
           >
             <SectionTitle title="Process & étapes" />
-            <div className="space-y-16">
+            <div className="space-y-10 md:space-y-16">
               {project.process.map((step: any, index: number) => (
                 <div key={step.step}>
-                  <div className="grid md:grid-cols-2 gap-6 md:gap-10 items-start">
+                  <div className="grid md:grid-cols-2 gap-4 md:gap-10 items-start">
                     {/* Left: Content */}
                     <div className={`${index % 2 === 1 ? "md:order-2" : ""}`}>
-                      <div className="flex items-center gap-4 mb-4">
-                        <div className="w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-lg shrink-0">
+                      <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
+                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-base md:text-lg shrink-0">
                           {step.step}
                         </div>
                         <div>
-                          <h3 className="text-xl font-semibold text-foreground">{step.title}</h3>
+                          <h3 className="text-lg md:text-xl font-semibold text-foreground">{step.title}</h3>
                         </div>
                       </div>
-                      <p className="text-text-secondary mb-4">{step.summary}</p>
+                      <p className="text-text-secondary mb-3 md:mb-4 text-sm md:text-base">{step.summary}</p>
 
-                      <div className="bg-card rounded-lg p-5 space-y-4 border border-border/50">
+                      <div className="bg-card rounded-lg p-4 md:p-5 space-y-3 md:space-y-4 border border-border/50">
                         <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-2">Activités</h4>
-                          <ul className="space-y-1.5">
+                          <h4 className="text-xs md:text-sm font-semibold text-foreground mb-1.5 md:mb-2">Activités</h4>
+                          <ul className="space-y-1 md:space-y-1.5">
                             {step.activities.map((activity: string, i: number) => (
-                              <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
+                              <li key={i} className="text-xs md:text-sm text-text-secondary flex items-start gap-2">
                                 <span className="text-primary">→</span>
                                 {activity}
                               </li>
@@ -371,8 +371,8 @@ export default function ProjectDetail() {
                           </ul>
                         </div>
                         <div>
-                          <h4 className="text-sm font-semibold text-foreground mb-2">Livrables</h4>
-                          <p className="text-sm text-text-secondary">{step.deliverables}</p>
+                          <h4 className="text-xs md:text-sm font-semibold text-foreground mb-1.5 md:mb-2">Livrables</h4>
+                          <p className="text-xs md:text-sm text-text-secondary">{step.deliverables}</p>
                         </div>
                       </div>
                     </div>
@@ -476,33 +476,33 @@ export default function ProjectDetail() {
             )}
 
             {/* Quantitative */}
-            <div className="mb-10">
-              <h4 className="font-semibold text-foreground mb-4">Résultats quantitatifs</h4>
-              <div className="grid md:grid-cols-3 gap-4">
+            <div className="mb-8 md:mb-10">
+              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Résultats quantitatifs</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
                 {project.results.quantitative.map((result: any, i: number) => (
                   <div
                     key={i}
-                    className="bg-card rounded-xl p-6 text-center border border-border/50 hover:border-primary/30 transition-colors duration-250"
+                    className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 text-center border border-border/50 hover:border-primary/30 transition-colors duration-250"
                   >
-                    <p className="text-sm text-text-secondary mb-2">{result.metric}</p>
-                    <div className="flex items-center justify-center gap-2 mb-2">
-                      <span className="text-text-tertiary line-through">{result.before}</span>
-                      <ArrowRight className="w-4 h-4 text-primary" />
-                      <span className="text-2xl font-bold text-foreground">{result.after}</span>
+                    <p className="text-xs md:text-sm text-text-secondary mb-1.5 md:mb-2">{result.metric}</p>
+                    <div className="flex items-center justify-center gap-1.5 md:gap-2 mb-1.5 md:mb-2">
+                      <span className="text-text-tertiary line-through text-sm md:text-base">{result.before}</span>
+                      <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-primary" />
+                      <span className="text-xl md:text-2xl font-bold text-foreground">{result.after}</span>
                     </div>
-                    <span className="text-primary font-semibold">{result.change}</span>
+                    <span className="text-primary font-semibold text-sm md:text-base">{result.change}</span>
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Qualitative */}
-            <div className="mb-10">
-              <h4 className="font-semibold text-foreground mb-4">Résultats qualitatifs</h4>
-              <ul className="space-y-3">
+            <div className="mb-8 md:mb-10">
+              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Résultats qualitatifs</h4>
+              <ul className="space-y-2 md:space-y-3">
                 {project.results.qualitative.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-text-secondary">
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
+                  <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
+                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-1.5 md:mt-2 shrink-0" />
                     {item}
                   </li>
                 ))}
@@ -511,10 +511,10 @@ export default function ProjectDetail() {
 
             {/* Learnings */}
             <div>
-              <h4 className="font-semibold text-foreground mb-4">Enseignements clés</h4>
-              <ul className="space-y-3">
+              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Enseignements clés</h4>
+              <ul className="space-y-2 md:space-y-3">
                 {project.results.learnings.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-3 text-text-secondary">
+                  <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
                     <span className="text-accent">💡</span>
                     {item}
                   </li>
@@ -529,12 +529,12 @@ export default function ProjectDetail() {
             whileInView="animate"
             viewport={{ once: true }}
             variants={fadeInUp}
-            className="bg-primary-light rounded-xl p-8"
+            className="bg-primary-light rounded-lg md:rounded-xl p-5 md:p-8"
           >
-            <h3 className="font-display text-xl font-semibold text-foreground mb-4">En 30 secondes</h3>
-            <ul className="space-y-2">
+            <h3 className="font-display text-lg md:text-xl font-semibold text-foreground mb-3 md:mb-4">En 30 secondes</h3>
+            <ul className="space-y-1.5 md:space-y-2">
               {project.summary.map((item: string, i: number) => (
-                <li key={i} className="flex items-start gap-3 text-text-secondary">
+                <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
                   <span className="font-bold text-primary">{i + 1}.</span>
                   {item}
                 </li>
@@ -543,14 +543,14 @@ export default function ProjectDetail() {
           </motion.section>
 
           {/* CTA */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6 pt-12 border-t border-border">
-            <Button asChild variant="outline">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6 pt-8 md:pt-12 border-t border-border">
+            <Button asChild variant="outline" size="sm" className="w-full sm:w-auto">
               <Link to="/projets">
                 <ArrowLeft className="w-4 h-4" />
                 Voir d'autres projets
               </Link>
             </Button>
-            <Button asChild>
+            <Button asChild size="sm" className="w-full sm:w-auto">
               <Link to="/contact">
                 Discuter d'un projet similaire
                 <ArrowRight className="w-4 h-4" />
