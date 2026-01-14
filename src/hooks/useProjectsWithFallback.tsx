@@ -7,6 +7,8 @@ export interface DBProcessStep {
   description: string;
   image_url?: string;
   image_caption?: string;
+  activities?: string[];
+  deliverables?: string;
 }
 
 export interface DBProject {
@@ -63,8 +65,8 @@ function mergeProjectData(dbProject: DBProject | null, staticProject: ProjectDat
         step: String(i + 1),
         title: step.title,
         summary: step.description,
-        activities: [],
-        deliverables: "",
+        activities: step.activities || [],
+        deliverables: step.deliverables || "",
         image: step.image_url,
         imageCaption: step.image_caption,
       })),
@@ -98,8 +100,10 @@ function mergeProjectData(dbProject: DBProject | null, staticProject: ProjectDat
           step: String(i + 1),
           title: step.title || staticProject.process[i]?.title || "",
           summary: step.description || staticProject.process[i]?.summary || "",
-          activities: staticProject.process[i]?.activities || [],
-          deliverables: staticProject.process[i]?.deliverables || "",
+          activities: (step.activities && step.activities.length > 0) 
+            ? step.activities 
+            : (staticProject.process[i]?.activities || []),
+          deliverables: step.deliverables || staticProject.process[i]?.deliverables || "",
           image: step.image_url || staticProject.process[i]?.image,
           imageCaption: step.image_caption || staticProject.process[i]?.imageCaption,
         }))

@@ -39,16 +39,16 @@ interface SortableStepProps {
   uploading: number | null;
   onToggleExpand: () => void;
   onRemove: () => void;
-  onStepChange: (field: keyof ProcessStep, value: string) => void;
+  onStepChange: (field: keyof ProcessStep, value: string | string[]) => void;
   onImageUpload: (file: File) => void;
   onRemoveImage: () => void;
 }
 
 const DEFAULT_STEPS = [
-  { title: "Discovery & Research", description: "" },
-  { title: "Conception & Idéation", description: "" },
-  { title: "Tests & Validation", description: "" },
-  { title: "Delivery & Suivi", description: "" },
+  { title: "Discovery & Research", description: "", activities: [], deliverables: "" },
+  { title: "Conception & Idéation", description: "", activities: [], deliverables: "" },
+  { title: "Tests & Validation", description: "", activities: [], deliverables: "" },
+  { title: "Delivery & Suivi", description: "", activities: [], deliverables: "" },
 ];
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
@@ -158,6 +158,29 @@ function SortableStep({
           </div>
 
           <div className="space-y-2">
+            <Label>Activités</Label>
+            <Textarea
+              value={(step.activities || []).join("\n")}
+              onChange={(e) => {
+                const activities = e.target.value.split("\n").filter(a => a.trim() !== "" || e.target.value.endsWith("\n"));
+                onStepChange("activities", activities);
+              }}
+              placeholder="Une activité par ligne&#10;Ex: Interviews utilisateurs&#10;Analyse concurrentielle&#10;Audit UX"
+              rows={4}
+            />
+            <p className="text-xs text-text-secondary">Entrez une activité par ligne</p>
+          </div>
+
+          <div className="space-y-2">
+            <Label>Livrables</Label>
+            <Input
+              value={step.deliverables || ""}
+              onChange={(e) => onStepChange("deliverables", e.target.value)}
+              placeholder="Ex: Rapport de recherche, Personas, User Journey"
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label>Image (optionnel)</Label>
             {step.image_url ? (
               <div className="relative">
@@ -233,7 +256,7 @@ export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStep
   );
 
   const handleAddStep = () => {
-    onChange([...steps, { title: "", description: "" }]);
+    onChange([...steps, { title: "", description: "", activities: [], deliverables: "" }]);
     setExpandedIndex(steps.length);
   };
 
@@ -245,7 +268,7 @@ export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStep
     }
   };
 
-  const handleStepChange = (index: number, field: keyof ProcessStep, value: string) => {
+  const handleStepChange = (index: number, field: keyof ProcessStep, value: string | string[]) => {
     const newSteps = [...steps];
     newSteps[index] = { ...newSteps[index], [field]: value };
     onChange(newSteps);
