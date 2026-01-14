@@ -27,6 +27,7 @@ export type Database = {
           hero_image_url: string | null
           id: string
           is_featured: boolean | null
+          process_steps: Json | null
           results: string | null
           role: string | null
           short_description: string
@@ -49,6 +50,7 @@ export type Database = {
           hero_image_url?: string | null
           id?: string
           is_featured?: boolean | null
+          process_steps?: Json | null
           results?: string | null
           role?: string | null
           short_description: string
@@ -71,6 +73,7 @@ export type Database = {
           hero_image_url?: string | null
           id?: string
           is_featured?: boolean | null
+          process_steps?: Json | null
           results?: string | null
           role?: string | null
           short_description?: string

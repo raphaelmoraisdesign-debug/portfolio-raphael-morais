@@ -1,6 +1,14 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import type { Json } from "@/integrations/supabase/types";
+
+export interface ProcessStep {
+  title: string;
+  description: string;
+  image_url?: string;
+  image_caption?: string;
+}
 
 export interface Project {
   id: string;
@@ -19,6 +27,7 @@ export interface Project {
   results: string | null;
   tools: string[];
   gallery_images: string[];
+  process_steps: ProcessStep[];
   is_featured: boolean;
   display_order: number;
   created_at: string;
@@ -27,6 +36,24 @@ export interface Project {
 
 export type ProjectInsert = Omit<Project, "id" | "created_at" | "updated_at">;
 export type ProjectUpdate = Partial<ProjectInsert>;
+
+// Helper to transform DB row to Project type
+function transformProject(row: any): Project {
+  return {
+    ...row,
+    process_steps: Array.isArray(row.process_steps) 
+      ? row.process_steps as ProcessStep[]
+      : [],
+  };
+}
+
+// Helper to prepare data for DB insert/update
+function prepareForDb(data: ProjectInsert | ProjectUpdate): Record<string, unknown> {
+  return {
+    ...data,
+    process_steps: data.process_steps as unknown as Json,
+  };
+}
 
 export function useProjects() {
   return useQuery({
@@ -38,7 +65,7 @@ export function useProjects() {
         .order("display_order", { ascending: true });
       
       if (error) throw error;
-      return data as Project[];
+      return (data || []).map(transformProject);
     }
   });
 }
@@ -54,7 +81,7 @@ export function useFeaturedProjects() {
         .order("display_order", { ascending: true });
       
       if (error) throw error;
-      return data as Project[];
+      return (data || []).map(transformProject);
     }
   });
 }
@@ -70,7 +97,7 @@ export function useProject(slug: string) {
         .maybeSingle();
       
       if (error) throw error;
-      return data as Project | null;
+      return data ? transformProject(data) : null;
     },
     enabled: !!slug
   });
@@ -83,12 +110,12 @@ export function useCreateProject() {
     mutationFn: async (project: ProjectInsert) => {
       const { data, error } = await supabase
         .from("projects")
-        .insert(project)
+        .insert(prepareForDb(project) as any)
         .select()
         .single();
       
       if (error) throw error;
-      return data as Project;
+      return transformProject(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });
@@ -108,13 +135,13 @@ export function useUpdateProject() {
     mutationFn: async ({ id, updates }: { id: string; updates: ProjectUpdate }) => {
       const { data, error } = await supabase
         .from("projects")
-        .update(updates)
+        .update(prepareForDb(updates) as any)
         .eq("id", id)
         .select()
         .single();
       
       if (error) throw error;
-      return data as Project;
+      return transformProject(data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["projects"] });

@@ -3,7 +3,7 @@ import { useNavigate, useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Loader2, Upload, X } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
-import { useProject, useCreateProject, useUpdateProject, ProjectInsert } from "@/hooks/useProjects";
+import { useProject, useCreateProject, useUpdateProject, ProjectInsert, ProcessStep } from "@/hooks/useProjects";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -11,6 +11,9 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { toast } from "sonner";
+import { ProcessStepsEditor } from "@/components/admin/ProcessStepsEditor";
+import { GalleryEditor } from "@/components/admin/GalleryEditor";
+import { ToolsEditor } from "@/components/admin/ToolsEditor";
 
 const generateSlug = (title: string) => {
   return title
@@ -45,6 +48,8 @@ export default function AdminProjectEdit() {
     solution: "",
     results: "",
     tools: [],
+    gallery_images: [],
+    process_steps: [],
     is_featured: false,
     display_order: 0,
   });
@@ -81,6 +86,8 @@ export default function AdminProjectEdit() {
         solution: existingProject.solution || "",
         results: existingProject.results || "",
         tools: existingProject.tools || [],
+        gallery_images: existingProject.gallery_images || [],
+        process_steps: existingProject.process_steps || [],
         is_featured: existingProject.is_featured,
         display_order: existingProject.display_order,
       });
@@ -426,8 +433,34 @@ export default function AdminProjectEdit() {
             </div>
           </section>
 
-          {/* Options */}
+          {/* Outils */}
           <section className="bg-card border border-border rounded-xl p-6">
+            <ToolsEditor
+              tools={formData.tools || []}
+              onChange={(tools) => handleChange("tools", tools)}
+            />
+          </section>
+
+          {/* Étapes du processus */}
+          <section className="bg-card border border-border rounded-xl p-6">
+            <ProcessStepsEditor
+              steps={formData.process_steps || []}
+              onChange={(steps) => handleChange("process_steps", steps)}
+              projectSlug={formData.slug || "project"}
+            />
+          </section>
+
+          {/* Galerie */}
+          <section className="bg-card border border-border rounded-xl p-6">
+            <GalleryEditor
+              images={formData.gallery_images || []}
+              onChange={(images) => handleChange("gallery_images", images)}
+              projectSlug={formData.slug || "project"}
+            />
+          </section>
+
+          {/* Options */}
+          <section className="bg-card border border-border rounded-xl p-6 space-y-4">
             <h2 className="font-display text-lg font-semibold text-foreground mb-4">
               Options
             </h2>
@@ -445,7 +478,39 @@ export default function AdminProjectEdit() {
                 onCheckedChange={(checked) => handleChange("is_featured", checked)}
               />
             </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="display_order">Ordre d'affichage</Label>
+              <Input
+                id="display_order"
+                type="number"
+                value={formData.display_order}
+                onChange={(e) => handleChange("display_order", parseInt(e.target.value) || 0)}
+                placeholder="0"
+                className="w-24"
+              />
+              <p className="text-xs text-text-tertiary">
+                Les projets avec un ordre plus bas s'affichent en premier
+              </p>
+            </div>
           </section>
+
+          {/* Submit button (mobile) */}
+          <div className="md:hidden">
+            <Button 
+              type="submit" 
+              className="w-full" 
+              size="lg"
+              disabled={uploading}
+            >
+              {uploading ? (
+                <Loader2 className="w-4 h-4 animate-spin mr-2" />
+              ) : (
+                <Save className="w-4 h-4 mr-2" />
+              )}
+              Enregistrer le projet
+            </Button>
+          </div>
         </motion.form>
       </main>
     </div>
