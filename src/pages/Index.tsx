@@ -7,9 +7,7 @@ import { SectionTitle } from "@/components/ui/section-title";
 import { Tag } from "@/components/ui/tag";
 import { ProjectCard } from "@/components/ui/project-card";
 import { HeroCentered } from "@/components/hero/HeroCentered";
-import { useDevHmrRerender } from "@/hooks/use-dev-hmr-rerender";
-import { PROJECTS_DATA_UPDATED_EVENT } from "@/lib/dev-hmr";
-import { getFeaturedProjects } from "@/data/projectsData";
+import { useFeaturedProjectsWithFallback } from "@/hooks/useProjectsWithFallback";
 
 const services = [
   {
@@ -67,9 +65,7 @@ const stagger = {
 };
 
 export default function Index() {
-  useDevHmrRerender(PROJECTS_DATA_UPDATED_EVENT);
-
-  const featuredProjects = getFeaturedProjects();
+  const { data: featuredProjects = [], isLoading } = useFeaturedProjectsWithFallback();
 
   return (
     <PageLayout>

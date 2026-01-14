@@ -1,15 +1,11 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2 } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
-import { useDevHmrRerender } from "@/hooks/use-dev-hmr-rerender";
-import { PROJECTS_DATA_UPDATED_EVENT } from "@/lib/dev-hmr";
-
-import { getProjectById } from "@/data/projectsData";
-
+import { useProjectWithFallback } from "@/hooks/useProjectsWithFallback";
 
 // Section navigation items
 const sectionNav = [
@@ -26,10 +22,19 @@ const fadeInUp = {
 };
 
 export default function ProjectDetail() {
-  useDevHmrRerender(PROJECTS_DATA_UPDATED_EVENT);
-
   const { id } = useParams<{ id: string }>();
-  const project = id ? getProjectById(id) : null;
+  const { data: project, isLoading, error } = useProjectWithFallback(id || "");
+
+  if (isLoading) {
+    return (
+      <PageLayout>
+        <div className="container py-20 text-center">
+          <Loader2 className="w-8 h-8 animate-spin mx-auto text-primary" />
+          <p className="text-text-secondary mt-4">Chargement du projet...</p>
+        </div>
+      </PageLayout>
+    );
+  }
 
   if (!project) {
     return (
