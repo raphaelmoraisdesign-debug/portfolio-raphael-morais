@@ -108,7 +108,7 @@ export interface ProjectData {
 export const toolLogos = {
   figma: { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
   miro: { name: "Miro", logo: "https://asset.brandfetch.io/idAnDTFapY/idYC5f2L1X.png" },
-  maze: { name: "Maze", logo: "https://asset.brandfetch.io/idvpELmzNc/idpWT7XIDK.svg" },
+  userTesting: { name: "User Testing", logo: "https://asset.brandfetch.io/idDUYmv2ln/idwqHNrOc_.svg" },
   jira: { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" },
   notion: { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" },
   teams: {
@@ -142,7 +142,7 @@ export const projectsData: ProjectData[] = [
     role: "Product Designer",
     duration: "2 ans",
     year: "Janvier 2024 à Décembre 2025",
-    tools: [toolLogos.figma, toolLogos.miro, toolLogos.maze, toolLogos.jira],
+    tools: [toolLogos.figma, toolLogos.miro, toolLogos.userTesting, toolLogos.jira],
     gallery: [],
     context:
       "Les conseillers crédit Cetelem utilisaient plusieurs outils non connectés pour gérer les dossiers clients, créant des frictions et des erreurs de saisie. L'objectif était de créer une interface unifiée omnicanale.",
@@ -250,7 +250,7 @@ export const projectsData: ProjectData[] = [
     role: "Product Designer",
     duration: "2 ans",
     year: "De janvier 2024 à Décembre 2025",
-    tools: [toolLogos.figma, toolLogos.miro, toolLogos.maze, toolLogos.jira],
+    tools: [toolLogos.figma, toolLogos.miro, toolLogos.userTesting, toolLogos.jira],
     gallery: [],
     context:
       "Le parcours de souscription crédit existant affichait un taux d'abandon élevé. Les utilisateurs se plaignaient de la complexité des formulaires et du manque de visibilité sur l'avancement.",
@@ -303,7 +303,7 @@ export const projectsData: ProjectData[] = [
         step: "04",
         title: "Tests utilisateurs",
         summary: "Validation via tests modérés et non-modérés.",
-        activities: ["Tests Maze (quantitatif)", "Tests modérés (qualitatif)", "Itérations"],
+        activities: ["Tests User Testing (quantitatif)", "Tests modérés (qualitatif)", "Itérations"],
         deliverables: "Rapport de tests, maquettes finales",
       },
       {
@@ -631,7 +631,7 @@ export const projectsData: ProjectData[] = [
     role: "UX/UI Designer",
     duration: "4 mois",
     year: "2023",
-    tools: [toolLogos.figma, toolLogos.maze, toolLogos.notion],
+    tools: [toolLogos.figma, toolLogos.userTesting, toolLogos.notion],
     gallery: [],
     context:
       "La région souhaitait moderniser le parcours de demande de carte jeunes, perçu comme complexe et peu adapté aux usages mobiles des jeunes utilisateurs.",
