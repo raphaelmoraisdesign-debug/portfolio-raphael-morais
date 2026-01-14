@@ -1,4 +1,6 @@
 import { motion } from "framer-motion";
+import klaxoonLogo from "@/assets/tools/klaxoon-logo.svg";
+import usertestingLogo from "@/assets/tools/usertesting-logo.svg";
 
 interface Tool {
   name: string;
@@ -17,7 +19,7 @@ const toolCategories: ToolCategory[] = [
     tools: [
       { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg", description: "Maquettage & Prototype" },
       { name: "Figjam", logo: "https://cdn.brandfetch.io/idZHcZ_i7F/w/400/h/400/theme/dark/icon.png", description: "Facilitation d'ateliers UX" },
-      { name: "Klaxoon", logo: "https://cdn.worldvectorlogo.com/logos/klaxoon.svg", description: "Facilitation d'ateliers UX" },
+      { name: "Klaxoon", logo: klaxoonLogo, description: "Facilitation d'ateliers UX" },
     ]
   },
   {
@@ -38,7 +40,7 @@ const toolCategories: ToolCategory[] = [
   {
     title: "Recherche UX",
     tools: [
-      { name: "UserTesting", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/UserTesting_logo.svg", description: "UX Research & Data" },
+      { name: "UserTesting", logo: usertestingLogo, description: "UX Research & Data" },
     ]
   },
   {
