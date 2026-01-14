@@ -456,6 +456,14 @@ export default function AdminProjectEdit() {
               images={formData.gallery_images || []}
               onChange={(images) => handleChange("gallery_images", images)}
               projectSlug={formData.slug || "project"}
+              processSteps={formData.process_steps as ProcessStep[] || []}
+              onMoveToStep={(imageUrl, stepIndex) => {
+                const steps = [...(formData.process_steps || [])] as ProcessStep[];
+                if (steps[stepIndex]) {
+                  steps[stepIndex] = { ...steps[stepIndex], image_url: imageUrl };
+                  handleChange("process_steps", steps);
+                }
+              }}
             />
           </section>
 
