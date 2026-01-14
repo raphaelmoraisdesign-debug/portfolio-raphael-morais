@@ -15,15 +15,15 @@ const toolCategories: ToolCategory[] = [
   {
     title: "Design & Prototypage",
     tools: [
-      { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", description: "Maquettage & Prototype" },
-      { name: "Figjam", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg", description: "Facilitation d'ateliers UX" },
+      { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg", description: "Maquettage & Prototype" },
+      { name: "Figjam", logo: "https://cdn.brandfetch.io/idZHcZ_i7F/w/400/h/400/theme/dark/icon.png", description: "Facilitation d'ateliers UX" },
       { name: "Klaxoon", logo: "https://cdn.brandfetch.io/idCwYcH8E8/w/400/h/400/theme/dark/icon.jpeg", description: "Facilitation d'ateliers UX" },
     ]
   },
   {
     title: "Outils IA",
     tools: [
-      { name: "ChatGPT", logo: "https://cdn.brandfetch.io/idR3duQxYl/w/400/h/400/theme/dark/icon.jpeg", description: "Assistant IA conversationnel" },
+      { name: "ChatGPT", logo: "https://cdn.worldvectorlogo.com/logos/chatgpt-6.svg", description: "Assistant IA conversationnel" },
       { name: "Perplexity.ai", logo: "https://cdn.brandfetch.io/id20pNPHJT/w/400/h/400/theme/dark/icon.jpeg", description: "Recherche IA avancée" },
       { name: "Lovable.dev", logo: "https://cdn.brandfetch.io/idnPXsT3a_/w/400/h/400/theme/dark/icon.jpeg", description: "Développement assisté par IA" },
     ]
@@ -31,22 +31,22 @@ const toolCategories: ToolCategory[] = [
   {
     title: "Documentation",
     tools: [
-      { name: "Confluence", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/confluence/confluence-original.svg", description: "Documentation" },
-      { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg", description: "Documentation" },
+      { name: "Confluence", logo: "https://cdn.worldvectorlogo.com/logos/confluence-1.svg", description: "Documentation" },
+      { name: "Notion", logo: "https://cdn.worldvectorlogo.com/logos/notion-2.svg", description: "Documentation" },
     ]
   },
   {
     title: "Recherche UX",
     tools: [
-      { name: "User Testing", logo: "https://cdn.brandfetch.io/idHGM_TJYe/w/400/h/400/theme/dark/icon.jpeg", description: "UX Research & Data" },
+      { name: "UserTesting", logo: "https://cdn.brandfetch.io/idHGM_TJYe/w/400/h/400/theme/dark/icon.jpeg", description: "UX Research & Data" },
     ]
   },
   {
     title: "Gestion de projet",
     tools: [
-      { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg", description: "Backlog Design & Kanban" },
-      { name: "Asana", logo: "https://cdn.brandfetch.io/idqQRGNy4k/w/400/h/400/theme/dark/icon.png", description: "Répartition des tâches" },
-      { name: "Suite Office", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg", description: "PPT, Word, Excel" },
+      { name: "Jira", logo: "https://cdn.worldvectorlogo.com/logos/jira-1.svg", description: "Backlog Design & Kanban" },
+      { name: "Asana", logo: "https://cdn.worldvectorlogo.com/logos/asana-logo.svg", description: "Répartition des tâches" },
+      { name: "Microsoft 365", logo: "https://cdn.worldvectorlogo.com/logos/microsoft-office-2013.svg", description: "PPT, Word, Excel" },
     ]
   },
 ];
