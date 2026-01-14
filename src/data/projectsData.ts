@@ -8,7 +8,7 @@
 // Import des images des projets
 import bnpOmnicanaliteHero from "@/assets/projects/bnp-omnicanalite-siclid.png";
 import bnpOmnicanaliteDiscovery from "@/assets/projects/bnp-omnicanalite-old-siclid.png";
-import bnpOmnicanaliteConception from "@/assets/projects/bnp-omnicanalite-desktop.png";
+import bnpOmnicanaliteConception from "@/assets/projects/bnp-omnicanalite-conception.png";
 import bnpOmnicanaliteTest from "@/assets/projects/bnp-omnicanalite-test.png";
 import bnpOmnicanaliteDelivery from "@/assets/projects/bnp-omnicanalite-delivery.png";
 import bnpSouscriptionHero from "@/assets/projects/bnp-souscription-hero.png";
