@@ -8,6 +8,8 @@ export interface ProcessStep {
   description: string;
   image_url?: string;
   image_caption?: string;
+  activities?: string[];
+  deliverables?: string;
 }
 
 export interface Project {
