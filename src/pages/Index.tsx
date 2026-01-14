@@ -187,7 +187,7 @@ export default function Index() {
               viewport={{ once: true }}
               variants={stagger}
             >
-              {featuredProjects.map((project) => (
+              {featuredProjects.slice(0, 3).map((project) => (
                 <motion.div key={project.id} variants={fadeInUp}>
                   <ProjectCard
                     id={project.id}
