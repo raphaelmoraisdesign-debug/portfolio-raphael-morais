@@ -17,15 +17,15 @@ const toolCategories: ToolCategory[] = [
     tools: [
       { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg", description: "Maquettage & Prototype" },
       { name: "Figjam", logo: "https://cdn.brandfetch.io/idZHcZ_i7F/w/400/h/400/theme/dark/icon.png", description: "Facilitation d'ateliers UX" },
-      { name: "Klaxoon", logo: "https://cdn.brandfetch.io/idCwYcH8E8/w/400/h/400/theme/dark/icon.jpeg", description: "Facilitation d'ateliers UX" },
+      { name: "Klaxoon", logo: "https://cdn.worldvectorlogo.com/logos/klaxoon.svg", description: "Facilitation d'ateliers UX" },
     ]
   },
   {
     title: "Outils IA",
     tools: [
       { name: "ChatGPT", logo: "https://cdn.worldvectorlogo.com/logos/chatgpt-6.svg", description: "Assistant IA conversationnel" },
-      { name: "Perplexity.ai", logo: "https://cdn.brandfetch.io/id20pNPHJT/w/400/h/400/theme/dark/icon.jpeg", description: "Recherche IA avancée" },
-      { name: "Lovable.dev", logo: "https://cdn.brandfetch.io/idnPXsT3a_/w/400/h/400/theme/dark/icon.jpeg", description: "Développement assisté par IA" },
+      { name: "Perplexity.ai", logo: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Perplexity_AI_logo.svg", description: "Recherche IA avancée" },
+      { name: "Lovable.dev", logo: "https://lovable.dev/favicon.ico", description: "Développement assisté par IA" },
     ]
   },
   {
@@ -38,7 +38,7 @@ const toolCategories: ToolCategory[] = [
   {
     title: "Recherche UX",
     tools: [
-      { name: "UserTesting", logo: "https://cdn.brandfetch.io/idHGM_TJYe/w/400/h/400/theme/dark/icon.jpeg", description: "UX Research & Data" },
+      { name: "UserTesting", logo: "https://upload.wikimedia.org/wikipedia/commons/5/5c/UserTesting_logo.svg", description: "UX Research & Data" },
     ]
   },
   {
