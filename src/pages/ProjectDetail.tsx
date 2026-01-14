@@ -350,9 +350,9 @@ export default function ProjectDetail() {
             <div className="space-y-10 md:space-y-16">
               {project.process.map((step: any, index: number) => (
                 <div key={step.step}>
-                  <div className="grid md:grid-cols-2 gap-4 md:gap-10 items-start">
+                  <div className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1 max-w-2xl'} gap-4 md:gap-10 items-start`}>
                     {/* Left: Content */}
-                    <div className={`${index % 2 === 1 ? "md:order-2" : ""}`}>
+                    <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
                       <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
                         <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-base md:text-lg shrink-0">
                           {step.step}
@@ -382,9 +382,9 @@ export default function ProjectDetail() {
                       </div>
                     </div>
 
-                    {/* Right: Image placeholder */}
-                    <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
-                      {step.image ? (
+                    {/* Right: Image - only shown if image exists */}
+                    {step.image && (
+                      <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
                         <motion.div
                           initial={{ opacity: 0, scale: 0.95 }}
                           whileInView={{ opacity: 1, scale: 1 }}
@@ -402,18 +402,8 @@ export default function ProjectDetail() {
                             <p className="mt-3 text-sm text-text-tertiary text-center italic">{step.imageCaption}</p>
                           )}
                         </motion.div>
-                      ) : (
-                        <div className="w-full aspect-[4/3] rounded-xl bg-card border-2 border-dashed border-border flex items-center justify-center">
-                          <div className="text-center p-6">
-                            <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center mx-auto mb-3">
-                              <span className="text-2xl">🖼️</span>
-                            </div>
-                            <p className="text-sm text-text-tertiary">Emplacement visuel</p>
-                            <p className="text-xs text-text-tertiary mt-1">Écran, photo, schéma...</p>
-                          </div>
-                        </div>
-                      )}
-                    </div>
+                      </div>
+                    )}
                   </div>
                 </div>
               ))}
