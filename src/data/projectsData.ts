@@ -181,7 +181,7 @@ export const projectsData: ProjectData[] = [
         ],
         deliverables: "Wireframes validés, prototype Figma, composants design system",
         image: bnpOmnicanaliteConception,
-        imageCaption: "Interface de simulation et de comparateurs",
+        imageCaption: "Vue de l'outil sur desktop, navigation entièrement pensée pour une utilisation au clavier",
       },
       {
         step: "03",
