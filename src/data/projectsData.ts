@@ -18,6 +18,9 @@ import gbsHero from "@/assets/projects/gbs-hero.png";
 import grandEstHero from "@/assets/projects/grand-est-hero.png";
 import docalflexHero from "@/assets/projects/docalflex-hero.png";
 
+// Import des logos d'outils
+import usertestingLogo from "@/assets/tools/usertesting-logo.svg";
+
 // =========================================================
 // TYPES
 // =========================================================
@@ -108,7 +111,7 @@ export interface ProjectData {
 export const toolLogos = {
   figma: { name: "Figma", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" },
   miro: { name: "Miro", logo: "https://asset.brandfetch.io/idAnDTFapY/idYC5f2L1X.png" },
-  userTesting: { name: "User Testing", logo: "https://asset.brandfetch.io/idDUYmv2ln/idwqHNrOc_.svg" },
+  userTesting: { name: "User Testing", logo: usertestingLogo },
   jira: { name: "Jira", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/jira/jira-original.svg" },
   notion: { name: "Notion", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/notion/notion-original.svg" },
   teams: {
