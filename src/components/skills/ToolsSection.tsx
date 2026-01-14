@@ -19,6 +19,9 @@ const toolCategories: ToolCategory[] = [
     tools: [
       { name: "Figma", logo: "https://cdn.worldvectorlogo.com/logos/figma-icon.svg", description: "Maquettage & Prototype" },
       { name: "Figjam", logo: "https://cdn.brandfetch.io/idZHcZ_i7F/w/400/h/400/theme/dark/icon.png", description: "Facilitation d'ateliers UX" },
+      { name: "Sketch", logo: "https://cdn.worldvectorlogo.com/logos/sketch-2.svg", description: "Maquettage & Prototype" },
+      { name: "Adobe XD", logo: "https://cdn.worldvectorlogo.com/logos/adobe-xd-2.svg", description: "Maquettage & Prototype" },
+      { name: "Miro", logo: "https://cdn.worldvectorlogo.com/logos/miro-2.svg", description: "Ateliers & Workshops" },
       { name: "Klaxoon", logo: klaxoonLogo, description: "Facilitation d'ateliers UX" },
     ]
   },
@@ -35,6 +38,7 @@ const toolCategories: ToolCategory[] = [
     tools: [
       { name: "Confluence", logo: "https://cdn.worldvectorlogo.com/logos/confluence-1.svg", description: "Documentation" },
       { name: "Notion", logo: "https://cdn.worldvectorlogo.com/logos/notion-2.svg", description: "Documentation" },
+      { name: "Obsidian", logo: "https://obsidian.md/images/obsidian-logo-gradient.svg", description: "Notes & PKM" },
     ]
   },
   {
