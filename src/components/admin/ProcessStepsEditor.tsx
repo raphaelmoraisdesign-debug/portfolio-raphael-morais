@@ -7,11 +7,41 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { ProcessStep } from "@/hooks/useProjects";
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent,
+} from "@dnd-kit/core";
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 
 interface ProcessStepsEditorProps {
   steps: ProcessStep[];
   onChange: (steps: ProcessStep[]) => void;
   projectSlug: string;
+}
+
+interface SortableStepProps {
+  step: ProcessStep;
+  index: number;
+  id: string;
+  isExpanded: boolean;
+  uploading: number | null;
+  onToggleExpand: () => void;
+  onRemove: () => void;
+  onStepChange: (field: keyof ProcessStep, value: string) => void;
+  onImageUpload: (file: File) => void;
+  onRemoveImage: () => void;
 }
 
 const DEFAULT_STEPS = [
@@ -24,9 +54,183 @@ const DEFAULT_STEPS = [
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
 const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
+function SortableStep({
+  step,
+  index,
+  id,
+  isExpanded,
+  uploading,
+  onToggleExpand,
+  onRemove,
+  onStepChange,
+  onImageUpload,
+  onRemoveImage,
+}: SortableStepProps) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+    zIndex: isDragging ? 50 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      className="border border-border rounded-lg overflow-hidden bg-background"
+    >
+      {/* Header */}
+      <div className="flex items-center gap-2 p-3 bg-muted/50">
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          className="cursor-grab active:cursor-grabbing p-1 h-auto"
+          {...attributes}
+          {...listeners}
+        >
+          <GripVertical className="w-4 h-4 text-text-tertiary" />
+        </Button>
+        <span className="text-sm font-medium text-primary">
+          {String(index + 1).padStart(2, "0")}
+        </span>
+        <span
+          className="flex-1 font-medium truncate cursor-pointer"
+          onClick={onToggleExpand}
+        >
+          {step.title || "Étape sans titre"}
+        </span>
+        {step.image_url && (
+          <span className="text-xs text-text-secondary bg-background px-2 py-0.5 rounded">
+            Image
+          </span>
+        )}
+        <div className="flex items-center gap-1">
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            onClick={onToggleExpand}
+          >
+            {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          </Button>
+          <Button
+            type="button"
+            variant="ghost"
+            size="sm"
+            className="text-destructive hover:text-destructive"
+            onClick={onRemove}
+          >
+            <Trash2 className="w-4 h-4" />
+          </Button>
+        </div>
+      </div>
+
+      {/* Expanded Content */}
+      {isExpanded && (
+        <div className="p-4 space-y-4 border-t border-border">
+          <div className="space-y-2">
+            <Label>Titre de l'étape</Label>
+            <Input
+              value={step.title}
+              onChange={(e) => onStepChange("title", e.target.value)}
+              placeholder="Ex: Discovery & Research"
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Description</Label>
+            <Textarea
+              value={step.description}
+              onChange={(e) => onStepChange("description", e.target.value)}
+              placeholder="Décrivez cette étape du processus..."
+              rows={3}
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Image (optionnel)</Label>
+            {step.image_url ? (
+              <div className="relative">
+                <img
+                  src={step.image_url}
+                  alt={step.title}
+                  className="w-full h-32 object-cover rounded-lg"
+                />
+                <Button
+                  type="button"
+                  variant="destructive"
+                  size="sm"
+                  className="absolute top-2 right-2"
+                  onClick={onRemoveImage}
+                >
+                  <X className="w-4 h-4" />
+                </Button>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary transition-colors">
+                {uploading === index ? (
+                  <span className="text-sm text-text-secondary">Upload en cours...</span>
+                ) : (
+                  <>
+                    <Upload className="w-6 h-6 text-text-secondary mb-1" />
+                    <span className="text-sm text-text-secondary">Cliquez pour uploader</span>
+                  </>
+                )}
+                <input
+                  type="file"
+                  accept=".jpg,.jpeg,.png,.webp,.gif"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) onImageUpload(file);
+                    e.target.value = '';
+                  }}
+                  className="hidden"
+                  disabled={uploading === index}
+                />
+              </label>
+            )}
+          </div>
+
+          {step.image_url && (
+            <div className="space-y-2">
+              <Label>Légende de l'image</Label>
+              <Input
+                value={step.image_caption || ""}
+                onChange={(e) => onStepChange("image_caption", e.target.value)}
+                placeholder="Ex: Logiciel existant avant la refonte"
+              />
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStepsEditorProps) {
   const [expandedIndex, setExpandedIndex] = useState<number | null>(0);
   const [uploading, setUploading] = useState<number | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleAddStep = () => {
     onChange([...steps, { title: "", description: "" }]);
@@ -45,16 +249,6 @@ export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStep
     const newSteps = [...steps];
     newSteps[index] = { ...newSteps[index], [field]: value };
     onChange(newSteps);
-  };
-
-  const handleMoveStep = (index: number, direction: "up" | "down") => {
-    const newIndex = direction === "up" ? index - 1 : index + 1;
-    if (newIndex < 0 || newIndex >= steps.length) return;
-    
-    const newSteps = [...steps];
-    [newSteps[index], newSteps[newIndex]] = [newSteps[newIndex], newSteps[index]];
-    onChange(newSteps);
-    setExpandedIndex(newIndex);
   };
 
   const validateImageFile = (file: File): string | null => {
@@ -119,10 +313,37 @@ export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStep
     onChange(DEFAULT_STEPS);
   };
 
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+
+    if (over && active.id !== over.id) {
+      const oldIndex = steps.findIndex((_, i) => `step-${i}` === active.id);
+      const newIndex = steps.findIndex((_, i) => `step-${i}` === over.id);
+      const newSteps = arrayMove(steps, oldIndex, newIndex);
+      onChange(newSteps);
+      
+      // Update expanded index if needed
+      if (expandedIndex === oldIndex) {
+        setExpandedIndex(newIndex);
+      } else if (expandedIndex !== null) {
+        if (oldIndex < expandedIndex && newIndex >= expandedIndex) {
+          setExpandedIndex(expandedIndex - 1);
+        } else if (oldIndex > expandedIndex && newIndex <= expandedIndex) {
+          setExpandedIndex(expandedIndex + 1);
+        }
+      }
+    }
+  };
+
+  const stepIds = steps.map((_, i) => `step-${i}`);
+
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Label className="text-base font-medium">Étapes du processus</Label>
+        <div>
+          <Label className="text-base font-medium">Étapes du processus</Label>
+          <p className="text-sm text-text-secondary">Glissez-déposez les étapes pour les réorganiser</p>
+        </div>
         {steps.length === 0 && (
           <Button type="button" variant="outline" size="sm" onClick={handleInitializeDefaults}>
             Initialiser les étapes par défaut
@@ -144,160 +365,43 @@ export function ProcessStepsEditor({ steps, onChange, projectSlug }: ProcessStep
           </div>
         </div>
       ) : (
-        <div className="space-y-2">
-          {steps.map((step, index) => (
-            <div
-              key={index}
-              className="border border-border rounded-lg overflow-hidden bg-background"
-            >
-              {/* Header */}
-              <div
-                className="flex items-center gap-2 p-3 bg-muted/50 cursor-pointer"
-                onClick={() => setExpandedIndex(expandedIndex === index ? null : index)}
-              >
-                <GripVertical className="w-4 h-4 text-text-tertiary" />
-                <span className="text-sm font-medium text-primary">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <span className="flex-1 font-medium truncate">
-                  {step.title || "Étape sans titre"}
-                </span>
-                {step.image_url && (
-                  <span className="text-xs text-text-secondary bg-background px-2 py-0.5 rounded">
-                    Image
-                  </span>
-                )}
-                <div className="flex items-center gap-1">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleMoveStep(index, "up");
-                    }}
-                    disabled={index === 0}
-                  >
-                    <ChevronUp className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleMoveStep(index, "down");
-                    }}
-                    disabled={index === steps.length - 1}
-                  >
-                    <ChevronDown className="w-4 h-4" />
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="text-destructive hover:text-destructive"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleRemoveStep(index);
-                    }}
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Expanded Content */}
-              {expandedIndex === index && (
-                <div className="p-4 space-y-4 border-t border-border">
-                  <div className="space-y-2">
-                    <Label>Titre de l'étape</Label>
-                    <Input
-                      value={step.title}
-                      onChange={(e) => handleStepChange(index, "title", e.target.value)}
-                      placeholder="Ex: Discovery & Research"
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Description</Label>
-                    <Textarea
-                      value={step.description}
-                      onChange={(e) => handleStepChange(index, "description", e.target.value)}
-                      placeholder="Décrivez cette étape du processus..."
-                      rows={3}
-                    />
-                  </div>
-
-                  <div className="space-y-2">
-                    <Label>Image (optionnel)</Label>
-                    {step.image_url ? (
-                      <div className="relative">
-                        <img
-                          src={step.image_url}
-                          alt={step.title}
-                          className="w-full h-32 object-cover rounded-lg"
-                        />
-                        <Button
-                          type="button"
-                          variant="destructive"
-                          size="sm"
-                          className="absolute top-2 right-2"
-                          onClick={() => handleRemoveImage(index)}
-                        >
-                          <X className="w-4 h-4" />
-                        </Button>
-                      </div>
-                    ) : (
-                      <label className="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary transition-colors">
-                        {uploading === index ? (
-                          <span className="text-sm text-text-secondary">Upload en cours...</span>
-                        ) : (
-                          <>
-                            <Upload className="w-6 h-6 text-text-secondary mb-1" />
-                            <span className="text-sm text-text-secondary">Cliquez pour uploader</span>
-                          </>
-                        )}
-                        <input
-                          type="file"
-                          accept=".jpg,.jpeg,.png,.webp,.gif"
-                          onChange={(e) => {
-                            const file = e.target.files?.[0];
-                            if (file) handleImageUpload(index, file);
-                            e.target.value = '';
-                          }}
-                          className="hidden"
-                          disabled={uploading === index}
-                        />
-                      </label>
-                    )}
-                  </div>
-
-                  {step.image_url && (
-                    <div className="space-y-2">
-                      <Label>Légende de l'image</Label>
-                      <Input
-                        value={step.image_caption || ""}
-                        onChange={(e) => handleStepChange(index, "image_caption", e.target.value)}
-                        placeholder="Ex: Logiciel existant avant la refonte"
-                      />
-                    </div>
-                  )}
-                </div>
-              )}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext items={stepIds} strategy={verticalListSortingStrategy}>
+            <div className="space-y-2">
+              {steps.map((step, index) => (
+                <SortableStep
+                  key={`step-${index}`}
+                  id={`step-${index}`}
+                  step={step}
+                  index={index}
+                  isExpanded={expandedIndex === index}
+                  uploading={uploading}
+                  onToggleExpand={() => setExpandedIndex(expandedIndex === index ? null : index)}
+                  onRemove={() => handleRemoveStep(index)}
+                  onStepChange={(field, value) => handleStepChange(index, field, value)}
+                  onImageUpload={(file) => handleImageUpload(index, file)}
+                  onRemoveImage={() => handleRemoveImage(index)}
+                />
+              ))}
             </div>
-          ))}
+          </SortableContext>
+        </DndContext>
+      )}
 
-          <Button
-            type="button"
-            variant="outline"
-            className="w-full"
-            onClick={handleAddStep}
-          >
-            <Plus className="w-4 h-4 mr-2" />
-            Ajouter une étape
-          </Button>
-        </div>
+      {steps.length > 0 && (
+        <Button
+          type="button"
+          variant="outline"
+          className="w-full"
+          onClick={handleAddStep}
+        >
+          <Plus className="w-4 h-4 mr-2" />
+          Ajouter une étape
+        </Button>
       )}
     </div>
   );
