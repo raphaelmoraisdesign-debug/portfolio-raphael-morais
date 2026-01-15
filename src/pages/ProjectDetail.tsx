@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, TrendingUp, TrendingDown, Quote, Lightbulb, Target } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
@@ -472,51 +472,121 @@ export default function ProjectDetail() {
               </div>
             )}
 
-            {/* Quantitative */}
-            <div className="mb-8 md:mb-10">
-              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Résultats quantitatifs</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 md:gap-4">
-                {project.results.quantitative.map((result: any, i: number) => (
-                  <div
-                    key={i}
-                    className="bg-card rounded-lg md:rounded-xl p-4 md:p-6 text-center border border-border/50 hover:border-primary/30 transition-colors duration-250"
-                  >
-                    <p className="text-xs md:text-sm text-text-secondary mb-1.5 md:mb-2">{result.metric}</p>
-                    <div className="flex items-center justify-center gap-1.5 md:gap-2 mb-1.5 md:mb-2">
-                      <span className="text-text-tertiary line-through text-sm md:text-base">{result.before}</span>
-                      <ArrowRight className="w-3 h-3 md:w-4 md:h-4 text-primary" />
-                      <span className="text-xl md:text-2xl font-bold text-foreground">{result.after}</span>
-                    </div>
-                    <span className="text-primary font-semibold text-sm md:text-base">{result.change}</span>
-                  </div>
-                ))}
+            {/* Impact Metrics - Hero Display */}
+            <div className="mb-10 md:mb-14">
+              <div className="flex items-center gap-2 mb-6">
+                <Target className="w-5 h-5 text-primary" />
+                <h4 className="font-semibold text-foreground text-base md:text-lg">Métriques d'impact</h4>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                {project.results.quantitative.map((result: any, i: number) => {
+                  const isPositive = result.change.includes('+') || result.change.includes('-') && (result.metric.toLowerCase().includes('temps') || result.metric.toLowerCase().includes('erreur') || result.metric.toLowerCase().includes('abandon') || result.metric.toLowerCase().includes('ticket'));
+                  const isNegativeGood = result.change.includes('-') && (result.metric.toLowerCase().includes('temps') || result.metric.toLowerCase().includes('erreur') || result.metric.toLowerCase().includes('abandon') || result.metric.toLowerCase().includes('ticket'));
+                  
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.4 }}
+                      className="relative bg-gradient-to-br from-card to-card/80 rounded-xl md:rounded-2xl p-5 md:p-8 border border-primary/20 shadow-soft hover:shadow-elevated hover:border-primary/40 transition-all duration-300 group overflow-hidden"
+                    >
+                      {/* Background accent */}
+                      <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+                      
+                      {/* Metric label */}
+                      <p className="text-sm md:text-base font-medium text-foreground mb-4 relative z-10">{result.metric}</p>
+                      
+                      {/* Change indicator - Hero element */}
+                      <div className="flex items-center gap-2 mb-4">
+                        <div className={`flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full ${isNegativeGood || result.change.includes('+') ? 'bg-green-500/15' : 'bg-primary/15'}`}>
+                          {isNegativeGood ? (
+                            <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
+                          ) : (
+                            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                          )}
+                        </div>
+                        <span className={`text-2xl md:text-4xl font-bold ${isNegativeGood || result.change.includes('+') ? 'text-green-600' : 'text-primary'}`}>
+                          {result.change}
+                        </span>
+                      </div>
+                      
+                      {/* Before/After comparison */}
+                      <div className="flex items-center gap-3 text-sm md:text-base relative z-10">
+                        <div className="flex flex-col">
+                          <span className="text-xs text-text-tertiary uppercase tracking-wide">Avant</span>
+                          <span className="text-text-secondary line-through">{result.before}</span>
+                        </div>
+                        <ArrowRight className="w-4 h-4 text-primary shrink-0" />
+                        <div className="flex flex-col">
+                          <span className="text-xs text-text-tertiary uppercase tracking-wide">Après</span>
+                          <span className="font-semibold text-foreground">{result.after}</span>
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Qualitative */}
-            <div className="mb-8 md:mb-10">
-              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Résultats qualitatifs</h4>
-              <ul className="space-y-2 md:space-y-3">
-                {project.results.qualitative.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
-                    <span className="w-1.5 h-1.5 bg-primary rounded-full mt-1.5 md:mt-2 shrink-0" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
+            {/* Qualitative Results - Testimonials style */}
+            <div className="mb-10 md:mb-14">
+              <div className="flex items-center gap-2 mb-6">
+                <Quote className="w-5 h-5 text-primary" />
+                <h4 className="font-semibold text-foreground text-base md:text-lg">Retours qualitatifs</h4>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                {project.results.qualitative.map((item: string, i: number) => {
+                  const isQuote = item.includes('"');
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, x: -10 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.3 }}
+                      className={`p-4 md:p-5 rounded-xl ${isQuote ? 'bg-primary/5 border-l-4 border-primary' : 'bg-card border border-border/50'}`}
+                    >
+                      {isQuote ? (
+                        <p className="text-text-secondary italic text-sm md:text-base leading-relaxed">{item}</p>
+                      ) : (
+                        <div className="flex items-start gap-3">
+                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2 shrink-0" />
+                          <p className="text-text-secondary text-sm md:text-base">{item}</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  );
+                })}
+              </div>
             </div>
 
-            {/* Learnings */}
+            {/* Learnings - Insight cards */}
             <div>
-              <h4 className="font-semibold text-foreground mb-3 md:mb-4 text-sm md:text-base">Enseignements clés</h4>
-              <ul className="space-y-2 md:space-y-3">
-                {project.results.learnings.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
-                    <span className="text-accent">💡</span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
+              <div className="flex items-center gap-2 mb-6">
+                <Lightbulb className="w-5 h-5 text-amber-500" />
+                <h4 className="font-semibold text-foreground text-base md:text-lg">Enseignements clés</h4>
+              </div>
+              <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 rounded-xl md:rounded-2xl p-5 md:p-8 border border-amber-200/50 dark:border-amber-800/30">
+                <div className="space-y-4 md:space-y-5">
+                  {project.results.learnings.map((item: string, i: number) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 10 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.15, duration: 0.3 }}
+                      className="flex items-start gap-3 md:gap-4"
+                    >
+                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+                        <span className="text-amber-600 font-bold text-sm md:text-base">{i + 1}</span>
+                      </div>
+                      <p className="text-text-secondary text-sm md:text-base leading-relaxed pt-1">{item}</p>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
             </div>
           </motion.section>
 
