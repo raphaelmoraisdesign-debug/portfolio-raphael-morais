@@ -1,6 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, TrendingUp, TrendingDown, Quote } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, Quote } from "lucide-react";
+import { ImpactCard } from "@/components/ui/impact-card";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
@@ -476,44 +477,16 @@ export default function ProjectDetail() {
             <div className="mb-12 md:mb-16">
               <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.results.quantitative.map((result: any, i: number) => {
-                  const isNegativeGood = result.change.includes('-') && (result.metric.toLowerCase().includes('temps') || result.metric.toLowerCase().includes('erreur') || result.metric.toLowerCase().includes('abandon') || result.metric.toLowerCase().includes('ticket'));
-                  
-                  return (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05, duration: 0.3 }}
-                      className="bg-card rounded-xl p-5 md:p-6 border border-border shadow-card hover:shadow-elevated hover:border-primary/30 transition-all duration-250"
-                    >
-                      {/* Metric name */}
-                      <p className="text-sm text-text-secondary mb-3">{result.metric}</p>
-                      
-                      {/* Change value */}
-                      <div className="flex items-center gap-2 mb-4">
-                        <span className="text-2xl md:text-3xl font-bold text-primary">
-                          {result.change}
-                        </span>
-                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10">
-                          {isNegativeGood ? (
-                            <TrendingDown className="w-3.5 h-3.5 text-primary" />
-                          ) : (
-                            <TrendingUp className="w-3.5 h-3.5 text-primary" />
-                          )}
-                        </div>
-                      </div>
-                      
-                      {/* Before/After */}
-                      <div className="flex items-center gap-2 text-sm">
-                        <span className="text-text-tertiary line-through">{result.before}</span>
-                        <ArrowRight className="w-3.5 h-3.5 text-text-tertiary" />
-                        <span className="font-medium text-foreground">{result.after}</span>
-                      </div>
-                    </motion.div>
-                  );
-                })}
+                {project.results.quantitative.map((result: any, i: number) => (
+                  <ImpactCard
+                    key={i}
+                    metric={result.metric}
+                    change={result.change}
+                    before={result.before}
+                    after={result.after}
+                    index={i}
+                  />
+                ))}
               </div>
             </div>
 
