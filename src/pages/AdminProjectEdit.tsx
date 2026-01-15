@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
-import { motion } from "framer-motion";
-import { ArrowLeft, Save, Loader2, Upload, X } from "lucide-react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Save, Loader2, Upload, X, Check } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useProject, useCreateProject, useUpdateProject, ProjectInsert, ProcessStep } from "@/hooks/useProjects";
 import { supabase } from "@/integrations/supabase/client";
+import { AdminLayout } from "@/components/layout/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { ProcessStepsEditor } from "@/components/admin/ProcessStepsEditor";
 import { GalleryEditor } from "@/components/admin/GalleryEditor";
 import { ToolsEditor } from "@/components/admin/ToolsEditor";
+import { cn } from "@/lib/utils";
 
 const generateSlug = (title: string) => {
   return title
@@ -23,6 +24,21 @@ const generateSlug = (title: string) => {
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 };
+
+type TabId = "general" | "content" | "process" | "gallery" | "options";
+
+interface Tab {
+  id: TabId;
+  label: string;
+}
+
+const tabs: Tab[] = [
+  { id: "general", label: "Général" },
+  { id: "content", label: "Contenu" },
+  { id: "process", label: "Processus" },
+  { id: "gallery", label: "Galerie" },
+  { id: "options", label: "Options" },
+];
 
 export default function AdminProjectEdit() {
   const { slug } = useParams();
@@ -34,6 +50,7 @@ export default function AdminProjectEdit() {
   const createProject = useCreateProject();
   const updateProject = useUpdateProject();
 
+  const [activeTab, setActiveTab] = useState<TabId>("general");
   const [formData, setFormData] = useState<Partial<ProjectInsert>>({
     title: "",
     slug: "",
@@ -56,6 +73,7 @@ export default function AdminProjectEdit() {
   const [heroImage, setHeroImage] = useState<File | null>(null);
   const [heroPreview, setHeroPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
+  const [saved, setSaved] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) {
@@ -102,11 +120,11 @@ export default function AdminProjectEdit() {
     if (field === "title" && isNew) {
       setFormData(prev => ({ ...prev, slug: generateSlug(value) }));
     }
+    setSaved(false);
   };
 
-  // Allowed image types (excluding SVG to prevent XSS)
   const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const MAX_FILE_SIZE = 5 * 1024 * 1024;
 
   const validateImageFile = (file: File): string | null => {
     if (!ALLOWED_TYPES.includes(file.type)) {
@@ -124,22 +142,21 @@ export default function AdminProjectEdit() {
       const validationError = validateImageFile(file);
       if (validationError) {
         toast.error(validationError);
-        e.target.value = ''; // Reset input
+        e.target.value = '';
         return;
       }
       setHeroImage(file);
       setHeroPreview(URL.createObjectURL(file));
+      setSaved(false);
     }
   };
 
   const uploadImage = async (file: File): Promise<string> => {
-    // Re-validate before upload (defense in depth)
     const validationError = validateImageFile(file);
     if (validationError) {
       throw new Error(validationError);
     }
 
-    // Use MIME type for extension, not user-provided filename
     const mimeToExt: Record<string, string> = {
       'image/jpeg': 'jpg',
       'image/png': 'png',
@@ -166,11 +183,12 @@ export default function AdminProjectEdit() {
     return data.publicUrl;
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = async (e?: React.FormEvent) => {
+    e?.preventDefault();
     
     if (!formData.title || !formData.slug || !formData.category || !formData.short_description) {
       toast.error("Veuillez remplir tous les champs obligatoires");
+      setActiveTab("general");
       return;
     }
 
@@ -190,11 +208,16 @@ export default function AdminProjectEdit() {
 
       if (isNew) {
         await createProject.mutateAsync(projectData);
+        toast.success("Projet créé avec succès");
       } else if (existingProject) {
         await updateProject.mutateAsync({ id: existingProject.id, updates: projectData });
+        toast.success("Projet mis à jour");
+        setSaved(true);
       }
 
-      navigate("/admin");
+      if (isNew) {
+        navigate("/admin");
+      }
     } catch (error) {
       console.error(error);
       toast.error("Erreur lors de l'enregistrement");
@@ -216,311 +239,306 @@ export default function AdminProjectEdit() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <header className="border-b border-border bg-card/50 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="sm" asChild>
-              <Link to="/admin">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Retour
-              </Link>
-            </Button>
-            <h1 className="font-display text-xl font-semibold text-foreground">
-              {isNew ? "Nouveau projet" : `Modifier : ${existingProject?.title}`}
-            </h1>
-          </div>
-          <Button onClick={handleSubmit} disabled={uploading}>
-            {uploading ? (
-              <Loader2 className="w-4 h-4 animate-spin mr-2" />
-            ) : (
-              <Save className="w-4 h-4 mr-2" />
-            )}
-            Enregistrer
-          </Button>
-        </div>
-      </header>
-
-      <main className="container py-8 max-w-4xl">
-        <motion.form
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-8"
-          onSubmit={handleSubmit}
+    <AdminLayout
+      title={isNew ? "Nouveau projet" : formData.title || "Modifier le projet"}
+      subtitle={isNew ? "Créer un nouveau projet" : `/${formData.slug}`}
+      showBackButton
+      backTo="/admin"
+      actions={
+        <Button 
+          onClick={() => handleSubmit()} 
+          disabled={uploading}
+          className="gap-2"
         >
-          {/* Informations de base */}
-          <section className="bg-card border border-border rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-lg font-semibold text-foreground mb-4">
-              Informations de base
-            </h2>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="title">Titre *</Label>
-                <Input
-                  id="title"
-                  value={formData.title}
-                  onChange={(e) => handleChange("title", e.target.value)}
-                  placeholder="Ex: BNP Omnicanalité"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="slug">Slug URL *</Label>
-                <Input
-                  id="slug"
-                  value={formData.slug}
-                  onChange={(e) => handleChange("slug", e.target.value)}
-                  placeholder="bnp-omnicanalite"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="category">Catégorie *</Label>
-                <Input
-                  id="category"
-                  value={formData.category}
-                  onChange={(e) => handleChange("category", e.target.value)}
-                  placeholder="Ex: Banque, Éducation, Services"
-                  required
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="client">Client</Label>
-                <Input
-                  id="client"
-                  value={formData.client}
-                  onChange={(e) => handleChange("client", e.target.value)}
-                  placeholder="Ex: BNP Paribas"
-                />
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="short_description">Description courte *</Label>
-              <Textarea
-                id="short_description"
-                value={formData.short_description}
-                onChange={(e) => handleChange("short_description", e.target.value)}
-                placeholder="Une phrase résumant le projet..."
-                required
-              />
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="year">Année</Label>
-                <Input
-                  id="year"
-                  value={formData.year}
-                  onChange={(e) => handleChange("year", e.target.value)}
-                  placeholder="2024"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="duration">Durée</Label>
-                <Input
-                  id="duration"
-                  value={formData.duration}
-                  onChange={(e) => handleChange("duration", e.target.value)}
-                  placeholder="6 mois"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="role">Rôle</Label>
-                <Input
-                  id="role"
-                  value={formData.role}
-                  onChange={(e) => handleChange("role", e.target.value)}
-                  placeholder="Product Designer"
-                />
-              </div>
-            </div>
-          </section>
-
-          {/* Image Hero */}
-          <section className="bg-card border border-border rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-lg font-semibold text-foreground mb-4">
-              Image Hero
-            </h2>
-
-            {heroPreview ? (
-              <div className="relative">
-                <img 
-                  src={heroPreview} 
-                  alt="Preview" 
-                  className="w-full h-48 object-cover rounded-lg"
-                />
-                <Button
-                  type="button"
-                  variant="destructive"
-                  size="sm"
-                  className="absolute top-2 right-2"
-                  onClick={() => {
-                    setHeroImage(null);
-                    setHeroPreview(null);
-                  }}
-                >
-                  <X className="w-4 h-4" />
-                </Button>
-              </div>
-            ) : (
-              <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-primary transition-colors">
-                <Upload className="w-8 h-8 text-text-secondary mb-2" />
-                <span className="text-sm text-text-secondary">Cliquez pour uploader une image</span>
-                <input
-                  type="file"
-                  accept=".jpg,.jpeg,.png,.webp,.gif"
-                  onChange={handleImageChange}
-                  className="hidden"
-                />
-              </label>
-            )}
-          </section>
-
-          {/* Contenu détaillé */}
-          <section className="bg-card border border-border rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-lg font-semibold text-foreground mb-4">
-              Contenu détaillé
-            </h2>
-
-            <div className="space-y-2">
-              <Label htmlFor="context">Contexte</Label>
-              <Textarea
-                id="context"
-                value={formData.context}
-                onChange={(e) => handleChange("context", e.target.value)}
-                placeholder="Décrivez le contexte du projet..."
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="challenge">Challenge</Label>
-              <Textarea
-                id="challenge"
-                value={formData.challenge}
-                onChange={(e) => handleChange("challenge", e.target.value)}
-                placeholder="Quel était le défi à relever ?"
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="solution">Solution</Label>
-              <Textarea
-                id="solution"
-                value={formData.solution}
-                onChange={(e) => handleChange("solution", e.target.value)}
-                placeholder="Quelle solution avez-vous apportée ?"
-                rows={4}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="results">Résultats</Label>
-              <Textarea
-                id="results"
-                value={formData.results}
-                onChange={(e) => handleChange("results", e.target.value)}
-                placeholder="Quels ont été les résultats obtenus ?"
-                rows={4}
-              />
-            </div>
-          </section>
-
-          {/* Outils */}
-          <section className="bg-card border border-border rounded-xl p-6">
-            <ToolsEditor
-              tools={formData.tools || []}
-              onChange={(tools) => handleChange("tools", tools)}
-            />
-          </section>
-
-          {/* Étapes du processus */}
-          <section className="bg-card border border-border rounded-xl p-6">
-            <ProcessStepsEditor
-              steps={formData.process_steps || []}
-              onChange={(steps) => handleChange("process_steps", steps)}
-              projectSlug={formData.slug || "project"}
-            />
-          </section>
-
-          {/* Galerie */}
-          <section className="bg-card border border-border rounded-xl p-6">
-            <GalleryEditor
-              images={formData.gallery_images || []}
-              onChange={(images) => handleChange("gallery_images", images)}
-              projectSlug={formData.slug || "project"}
-              processSteps={formData.process_steps as ProcessStep[] || []}
-              onMoveToStep={(imageUrl, stepIndex) => {
-                const steps = [...(formData.process_steps || [])] as ProcessStep[];
-                if (steps[stepIndex]) {
-                  steps[stepIndex] = { ...steps[stepIndex], image_url: imageUrl };
-                  handleChange("process_steps", steps);
-                }
-              }}
-            />
-          </section>
-
-          {/* Options */}
-          <section className="bg-card border border-border rounded-xl p-6 space-y-4">
-            <h2 className="font-display text-lg font-semibold text-foreground mb-4">
-              Options
-            </h2>
-
-            <div className="flex items-center justify-between">
-              <div>
-                <Label htmlFor="is_featured">Projet mis en avant</Label>
-                <p className="text-sm text-text-secondary">
-                  Afficher ce projet sur la page d'accueil
-                </p>
-              </div>
-              <Switch
-                id="is_featured"
-                checked={formData.is_featured}
-                onCheckedChange={(checked) => handleChange("is_featured", checked)}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="display_order">Ordre d'affichage</Label>
-              <Input
-                id="display_order"
-                type="number"
-                value={formData.display_order}
-                onChange={(e) => handleChange("display_order", parseInt(e.target.value) || 0)}
-                placeholder="0"
-                className="w-24"
-              />
-              <p className="text-xs text-text-tertiary">
-                Les projets avec un ordre plus bas s'affichent en premier
-              </p>
-            </div>
-          </section>
-
-          {/* Submit button (mobile) */}
-          <div className="md:hidden">
-            <Button 
-              type="submit" 
-              className="w-full" 
-              size="lg"
-              disabled={uploading}
-            >
-              {uploading ? (
-                <Loader2 className="w-4 h-4 animate-spin mr-2" />
-              ) : (
-                <Save className="w-4 h-4 mr-2" />
+          {uploading ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : saved ? (
+            <Check className="w-4 h-4" />
+          ) : (
+            <Save className="w-4 h-4" />
+          )}
+          {saved ? "Enregistré" : "Enregistrer"}
+        </Button>
+      }
+    >
+      <div className="max-w-4xl">
+        {/* Tabs */}
+        <div className="flex gap-1 p-1 bg-muted/50 rounded-lg mb-8 overflow-x-auto">
+          {tabs.map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setActiveTab(tab.id)}
+              className={cn(
+                "px-4 py-2 rounded-md text-sm font-medium transition-all whitespace-nowrap",
+                activeTab === tab.id
+                  ? "bg-card text-foreground shadow-sm"
+                  : "text-text-secondary hover:text-foreground"
               )}
-              Enregistrer le projet
-            </Button>
-          </div>
-        </motion.form>
-      </main>
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* General Tab */}
+          {activeTab === "general" && (
+            <div className="space-y-6">
+              {/* Hero Image */}
+              <FormSection title="Image Hero">
+                {heroPreview ? (
+                  <div className="relative group">
+                    <img 
+                      src={heroPreview} 
+                      alt="Preview" 
+                      className="w-full h-48 object-cover rounded-xl"
+                    />
+                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center">
+                      <Button
+                        type="button"
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => {
+                          setHeroImage(null);
+                          setHeroPreview(null);
+                          setSaved(false);
+                        }}
+                      >
+                        <X className="w-4 h-4 mr-2" />
+                        Supprimer
+                      </Button>
+                    </div>
+                  </div>
+                ) : (
+                  <label className="flex flex-col items-center justify-center w-full h-48 border-2 border-dashed border-border rounded-xl cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-all">
+                    <Upload className="w-8 h-8 text-text-tertiary mb-3" />
+                    <span className="text-sm font-medium text-foreground">Cliquez pour uploader</span>
+                    <span className="text-xs text-text-tertiary mt-1">JPG, PNG, WebP ou GIF • Max 5MB</span>
+                    <input
+                      type="file"
+                      accept=".jpg,.jpeg,.png,.webp,.gif"
+                      onChange={handleImageChange}
+                      className="hidden"
+                    />
+                  </label>
+                )}
+              </FormSection>
+
+              {/* Basic Info */}
+              <FormSection title="Informations de base">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField label="Titre" required>
+                    <Input
+                      value={formData.title}
+                      onChange={(e) => handleChange("title", e.target.value)}
+                      placeholder="Ex: BNP Omnicanalité"
+                    />
+                  </FormField>
+                  <FormField label="Slug URL" required>
+                    <Input
+                      value={formData.slug}
+                      onChange={(e) => handleChange("slug", e.target.value)}
+                      placeholder="bnp-omnicanalite"
+                    />
+                  </FormField>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField label="Catégorie" required>
+                    <Input
+                      value={formData.category}
+                      onChange={(e) => handleChange("category", e.target.value)}
+                      placeholder="Ex: Banque, Éducation"
+                    />
+                  </FormField>
+                  <FormField label="Client">
+                    <Input
+                      value={formData.client}
+                      onChange={(e) => handleChange("client", e.target.value)}
+                      placeholder="Ex: BNP Paribas"
+                    />
+                  </FormField>
+                </div>
+
+                <FormField label="Description courte" required>
+                  <Textarea
+                    value={formData.short_description}
+                    onChange={(e) => handleChange("short_description", e.target.value)}
+                    placeholder="Une phrase résumant le projet..."
+                    rows={2}
+                  />
+                </FormField>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                  <FormField label="Année">
+                    <Input
+                      value={formData.year}
+                      onChange={(e) => handleChange("year", e.target.value)}
+                      placeholder="2024"
+                    />
+                  </FormField>
+                  <FormField label="Durée">
+                    <Input
+                      value={formData.duration}
+                      onChange={(e) => handleChange("duration", e.target.value)}
+                      placeholder="6 mois"
+                    />
+                  </FormField>
+                  <FormField label="Rôle">
+                    <Input
+                      value={formData.role}
+                      onChange={(e) => handleChange("role", e.target.value)}
+                      placeholder="Product Designer"
+                    />
+                  </FormField>
+                </div>
+              </FormSection>
+
+              {/* Tools */}
+              <FormSection title="Outils">
+                <ToolsEditor
+                  tools={formData.tools || []}
+                  onChange={(tools) => handleChange("tools", tools)}
+                />
+              </FormSection>
+            </div>
+          )}
+
+          {/* Content Tab */}
+          {activeTab === "content" && (
+            <div className="space-y-6">
+              <FormSection title="Contexte & Challenge">
+                <FormField label="Contexte">
+                  <Textarea
+                    value={formData.context}
+                    onChange={(e) => handleChange("context", e.target.value)}
+                    placeholder="Décrivez le contexte du projet..."
+                    rows={5}
+                  />
+                </FormField>
+
+                <FormField label="Challenge">
+                  <Textarea
+                    value={formData.challenge}
+                    onChange={(e) => handleChange("challenge", e.target.value)}
+                    placeholder="Quel était le défi à relever ?"
+                    rows={5}
+                  />
+                </FormField>
+              </FormSection>
+
+              <FormSection title="Solution & Résultats">
+                <FormField label="Solution">
+                  <Textarea
+                    value={formData.solution}
+                    onChange={(e) => handleChange("solution", e.target.value)}
+                    placeholder="Quelle solution avez-vous apportée ?"
+                    rows={5}
+                  />
+                </FormField>
+
+                <FormField label="Résultats">
+                  <Textarea
+                    value={formData.results}
+                    onChange={(e) => handleChange("results", e.target.value)}
+                    placeholder="Quels ont été les résultats obtenus ?"
+                    rows={5}
+                  />
+                </FormField>
+              </FormSection>
+            </div>
+          )}
+
+          {/* Process Tab */}
+          {activeTab === "process" && (
+            <FormSection title="Étapes du processus">
+              <ProcessStepsEditor
+                steps={formData.process_steps || []}
+                onChange={(steps) => handleChange("process_steps", steps)}
+                projectSlug={formData.slug || "project"}
+              />
+            </FormSection>
+          )}
+
+          {/* Gallery Tab */}
+          {activeTab === "gallery" && (
+            <FormSection title="Galerie d'images">
+              <GalleryEditor
+                images={formData.gallery_images || []}
+                onChange={(images) => handleChange("gallery_images", images)}
+                projectSlug={formData.slug || "project"}
+                processSteps={formData.process_steps as ProcessStep[] || []}
+                onMoveToStep={(imageUrl, stepIndex) => {
+                  const steps = [...(formData.process_steps || [])] as ProcessStep[];
+                  if (steps[stepIndex]) {
+                    steps[stepIndex] = { ...steps[stepIndex], image_url: imageUrl };
+                    handleChange("process_steps", steps);
+                  }
+                }}
+              />
+            </FormSection>
+          )}
+
+          {/* Options Tab */}
+          {activeTab === "options" && (
+            <FormSection title="Options d'affichage">
+              <div className="flex items-center justify-between p-4 bg-muted/30 rounded-xl">
+                <div>
+                  <Label className="text-base font-medium">Projet mis en avant</Label>
+                  <p className="text-sm text-text-secondary mt-0.5">
+                    Afficher ce projet sur la page d'accueil
+                  </p>
+                </div>
+                <Switch
+                  checked={formData.is_featured}
+                  onCheckedChange={(checked) => handleChange("is_featured", checked)}
+                />
+              </div>
+
+              <FormField label="Ordre d'affichage">
+                <Input
+                  type="number"
+                  value={formData.display_order}
+                  onChange={(e) => handleChange("display_order", parseInt(e.target.value) || 0)}
+                  className="max-w-32"
+                />
+                <p className="text-xs text-text-tertiary mt-1.5">
+                  Les projets sont triés par ordre croissant
+                </p>
+              </FormField>
+            </FormSection>
+          )}
+        </form>
+      </div>
+    </AdminLayout>
+  );
+}
+
+function FormSection({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <section className="bg-card border border-border rounded-xl p-6 space-y-5">
+      <h2 className="font-display text-lg font-semibold text-foreground">{title}</h2>
+      {children}
+    </section>
+  );
+}
+
+function FormField({ 
+  label, 
+  required, 
+  children 
+}: { 
+  label: string; 
+  required?: boolean; 
+  children: React.ReactNode 
+}) {
+  return (
+    <div className="space-y-2">
+      <Label className="text-sm font-medium">
+        {label}
+        {required && <span className="text-destructive ml-0.5">*</span>}
+      </Label>
+      {children}
     </div>
   );
 }
