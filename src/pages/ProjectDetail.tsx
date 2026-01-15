@@ -500,14 +500,14 @@ export default function ProjectDetail() {
                       
                       {/* Change indicator - Hero element */}
                       <div className="flex items-center gap-2 mb-4">
-                        <div className={`flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full ${isNegativeGood || result.change.includes('+') ? 'bg-green-500/15' : 'bg-primary/15'}`}>
+                        <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-500/15">
                           {isNegativeGood ? (
                             <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                           ) : (
-                            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-primary" />
+                            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
                           )}
                         </div>
-                        <span className={`text-2xl md:text-4xl font-bold ${isNegativeGood || result.change.includes('+') ? 'text-green-600' : 'text-primary'}`}>
+                        <span className="text-2xl md:text-4xl font-bold text-green-600">
                           {result.change}
                         </span>
                       </div>
