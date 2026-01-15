@@ -31,12 +31,12 @@ const services = [
 
 const clients = [
   "Banque & Finance",
-  "Sercice Publique",
+  "Service Public",
   "B2B",
   "B2C",
   "Outils Internes",
   "Grands Comptes",
-  "Ressource Humaines",
+  "Ressources Humaines",
 ];
 
 const methodology = [
