@@ -43,7 +43,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="grid gap-6"
+              className="grid gap-4 md:gap-6"
             >
               {contactChannels.map((channel, index) => (
                 <motion.a
@@ -54,16 +54,16 @@ export default function Contact() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.5, delay: 0.1 + index * 0.1 }}
-                  className="group flex items-center gap-6 p-6 md:p-8 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-250 ease-in-out"
+                  className="group flex items-center gap-4 md:gap-6 p-4 md:p-8 rounded-xl bg-card border border-border/50 hover:border-primary/30 hover:shadow-soft transition-all duration-250 ease-in-out"
                 >
-                  <div className="w-14 h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:scale-105 transition-all duration-250 ease-in-out">
-                    <channel.icon className="w-7 h-7 text-primary group-hover:text-primary-foreground transition-colors duration-250 ease-in-out" />
+                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary group-hover:scale-105 transition-all duration-250 ease-in-out">
+                    <channel.icon className="w-6 h-6 md:w-7 md:h-7 text-primary group-hover:text-primary-foreground transition-colors duration-250 ease-in-out" />
                   </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-250 ease-in-out">
+                  <div className="min-w-0 flex-1">
+                    <h3 className="text-base md:text-lg font-semibold text-foreground mb-1 group-hover:text-primary transition-colors duration-250 ease-in-out">
                       {channel.label}
                     </h3>
-                    <p className="text-text-secondary">
+                    <p className="text-sm md:text-base text-text-secondary break-all md:break-normal">
                       {channel.description}
                     </p>
                   </div>
