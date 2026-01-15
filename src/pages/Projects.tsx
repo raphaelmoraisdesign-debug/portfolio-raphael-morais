@@ -42,7 +42,7 @@ export default function Projects() {
 
           {/* Filters */}
           <motion.div 
-            className="flex flex-wrap gap-2 mb-12"
+            className="flex flex-wrap gap-2 mb-8 md:mb-12 -mx-1 px-1 overflow-x-auto pb-2 scrollbar-hide"
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.4, delay: 0.2 }}
@@ -52,7 +52,7 @@ export default function Projects() {
                 key={sector}
                 onClick={() => setActiveFilter(sector)}
                 className={cn(
-                  "px-4 py-2 rounded-full text-sm font-medium transition-all duration-250 ease-in-out",
+                  "px-3 md:px-4 py-1.5 md:py-2 rounded-full text-xs md:text-sm font-medium transition-all duration-250 ease-in-out whitespace-nowrap shrink-0",
                   activeFilter === sector
                     ? "bg-primary text-primary-foreground shadow-soft"
                     : "bg-secondary text-text-secondary hover:bg-secondary/80 hover:text-foreground"
@@ -65,7 +65,7 @@ export default function Projects() {
 
           {/* Projects Grid */}
           <motion.div 
-            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6"
             initial="initial"
             animate="animate"
             variants={stagger}

@@ -264,7 +264,7 @@ export default function ProjectDetail() {
           {project.gallery && project.gallery.length > 0 && (
             <motion.section initial="initial" whileInView="animate" viewport={{ once: true }} variants={fadeInUp}>
               <SectionTitle title="Aperçu du projet" />
-              <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
                 {project.gallery.map((image: any, i: number) => {
                   const src = typeof image === "string" ? image : image?.src;
                   const alt =
@@ -282,7 +282,7 @@ export default function ProjectDetail() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
                       transition={{ delay: i * 0.1, duration: 0.4 }}
-                      className="group relative overflow-hidden rounded-xl bg-card border border-border shadow-soft hover:shadow-elevated transition-all duration-250"
+                      className="group relative overflow-hidden rounded-lg sm:rounded-xl bg-card border border-border shadow-soft hover:shadow-elevated transition-all duration-250"
                     >
                       <div className="aspect-[4/3] overflow-hidden">
                         <img
@@ -293,8 +293,8 @@ export default function ProjectDetail() {
                       </div>
                       {caption ? (
                         <>
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                          <p className="absolute bottom-0 left-0 right-0 p-4 text-sm text-white font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300 translate-y-2 group-hover:translate-y-0">
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300" />
+                          <p className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-xs sm:text-sm text-white font-medium opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 sm:translate-y-2 sm:group-hover:translate-y-0">
                             {caption}
                           </p>
                         </>
@@ -304,7 +304,7 @@ export default function ProjectDetail() {
                 })}
               </div>
 
-              <p className="text-center text-sm text-text-tertiary mt-4 italic">
+              <p className="text-center text-xs sm:text-sm text-text-tertiary mt-3 sm:mt-4 italic hidden sm:block">
                 💡 Survolez les images pour voir les légendes
               </p>
             </motion.section>
@@ -319,17 +319,17 @@ export default function ProjectDetail() {
             variants={fadeInUp}
           >
             <SectionTitle title="Rôle & équipe" />
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <div>
-                <h4 className="font-semibold text-foreground mb-3">Mon rôle</h4>
-                <p className="text-text-secondary mb-4">{project.role}</p>
-                <p className="text-text-secondary text-sm leading-relaxed">{project.collaboration}</p>
+                <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-sm md:text-base">Mon rôle</h4>
+                <p className="text-text-secondary mb-3 md:mb-4 text-sm md:text-base">{project.role}</p>
+                <p className="text-text-secondary text-xs md:text-sm leading-relaxed">{project.collaboration}</p>
               </div>
               <div>
-                <h4 className="font-semibold text-foreground mb-3">Équipe projet</h4>
-                <ul className="space-y-2">
+                <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-sm md:text-base">Équipe projet</h4>
+                <ul className="space-y-1.5 md:space-y-2">
                   {project.team.map((member: string, i: number) => (
-                    <li key={i} className="text-text-secondary">
+                    <li key={i} className="text-text-secondary text-sm md:text-base">
                       {member}
                     </li>
                   ))}
@@ -422,9 +422,9 @@ export default function ProjectDetail() {
 
             {/* Before/After Visual Comparison */}
             {project.beforeAfterImages && (
-              <div className="mb-12">
-                <h4 className="font-semibold text-foreground mb-6 text-center">Comparaison avant / après</h4>
-                <div className="grid md:grid-cols-2 gap-6">
+              <div className="mb-8 md:mb-12">
+                <h4 className="font-semibold text-foreground mb-4 md:mb-6 text-center text-sm md:text-base">Comparaison avant / après</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                   {/* Before */}
                   <motion.div
                     initial={{ opacity: 0, x: -20 }}
@@ -433,15 +433,15 @@ export default function ProjectDetail() {
                     transition={{ duration: 0.4 }}
                     className="relative group"
                   >
-                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-red-500/90 text-white text-sm font-medium rounded-full">
+                    <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-red-500/90 text-white text-xs md:text-sm font-medium rounded-full">
                       Avant
                     </div>
                     <img
                       src={project.beforeAfterImages.before.src}
                       alt={project.beforeAfterImages.before.alt}
-                      className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-red-200 shadow-soft"
+                      className="w-full aspect-[4/3] object-cover rounded-lg md:rounded-xl border-2 border-red-200 shadow-soft"
                     />
-                    <p className="mt-2 text-sm text-text-tertiary text-center">
+                    <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
                       {project.beforeAfterImages.before.caption}
                     </p>
                   </motion.div>
@@ -454,15 +454,15 @@ export default function ProjectDetail() {
                     transition={{ duration: 0.4, delay: 0.1 }}
                     className="relative group"
                   >
-                    <div className="absolute top-4 left-4 z-10 px-3 py-1 bg-green-500/90 text-white text-sm font-medium rounded-full">
+                    <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-green-500/90 text-white text-xs md:text-sm font-medium rounded-full">
                       Après
                     </div>
                     <img
                       src={project.beforeAfterImages.after.src}
                       alt={project.beforeAfterImages.after.alt}
-                      className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-green-200 shadow-soft"
+                      className="w-full aspect-[4/3] object-cover rounded-lg md:rounded-xl border-2 border-green-200 shadow-soft"
                     />
-                    <p className="mt-2 text-sm text-text-tertiary text-center">
+                    <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
                       {project.beforeAfterImages.after.caption}
                     </p>
                   </motion.div>

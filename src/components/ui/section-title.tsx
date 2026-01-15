@@ -15,15 +15,15 @@ export function SectionTitle({
 }: SectionTitleProps) {
   return (
     <div className={cn(
-      "mb-12",
+      "mb-8 md:mb-12",
       align === "center" && "text-center",
       className
     )}>
-      <h2 className="text-3xl md:text-4xl font-display font-semibold text-foreground mb-3">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-display font-semibold text-foreground mb-2 md:mb-3">
         {title}
       </h2>
       {subtitle && (
-        <p className="text-lg text-text-secondary max-w-2xl">
+        <p className="text-base md:text-lg text-text-secondary max-w-2xl">
           {subtitle}
         </p>
       )}
