@@ -789,7 +789,7 @@ export const projectsData: ProjectData[] = [
     results: {
       quantitative: [
         { metric: "Taux de réussite réservation", before: "58%", after: "72%", change: "+14pts" },
-        { metric: "Utilisation carto 3D", before: "0%", after: "81%", change: "81% des users" },
+        { metric: "Adoption carte 3D", before: "0%", after: "81%", change: "+81pts" },
         { metric: "Temps de réservation", before: "5 min", after: "2 min", change: "-60%" },
       ],
       qualitative: [
