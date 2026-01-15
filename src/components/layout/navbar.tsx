@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Download } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
@@ -50,7 +50,6 @@ export function Navbar() {
           ))}
           <Button asChild variant="outline" size="sm">
             <a href="/CV_raphael_MORAIS_LEAL_2025.pdf" download>
-              <Download className="w-4 h-4 mr-2" />
               Télécharger mon CV
             </a>
           </Button>
@@ -96,7 +95,6 @@ export function Navbar() {
               ))}
               <Button asChild variant="outline" className="mt-2">
                 <a href="/CV_raphael_MORAIS_LEAL_2025.pdf" download onClick={() => setIsOpen(false)}>
-                  <Download className="w-4 h-4 mr-2" />
                   Télécharger mon CV
                 </a>
               </Button>
