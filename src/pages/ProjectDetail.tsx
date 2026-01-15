@@ -1,6 +1,6 @@
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, TrendingUp, TrendingDown, Quote, Lightbulb, Target } from "lucide-react";
+import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, TrendingUp, TrendingDown, Quote } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
@@ -472,57 +472,44 @@ export default function ProjectDetail() {
               </div>
             )}
 
-            {/* Impact Metrics - Hero Display */}
-            <div className="mb-10 md:mb-14">
-              <div className="flex items-center gap-2 mb-6">
-                <Target className="w-5 h-5 text-primary" />
-                <h4 className="font-semibold text-foreground text-base md:text-lg">Métriques d'impact</h4>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+            {/* Impact Metrics */}
+            <div className="mb-12 md:mb-16">
+              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {project.results.quantitative.map((result: any, i: number) => {
-                  const isPositive = result.change.includes('+') || result.change.includes('-') && (result.metric.toLowerCase().includes('temps') || result.metric.toLowerCase().includes('erreur') || result.metric.toLowerCase().includes('abandon') || result.metric.toLowerCase().includes('ticket'));
                   const isNegativeGood = result.change.includes('-') && (result.metric.toLowerCase().includes('temps') || result.metric.toLowerCase().includes('erreur') || result.metric.toLowerCase().includes('abandon') || result.metric.toLowerCase().includes('ticket'));
                   
                   return (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, y: 20 }}
+                      initial={{ opacity: 0, y: 12 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.4 }}
-                      className="relative bg-gradient-to-br from-card to-card/80 rounded-xl md:rounded-2xl p-5 md:p-8 border border-primary/20 shadow-soft hover:shadow-elevated hover:border-primary/40 transition-all duration-300 group overflow-hidden"
+                      transition={{ delay: i * 0.05, duration: 0.3 }}
+                      className="bg-card rounded-xl p-5 md:p-6 border border-border shadow-card hover:shadow-elevated hover:border-primary/30 transition-all duration-250"
                     >
-                      {/* Background accent */}
-                      <div className="absolute top-0 right-0 w-24 h-24 bg-primary/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-150 transition-transform duration-500" />
+                      {/* Metric name */}
+                      <p className="text-sm text-text-secondary mb-3">{result.metric}</p>
                       
-                      {/* Metric label */}
-                      <p className="text-sm md:text-base font-medium text-foreground mb-4 relative z-10">{result.metric}</p>
-                      
-                      {/* Change indicator - Hero element */}
+                      {/* Change value */}
                       <div className="flex items-center gap-2 mb-4">
-                        <div className="flex items-center justify-center w-10 h-10 md:w-12 md:h-12 rounded-full bg-green-500/15">
-                          {isNegativeGood ? (
-                            <TrendingDown className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                          ) : (
-                            <TrendingUp className="w-5 h-5 md:w-6 md:h-6 text-green-600" />
-                          )}
-                        </div>
-                        <span className="text-2xl md:text-4xl font-bold text-green-600">
+                        <span className="text-2xl md:text-3xl font-bold text-primary">
                           {result.change}
                         </span>
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10">
+                          {isNegativeGood ? (
+                            <TrendingDown className="w-3.5 h-3.5 text-primary" />
+                          ) : (
+                            <TrendingUp className="w-3.5 h-3.5 text-primary" />
+                          )}
+                        </div>
                       </div>
                       
-                      {/* Before/After comparison */}
-                      <div className="flex items-center gap-3 text-sm md:text-base relative z-10">
-                        <div className="flex flex-col">
-                          <span className="text-xs text-text-tertiary uppercase tracking-wide">Avant</span>
-                          <span className="text-text-secondary line-through">{result.before}</span>
-                        </div>
-                        <ArrowRight className="w-4 h-4 text-primary shrink-0" />
-                        <div className="flex flex-col">
-                          <span className="text-xs text-text-tertiary uppercase tracking-wide">Après</span>
-                          <span className="font-semibold text-foreground">{result.after}</span>
-                        </div>
+                      {/* Before/After */}
+                      <div className="flex items-center gap-2 text-sm">
+                        <span className="text-text-tertiary line-through">{result.before}</span>
+                        <ArrowRight className="w-3.5 h-3.5 text-text-tertiary" />
+                        <span className="font-medium text-foreground">{result.after}</span>
                       </div>
                     </motion.div>
                   );
@@ -530,30 +517,30 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            {/* Qualitative Results - Testimonials style */}
-            <div className="mb-10 md:mb-14">
-              <div className="flex items-center gap-2 mb-6">
-                <Quote className="w-5 h-5 text-primary" />
-                <h4 className="font-semibold text-foreground text-base md:text-lg">Retours qualitatifs</h4>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+            {/* Qualitative Results */}
+            <div className="mb-12 md:mb-16">
+              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {project.results.qualitative.map((item: string, i: number) => {
                   const isQuote = item.includes('"');
                   return (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, x: -10 }}
-                      whileInView={{ opacity: 1, x: 0 }}
+                      initial={{ opacity: 0, y: 12 }}
+                      whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.3 }}
-                      className={`p-4 md:p-5 rounded-xl ${isQuote ? 'bg-primary/5 border-l-4 border-primary' : 'bg-card border border-border/50'}`}
+                      transition={{ delay: i * 0.05, duration: 0.3 }}
+                      className="bg-card rounded-xl p-5 border border-border shadow-card"
                     >
                       {isQuote ? (
-                        <p className="text-text-secondary italic text-sm md:text-base leading-relaxed">{item}</p>
+                        <div className="flex gap-3">
+                          <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                          <p className="text-text-secondary italic leading-relaxed">{item}</p>
+                        </div>
                       ) : (
                         <div className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-green-500 rounded-full mt-2 shrink-0" />
-                          <p className="text-text-secondary text-sm md:text-base">{item}</p>
+                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
+                          <p className="text-text-secondary leading-relaxed">{item}</p>
                         </div>
                       )}
                     </motion.div>
@@ -562,27 +549,24 @@ export default function ProjectDetail() {
               </div>
             </div>
 
-            {/* Learnings - Insight cards */}
+            {/* Learnings */}
             <div>
-              <div className="flex items-center gap-2 mb-6">
-                <Lightbulb className="w-5 h-5 text-amber-500" />
-                <h4 className="font-semibold text-foreground text-base md:text-lg">Enseignements clés</h4>
-              </div>
-              <div className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-950/20 dark:to-orange-950/20 rounded-xl md:rounded-2xl p-5 md:p-8 border border-amber-200/50 dark:border-amber-800/30">
-                <div className="space-y-4 md:space-y-5">
+              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
+              <div className="bg-primary-light rounded-xl p-6 md:p-8">
+                <div className="space-y-4">
                   {project.results.learnings.map((item: string, i: number) => (
                     <motion.div
                       key={i}
-                      initial={{ opacity: 0, y: 10 }}
+                      initial={{ opacity: 0, y: 8 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}
-                      transition={{ delay: i * 0.15, duration: 0.3 }}
-                      className="flex items-start gap-3 md:gap-4"
+                      transition={{ delay: i * 0.1, duration: 0.3 }}
+                      className="flex items-start gap-4"
                     >
-                      <div className="w-8 h-8 md:w-10 md:h-10 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
-                        <span className="text-amber-600 font-bold text-sm md:text-base">{i + 1}</span>
+                      <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                        <span className="text-primary font-semibold text-sm">{i + 1}</span>
                       </div>
-                      <p className="text-text-secondary text-sm md:text-base leading-relaxed pt-1">{item}</p>
+                      <p className="text-text-secondary leading-relaxed pt-0.5">{item}</p>
                     </motion.div>
                   ))}
                 </div>
