@@ -169,48 +169,50 @@ export default function ProjectDetail() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <div className="bg-card rounded-xl md:rounded-2xl border border-primary/20 shadow-soft p-4 sm:p-6 md:p-10">
-              <div className="grid md:grid-cols-2 gap-6 md:gap-12">
+            <div className="bg-card rounded-xl md:rounded-2xl border border-primary/20 shadow-soft p-4 sm:p-6 md:p-10 overflow-hidden">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
                 {/* Column 1 - À propos du client */}
-                <div className="space-y-3 md:space-y-4">
+                <div className="space-y-3 md:space-y-4 min-w-0">
                   <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                       <Building2 className="w-5 h-5 md:w-6 md:h-6 text-primary" />
                     </div>
-                    <h3 className="text-lg md:text-2xl font-display font-semibold text-foreground">{project.client}</h3>
+                    <h3 className="text-base sm:text-lg md:text-2xl font-display font-semibold text-foreground break-words">{project.client}</h3>
                   </div>
-                  <div className="space-y-1 md:space-y-2 text-text-secondary text-sm md:text-base">
-                    <p className="flex items-center gap-2">
-                      <span className="font-medium text-foreground">Secteur :</span> {project.sector}
+                  <div className="space-y-1 md:space-y-2 text-text-secondary text-xs sm:text-sm md:text-base">
+                    <p className="flex flex-wrap items-center gap-1 sm:gap-2">
+                      <span className="font-medium text-foreground">Secteur :</span> 
+                      <span className="break-words">{project.sector}</span>
                     </p>
-                    <p className="flex items-center gap-2">
-                      <span className="font-medium text-foreground">Audience :</span> {project.audienceCible}
+                    <p className="flex flex-wrap items-start gap-1 sm:gap-2">
+                      <span className="font-medium text-foreground shrink-0">Audience :</span> 
+                      <span className="break-words">{project.audienceCible}</span>
                     </p>
                   </div>
                   <div className="pt-1 md:pt-2">
-                    <p className="text-xs md:text-sm text-primary font-medium bg-primary/5 rounded-lg px-2 md:px-3 py-1.5 md:py-2 inline-block">
+                    <p className="text-xs md:text-sm text-primary font-medium bg-primary/5 rounded-lg px-2 md:px-3 py-1.5 md:py-2 inline-block break-words">
                       {project.statCle}
                     </p>
                   </div>
                 </div>
 
                 {/* Column 2 - Contexte & Problème */}
-                <div className="space-y-3 md:space-y-4">
+                <div className="space-y-3 md:space-y-4 min-w-0">
                   <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
                     <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
                       <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-amber-600" />
                     </div>
-                    <h3 className="text-lg md:text-2xl font-display font-semibold text-foreground">Problème business</h3>
+                    <h3 className="text-base sm:text-lg md:text-2xl font-display font-semibold text-foreground">Problème business</h3>
                   </div>
-                  <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.context}</p>
+                  <p className="text-text-secondary leading-relaxed text-xs sm:text-sm md:text-base">{project.context}</p>
                   <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
                     {project.objectives.map((obj: { text: string; metric: string }, i: number) => (
                       <div
                         key={i}
-                        className="flex items-center justify-between gap-2 md:gap-4 py-1.5 md:py-2 border-b border-border/50 last:border-0"
+                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 py-1.5 md:py-2 border-b border-border/50 last:border-0"
                       >
-                        <span className="text-text-secondary text-sm md:text-base">{obj.text}</span>
-                        <span className="font-semibold text-primary whitespace-nowrap text-sm md:text-base">{obj.metric}</span>
+                        <span className="text-text-secondary text-xs sm:text-sm md:text-base">{obj.text}</span>
+                        <span className="font-semibold text-primary text-xs sm:text-sm md:text-base sm:whitespace-nowrap">{obj.metric}</span>
                       </div>
                     ))}
                   </div>
