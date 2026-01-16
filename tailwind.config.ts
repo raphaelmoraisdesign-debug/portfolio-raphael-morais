@@ -18,14 +18,15 @@ export default {
     extend: {
       fontFamily: {
         sans: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
-        display: ["Inter Tight", "Inter", "system-ui", "sans-serif"],
+        display: ["Space Grotesk", "Inter Tight", "system-ui", "sans-serif"],
       },
       fontSize: {
         // Typography scale based on specs
         'body': ['17px', { lineHeight: '1.6' }],
         'h3': ['24px', { lineHeight: '1.3', fontWeight: '500' }],
         'h2': ['32px', { lineHeight: '1.2', fontWeight: '600' }],
-        'h1': ['48px', { lineHeight: '1.1', fontWeight: '700', letterSpacing: '-0.02em' }],
+        'h1': ['52px', { lineHeight: '1.05', fontWeight: '700', letterSpacing: '-0.03em' }],
+        'hero': ['64px', { lineHeight: '1.02', fontWeight: '700', letterSpacing: '-0.04em' }],
       },
       spacing: {
         // 8pt grid system
@@ -79,6 +80,8 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
           subtle: "hsl(var(--accent-subtle))",
+          secondary: "hsl(var(--accent-secondary))",
+          "secondary-foreground": "hsl(var(--accent-secondary-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
@@ -111,7 +114,8 @@ export default {
         soft: "var(--shadow-soft)",
         elevated: "var(--shadow-elevated)",
         card: "var(--shadow-card)",
-        'card-hover': "0 12px 40px -12px hsl(241 98% 55% / 0.15)",
+        glow: "var(--shadow-glow)",
+        'card-hover': "0 16px 48px -12px hsl(244 76% 59% / 0.2)",
       },
       borderRadius: {
         lg: "var(--radius)",
