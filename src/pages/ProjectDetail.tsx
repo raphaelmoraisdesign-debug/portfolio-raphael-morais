@@ -168,49 +168,44 @@ export default function ProjectDetail() {
           {/* Hidden anchor for navigation */}
           <div id="mission" className="sr-only" />
 
-          {/* CONSTAT Section */}
+          {/* CONSTAT & ACTION Sections - Horizontal Layout */}
           {project.mcar && (
-            <motion.section
-              id="constat"
+            <motion.div
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
               variants={fadeInUp}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
-                  <span className="text-amber-600 font-bold text-lg">02</span>
+              {/* CONSTAT */}
+              <section id="constat">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
+                    <span className="text-amber-600 font-bold text-sm">01</span>
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Constat</h2>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Constat</h2>
-              </div>
-              <div className="bg-card rounded-xl border border-amber-200 p-6 md:p-8 shadow-card">
-                <div className="flex gap-4">
-                  <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-1" />
-                  <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.constat}</p>
+                <div className="bg-card rounded-xl border border-amber-200 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
+                  <div className="flex gap-3">
+                    <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.constat}</p>
+                  </div>
                 </div>
-              </div>
-            </motion.section>
-          )}
+              </section>
 
-          {/* ACTION Section */}
-          {project.mcar && (
-            <motion.section
-              id="action"
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold text-lg">03</span>
+              {/* ACTION */}
+              <section id="action">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                    <span className="text-primary font-bold text-sm">02</span>
+                  </div>
+                  <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Action</h2>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Action</h2>
-              </div>
-              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card">
-                <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.action}</p>
-              </div>
-            </motion.section>
+                <div className="bg-card rounded-xl border border-border p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
+                  <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.action}</p>
+                </div>
+              </section>
+            </motion.div>
           )}
 
           {/* RÉSULTAT Section - MCAR (moved here, right after Action narrative) */}
