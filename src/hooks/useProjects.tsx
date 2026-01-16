@@ -2,6 +2,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
 import type { Json } from "@/integrations/supabase/types";
+import { projectSchema } from "@/lib/validations/project";
 
 export interface ProcessStep {
   title: string;
@@ -57,6 +58,19 @@ function prepareForDb(data: ProjectInsert | ProjectUpdate): Record<string, unkno
   };
 }
 
+// Helper to validate project data before insert/update
+function validateProject(data: ProjectInsert | ProjectUpdate): { isValid: boolean; errors: string[] } {
+  const result = projectSchema.safeParse(data);
+  if (!result.success) {
+    const errors = result.error.errors.map(err => {
+      const path = err.path.join(".");
+      return path ? `${path}: ${err.message}` : err.message;
+    });
+    return { isValid: false, errors };
+  }
+  return { isValid: true, errors: [] };
+}
+
 export function useProjects() {
   return useQuery({
     queryKey: ["projects"],
@@ -110,6 +124,12 @@ export function useCreateProject() {
 
   return useMutation({
     mutationFn: async (project: ProjectInsert) => {
+      // Valider les données avant insertion
+      const validation = validateProject(project);
+      if (!validation.isValid) {
+        throw new Error(`Validation échouée: ${validation.errors.join(", ")}`);
+      }
+
       const { data, error } = await supabase
         .from("projects")
         .insert(prepareForDb(project) as any)
@@ -124,7 +144,8 @@ export function useCreateProject() {
       toast.success("Projet créé avec succès");
     },
     onError: (error) => {
-      toast.error("Erreur lors de la création du projet");
+      const message = error instanceof Error ? error.message : "Erreur lors de la création du projet";
+      toast.error(message);
       console.error(error);
     }
   });
@@ -135,6 +156,12 @@ export function useUpdateProject() {
 
   return useMutation({
     mutationFn: async ({ id, updates }: { id: string; updates: ProjectUpdate }) => {
+      // Valider les données avant mise à jour
+      const validation = validateProject(updates);
+      if (!validation.isValid) {
+        throw new Error(`Validation échouée: ${validation.errors.join(", ")}`);
+      }
+
       const { data, error } = await supabase
         .from("projects")
         .update(prepareForDb(updates) as any)
@@ -150,7 +177,8 @@ export function useUpdateProject() {
       toast.success("Projet mis à jour avec succès");
     },
     onError: (error) => {
-      toast.error("Erreur lors de la mise à jour du projet");
+      const message = error instanceof Error ? error.message : "Erreur lors de la mise à jour du projet";
+      toast.error(message);
       console.error(error);
     }
   });

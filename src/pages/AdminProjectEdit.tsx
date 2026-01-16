@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Save, Loader2, Upload, X, Check } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 import { useProject, useCreateProject, useUpdateProject, ProjectInsert, ProcessStep } from "@/hooks/useProjects";
 import { supabase } from "@/integrations/supabase/client";
 import { AdminLayout } from "@/components/layout/AdminLayout";
@@ -16,15 +15,7 @@ import { GalleryEditor } from "@/components/admin/GalleryEditor";
 import { ToolsEditor } from "@/components/admin/ToolsEditor";
 import { SectorsSelector } from "@/components/admin/SectorsSelector";
 import { cn } from "@/lib/utils";
-
-const generateSlug = (title: string) => {
-  return title
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)/g, "");
-};
+import { normalizeSlug } from "@/lib/validations/project";
 
 type TabId = "general" | "content" | "process" | "gallery" | "options";
 
@@ -46,7 +37,6 @@ export default function AdminProjectEdit() {
   const isNew = slug === "nouveau";
   const navigate = useNavigate();
   
-  const { user, isAdmin, loading: authLoading } = useAuth();
   const { data: existingProject, isLoading: projectLoading } = useProject(isNew ? "" : slug || "");
   const createProject = useCreateProject();
   const updateProject = useUpdateProject();
@@ -76,19 +66,6 @@ export default function AdminProjectEdit() {
   const [heroPreview, setHeroPreview] = useState<string | null>(null);
   const [uploading, setUploading] = useState(false);
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate("/auth");
-    }
-  }, [user, authLoading, navigate]);
-
-  useEffect(() => {
-    if (!authLoading && user && !isAdmin) {
-      toast.error("Vous n'avez pas les droits d'administration");
-      navigate("/");
-    }
-  }, [isAdmin, authLoading, user, navigate]);
 
   useEffect(() => {
     if (existingProject) {
@@ -121,7 +98,7 @@ export default function AdminProjectEdit() {
   const handleChange = (field: keyof ProjectInsert | 'sectors', value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (field === "title" && isNew) {
-      setFormData(prev => ({ ...prev, slug: generateSlug(value) }));
+      setFormData(prev => ({ ...prev, slug: normalizeSlug(value) }));
     }
     setSaved(false);
   };
@@ -229,16 +206,12 @@ export default function AdminProjectEdit() {
     }
   };
 
-  if (authLoading || (!isNew && projectLoading)) {
+  if (!isNew && projectLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
-  }
-
-  if (!user || !isAdmin) {
-    return null;
   }
 
   return (
