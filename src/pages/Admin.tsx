@@ -1,12 +1,10 @@
-import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 import { Pencil, Trash2, Star, Loader2, Search, MoreHorizontal, Eye } from "lucide-react";
-import { useAuth } from "@/hooks/useAuth";
 import { useProjects, useDeleteProject, Project } from "@/hooks/useProjects";
 import { AdminLayout } from "@/components/layout/AdminLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,35 +26,16 @@ import {
 import { cn } from "@/lib/utils";
 
 export default function Admin() {
-  const { user, isAdmin, loading: authLoading, signOut } = useAuth();
   const { data: projects, isLoading } = useProjects();
   const deleteProject = useDeleteProject();
-  const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
 
-  useEffect(() => {
-    if (!authLoading && !user) {
-      navigate("/auth");
-    }
-  }, [user, authLoading, navigate]);
-
-  useEffect(() => {
-    if (!authLoading && user && !isAdmin) {
-      toast.error("Vous n'avez pas les droits d'administration");
-      navigate("/");
-    }
-  }, [isAdmin, authLoading, user, navigate]);
-
-  if (authLoading || isLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
         <Loader2 className="w-8 h-8 animate-spin text-primary" />
       </div>
     );
-  }
-
-  if (!user || !isAdmin) {
-    return null;
   }
 
   const filteredProjects = projects?.filter(project =>
