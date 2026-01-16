@@ -354,239 +354,152 @@ export default function ProjectDetail() {
             </motion.section>
           )}
 
-          {/* Role & Team */}
-          <motion.section
-            id="role"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <SectionTitle title="Rôle & équipe" />
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-              <div>
-                <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-sm md:text-base">Mon rôle</h4>
-                <p className="text-text-secondary mb-3 md:mb-4 text-sm md:text-base">{project.role}</p>
-                <p className="text-text-secondary text-xs md:text-sm leading-relaxed">{project.collaboration}</p>
+
+          {/* RÉSULTAT Section - MCAR */}
+          {project.mcar && (
+            <motion.section
+              id="resultats"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
+                  <span className="text-emerald-600 font-bold text-lg">04</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Résultat</h2>
               </div>
-              <div>
-                <h4 className="font-semibold text-foreground mb-2 md:mb-3 text-sm md:text-base">Équipe projet</h4>
-                <ul className="space-y-1.5 md:space-y-2">
-                  {project.team.map((member: string, i: number) => (
-                    <li key={i} className="text-text-secondary text-sm md:text-base">
-                      {member}
-                    </li>
-                  ))}
-                </ul>
+              
+              {/* Narrative Block */}
+              <div className="bg-card rounded-xl border border-emerald-200 p-6 md:p-8 shadow-card mb-10">
+                <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.resultat}</p>
               </div>
-            </div>
-          </motion.section>
 
-          {/* Process */}
-          <motion.section
-            id="process"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <SectionTitle title="Process & étapes" />
-            <div className="space-y-10 md:space-y-16">
-              {project.process.map((step: any, index: number) => (
-                <div key={step.step}>
-                  <div className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1 max-w-2xl'} gap-4 md:gap-10 items-start`}>
-                    {/* Left: Content */}
-                    <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
-                      <div className="flex items-center gap-3 md:gap-4 mb-3 md:mb-4">
-                        <div className="w-10 h-10 md:w-12 md:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-base md:text-lg shrink-0">
-                          {step.step}
-                        </div>
-                        <div>
-                          <h3 className="text-lg md:text-xl font-semibold text-foreground">{step.title}</h3>
-                        </div>
+              {/* Before/After Visual Comparison */}
+              {project.beforeAfterImages && (
+                <div className="mb-10">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Comparaison avant / après</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    {/* Before */}
+                    <motion.div
+                      initial={{ opacity: 0, x: -20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4 }}
+                      className="relative group"
+                    >
+                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-red-500/90 text-white text-xs md:text-sm font-medium rounded-full">
+                        Avant
                       </div>
-                      <p className="text-text-secondary mb-3 md:mb-4 text-sm md:text-base">{step.summary}</p>
+                      <img
+                        src={project.beforeAfterImages.before.src}
+                        alt={project.beforeAfterImages.before.alt}
+                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-red-200 shadow-soft"
+                      />
+                      <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
+                        {project.beforeAfterImages.before.caption}
+                      </p>
+                    </motion.div>
 
-                      <div className="bg-card rounded-lg p-4 md:p-5 space-y-3 md:space-y-4 border border-border/50">
-                        <div>
-                          <h4 className="text-xs md:text-sm font-semibold text-foreground mb-1.5 md:mb-2">Activités</h4>
-                          <ul className="space-y-1 md:space-y-1.5">
-                            {step.activities.map((activity: string, i: number) => (
-                              <li key={i} className="text-xs md:text-sm text-text-secondary flex items-start gap-2">
-                                <span className="text-primary">→</span>
-                                {activity}
-                              </li>
-                            ))}
-                          </ul>
-                        </div>
-                        <div>
-                          <h4 className="text-xs md:text-sm font-semibold text-foreground mb-1.5 md:mb-2">Livrables</h4>
-                          <p className="text-xs md:text-sm text-text-secondary">{step.deliverables}</p>
-                        </div>
+                    {/* After */}
+                    <motion.div
+                      initial={{ opacity: 0, x: 20 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.4, delay: 0.1 }}
+                      className="relative group"
+                    >
+                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-emerald-500/90 text-white text-xs md:text-sm font-medium rounded-full">
+                        Après
                       </div>
-                    </div>
-
-                    {/* Right: Image - only shown if image exists */}
-                    {step.image && (
-                      <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
-                        <motion.div
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          whileInView={{ opacity: 1, scale: 1 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.2, duration: 0.4 }}
-                          className="relative group"
-                        >
-                          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-primary/5 rounded-2xl transform rotate-2 group-hover:rotate-1 transition-transform duration-300" />
-                          <img
-                            src={step.image}
-                            alt={step.imageCaption || step.title}
-                            className="relative w-full aspect-[4/3] object-cover rounded-xl shadow-soft group-hover:shadow-elevated transition-shadow duration-300"
-                          />
-                          {step.imageCaption && (
-                            <p className="mt-3 text-sm text-text-tertiary text-center italic">{step.imageCaption}</p>
-                          )}
-                        </motion.div>
-                      </div>
-                    )}
+                      <img
+                        src={project.beforeAfterImages.after.src}
+                        alt={project.beforeAfterImages.after.alt}
+                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-emerald-200 shadow-soft"
+                      />
+                      <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
+                        {project.beforeAfterImages.after.caption}
+                      </p>
+                    </motion.div>
                   </div>
                 </div>
-              ))}
-            </div>
-          </motion.section>
+              )}
 
-          {/* Results */}
-          <motion.section
-            id="resultats"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <SectionTitle title="Résultats & impact" />
-
-            {/* Before/After Visual Comparison */}
-            {project.beforeAfterImages && (
-              <div className="mb-8 md:mb-12">
-                <h4 className="font-semibold text-foreground mb-4 md:mb-6 text-center text-sm md:text-base">Comparaison avant / après</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                  {/* Before */}
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4 }}
-                    className="relative group"
-                  >
-                    <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-red-500/90 text-white text-xs md:text-sm font-medium rounded-full">
-                      Avant
-                    </div>
-                    <img
-                      src={project.beforeAfterImages.before.src}
-                      alt={project.beforeAfterImages.before.alt}
-                      className="w-full aspect-[4/3] object-cover rounded-lg md:rounded-xl border-2 border-red-200 shadow-soft"
-                    />
-                    <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
-                      {project.beforeAfterImages.before.caption}
-                    </p>
-                  </motion.div>
-
-                  {/* After */}
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: 0.1 }}
-                    className="relative group"
-                  >
-                    <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-green-500/90 text-white text-xs md:text-sm font-medium rounded-full">
-                      Après
-                    </div>
-                    <img
-                      src={project.beforeAfterImages.after.src}
-                      alt={project.beforeAfterImages.after.alt}
-                      className="w-full aspect-[4/3] object-cover rounded-lg md:rounded-xl border-2 border-green-200 shadow-soft"
-                    />
-                    <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
-                      {project.beforeAfterImages.after.caption}
-                    </p>
-                  </motion.div>
-                </div>
-              </div>
-            )}
-
-            {/* Impact Metrics */}
-            <div className="mb-12 md:mb-16">
-              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {project.results.quantitative.map((result: any, i: number) => (
-                  <ImpactCard
-                    key={i}
-                    metric={result.metric}
-                    change={result.change}
-                    before={result.before}
-                    after={result.after}
-                    index={i}
-                  />
-                ))}
-              </div>
-            </div>
-
-            {/* Qualitative Results */}
-            <div className="mb-12 md:mb-16">
-              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {project.results.qualitative.map((item: string, i: number) => {
-                  const isQuote = item.includes('"');
-                  return (
-                    <motion.div
+              {/* Impact Metrics */}
+              <div className="mb-10">
+                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {project.results.quantitative.map((result: any, i: number) => (
+                    <ImpactCard
                       key={i}
-                      initial={{ opacity: 0, y: 12 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.05, duration: 0.3 }}
-                      className="bg-card rounded-xl p-5 border border-border shadow-card"
-                    >
-                      {isQuote ? (
-                        <div className="flex gap-3">
-                          <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                          <p className="text-text-secondary italic leading-relaxed">{item}</p>
-                        </div>
-                      ) : (
-                        <div className="flex items-start gap-3">
-                          <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
-                          <p className="text-text-secondary leading-relaxed">{item}</p>
-                        </div>
-                      )}
-                    </motion.div>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Learnings */}
-            <div>
-              <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
-              <div className="bg-primary-light rounded-xl p-6 md:p-8">
-                <div className="space-y-4">
-                  {project.results.learnings.map((item: string, i: number) => (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 8 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.3 }}
-                      className="flex items-start gap-4"
-                    >
-                      <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                        <span className="text-primary font-semibold text-sm">{i + 1}</span>
-                      </div>
-                      <p className="text-text-secondary leading-relaxed pt-0.5">{item}</p>
-                    </motion.div>
+                      metric={result.metric}
+                      change={result.change}
+                      before={result.before}
+                      after={result.after}
+                      index={i}
+                    />
                   ))}
                 </div>
               </div>
-            </div>
-          </motion.section>
+
+              {/* Qualitative Results */}
+              <div className="mb-10">
+                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {project.results.qualitative.map((item: string, i: number) => {
+                    const isQuote = item.includes('"');
+                    return (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 12 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.05, duration: 0.3 }}
+                        className="bg-card rounded-xl p-5 border border-border shadow-card"
+                      >
+                        {isQuote ? (
+                          <div className="flex gap-3">
+                            <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                            <p className="text-text-secondary italic leading-relaxed">{item}</p>
+                          </div>
+                        ) : (
+                          <div className="flex items-start gap-3">
+                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
+                            <p className="text-text-secondary leading-relaxed">{item}</p>
+                          </div>
+                        )}
+                      </motion.div>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Learnings */}
+              <div>
+                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
+                <div className="bg-accent-subtle rounded-xl p-6 md:p-8">
+                  <div className="space-y-4">
+                    {project.results.learnings.map((item: string, i: number) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, y: 8 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ delay: i * 0.1, duration: 0.3 }}
+                        className="flex items-start gap-4"
+                      >
+                        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                          <span className="text-primary font-semibold text-sm">{i + 1}</span>
+                        </div>
+                        <p className="text-text-secondary leading-relaxed pt-0.5">{item}</p>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </motion.section>
+          )}
 
           {/* Summary */}
           <motion.section
