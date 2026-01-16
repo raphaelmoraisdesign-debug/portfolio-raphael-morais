@@ -16,13 +16,13 @@ export function Navbar() {
   const location = useLocation();
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-background/70 backdrop-blur-xl border-b border-border/30">
       <nav className="container flex items-center justify-between h-16 md:h-20">
         <Link 
           to="/" 
-          className="font-display text-xl font-semibold text-foreground hover:text-primary transition-colors duration-250 ease-in-out"
+          className="font-display text-xl font-bold text-foreground hover:text-primary transition-colors duration-300 tracking-tight"
         >
-          Raphael MORAIS LEAL
+          Raphael<span className="text-gradient"> MORAIS</span>
         </Link>
 
         {/* Desktop Navigation */}
