@@ -234,79 +234,13 @@ export default function ProjectDetail() {
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Action</h2>
               </div>
-              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card mb-8">
+              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card">
                 <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.action}</p>
               </div>
-
-              {/* Process Steps */}
-              {project.process && project.process.length > 0 && (
-                <div className="space-y-8 md:space-y-12">
-                  <h3 className="text-lg font-semibold text-foreground">Étapes du processus</h3>
-                  {project.process.map((step: any, index: number) => (
-                    <div key={step.step} className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 md:gap-8 items-start`}>
-                      <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
-                            {step.step}
-                          </div>
-                          <h4 className="text-base md:text-lg font-semibold text-foreground">{step.title}</h4>
-                        </div>
-                        <p className="text-text-secondary mb-3 text-sm">{step.summary}</p>
-                        <div className="bg-accent-subtle rounded-lg p-4 space-y-3">
-                          <div>
-                            <h5 className="text-xs font-semibold text-foreground mb-1.5">Activités</h5>
-                            <ul className="space-y-1">
-                              {step.activities.map((activity: string, i: number) => (
-                                <li key={i} className="text-xs text-text-secondary flex items-start gap-2">
-                                  <span className="text-primary">→</span>
-                                  {activity}
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
-                          <div>
-                            <h5 className="text-xs font-semibold text-foreground mb-1">Livrables</h5>
-                            <p className="text-xs text-text-secondary">{step.deliverables}</p>
-                          </div>
-                        </div>
-                      </div>
-                      {step.image && (
-                        <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
-                          <img
-                            src={step.image}
-                            alt={step.imageCaption || step.title}
-                            className="w-full aspect-video object-cover rounded-xl shadow-soft"
-                          />
-                          {step.imageCaption && (
-                            <p className="mt-2 text-xs text-text-tertiary text-center italic">{step.imageCaption}</p>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* Tools */}
-              {project.tools && project.tools.length > 0 && (
-                <div className="mt-10 text-center">
-                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {project.tools.map((tool: { name: string; logo: string }, i: number) => (
-                      <div key={tool.name} className="flex flex-col items-center gap-1.5">
-                        <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
-                          <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
-                        </div>
-                        <span className="text-xs text-text-secondary">{tool.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </motion.section>
           )}
 
-          {/* RÉSULTAT Section - MCAR */}
+          {/* RÉSULTAT Section - MCAR (moved here, right after Action narrative) */}
           {project.mcar && (
             <motion.section
               id="resultats"
@@ -332,7 +266,6 @@ export default function ProjectDetail() {
                 <div className="mb-10">
                   <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Comparaison avant / après</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                    {/* Before */}
                     <motion.div
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -352,8 +285,6 @@ export default function ProjectDetail() {
                         {project.beforeAfterImages.before.caption}
                       </p>
                     </motion.div>
-
-                    {/* After */}
                     <motion.div
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
@@ -457,6 +388,80 @@ export default function ProjectDetail() {
               )}
             </motion.section>
           )}
+
+          {/* PROCESS STEPS Section (separate from Action) */}
+          {project.process && project.process.length > 0 && (
+            <motion.section
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <SectionTitle title="Étapes du processus" />
+              <div className="space-y-8 md:space-y-12">
+                {project.process.map((step: any, index: number) => (
+                  <div key={step.step} className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 md:gap-8 items-start`}>
+                    <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
+                      <div className="flex items-center gap-3 mb-3">
+                        <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                          {step.step}
+                        </div>
+                        <h4 className="text-base md:text-lg font-semibold text-foreground">{step.title}</h4>
+                      </div>
+                      <p className="text-text-secondary mb-3 text-sm">{step.summary}</p>
+                      <div className="bg-accent-subtle rounded-lg p-4 space-y-3">
+                        <div>
+                          <h5 className="text-xs font-semibold text-foreground mb-1.5">Activités</h5>
+                          <ul className="space-y-1">
+                            {step.activities.map((activity: string, i: number) => (
+                              <li key={i} className="text-xs text-text-secondary flex items-start gap-2">
+                                <span className="text-primary">→</span>
+                                {activity}
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+                        <div>
+                          <h5 className="text-xs font-semibold text-foreground mb-1">Livrables</h5>
+                          <p className="text-xs text-text-secondary">{step.deliverables}</p>
+                        </div>
+                      </div>
+                    </div>
+                    {step.image && (
+                      <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
+                        <img
+                          src={step.image}
+                          alt={step.imageCaption || step.title}
+                          className="w-full aspect-video object-cover rounded-xl shadow-soft"
+                        />
+                        {step.imageCaption && (
+                          <p className="mt-2 text-xs text-text-tertiary text-center italic">{step.imageCaption}</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+
+              {/* Tools */}
+              {project.tools && project.tools.length > 0 && (
+                <div className="mt-10 text-center">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    {project.tools.map((tool: { name: string; logo: string }, i: number) => (
+                      <div key={tool.name} className="flex flex-col items-center gap-1.5">
+                        <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
+                          <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
+                        </div>
+                        <span className="text-xs text-text-secondary">{tool.name}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </motion.section>
+          )}
+
 
           {/* GALERIE VISUELS PROJET */}
           {project.gallery && project.gallery.length > 0 && (
