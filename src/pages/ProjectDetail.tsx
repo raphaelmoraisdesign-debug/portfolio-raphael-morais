@@ -159,13 +159,28 @@ export default function ProjectDetail() {
 
             {/* Principales actions menées */}
             {project.process && project.process.length > 0 && (
-              <div className="mb-4 md:mb-8">
+              <div className="mb-4 md:mb-6">
                 <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 md:mb-3">Principales actions menées</h3>
                 <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {project.process.slice(0, 4).map((step: any, i: number) => (
                     <Tag key={i} variant="accent" size="sm">
                       {step.title}
                     </Tag>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Outils utilisés */}
+            {project.tools && project.tools.length > 0 && (
+              <div className="mb-4 md:mb-8">
+                <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 md:mb-3">Outils utilisés</h3>
+                <div className="flex flex-wrap gap-3">
+                  {project.tools.map((tool: { name: string; logo: string }) => (
+                    <div key={tool.name} className="flex items-center gap-2 bg-accent-subtle rounded-full px-3 py-1.5">
+                      <img src={tool.logo} alt={tool.name} className="w-4 h-4 object-contain" />
+                      <span className="text-xs text-text-secondary">{tool.name}</span>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -437,22 +452,6 @@ export default function ProjectDetail() {
                 ))}
               </div>
 
-              {/* Tools */}
-              {project.tools && project.tools.length > 0 && (
-                <div className="mt-8 text-center">
-                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
-                  <div className="flex flex-wrap justify-center gap-4">
-                    {project.tools.map((tool: { name: string; logo: string }, i: number) => (
-                      <div key={tool.name} className="flex flex-col items-center gap-1.5">
-                        <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
-                          <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
-                        </div>
-                        <span className="text-xs text-text-secondary">{tool.name}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              )}
             </motion.section>
           )}
 
