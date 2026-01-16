@@ -160,8 +160,8 @@ export default function ProjectDetail() {
       </header>
 
       {/* Main Content - MCAR Structure */}
-      <div className="container py-section-mobile md:py-section">
-        <div className="max-w-4xl mx-auto space-y-16 md:space-y-24">
+      <div className="container py-12 md:py-16">
+        <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
           
           {/* MISSION Section */}
           {project.mcar && (
@@ -257,13 +257,13 @@ export default function ProjectDetail() {
               </div>
               
               {/* Narrative Block */}
-              <div className="bg-card rounded-xl border border-emerald-200 p-6 md:p-8 shadow-card mb-10">
+              <div className="bg-card rounded-xl border border-emerald-200 p-6 md:p-8 shadow-card mb-6">
                 <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.resultat}</p>
               </div>
 
               {/* Before/After Visual Comparison */}
               {project.beforeAfterImages && (
-                <div className="mb-10">
+                <div className="mb-6">
                   <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Comparaison avant / après</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     <motion.div
@@ -310,8 +310,8 @@ export default function ProjectDetail() {
 
               {/* Impact Metrics */}
               {project.results?.quantitative && project.results.quantitative.length > 0 && (
-                <div className="mb-10">
-                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
+                <div className="mb-6">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Métriques d'impact</h4>
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     {project.results.quantitative.map((result: any, i: number) => (
                       <ImpactCard
@@ -329,8 +329,8 @@ export default function ProjectDetail() {
 
               {/* Qualitative Results */}
               {project.results?.qualitative && project.results.qualitative.length > 0 && (
-                <div className="mb-10">
-                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
+                <div className="mb-6">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Retours qualitatifs</h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {project.results.qualitative.map((item: string, i: number) => {
                       const isQuote = item.includes('"');
@@ -364,7 +364,7 @@ export default function ProjectDetail() {
               {/* Learnings */}
               {project.results?.learnings && project.results.learnings.length > 0 && (
                 <div>
-                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Enseignements clés</h4>
                   <div className="bg-accent-subtle rounded-xl p-6 md:p-8">
                     <div className="space-y-4">
                       {project.results.learnings.map((item: string, i: number) => (
@@ -398,7 +398,7 @@ export default function ProjectDetail() {
               variants={fadeInUp}
             >
               <SectionTitle title="Étapes du processus" />
-              <div className="space-y-8 md:space-y-12">
+              <div className="space-y-6 md:space-y-8">
                 {project.process.map((step: any, index: number) => (
                   <div key={step.step} className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 md:gap-8 items-start`}>
                     <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
@@ -445,7 +445,7 @@ export default function ProjectDetail() {
 
               {/* Tools */}
               {project.tools && project.tools.length > 0 && (
-                <div className="mt-10 text-center">
+                <div className="mt-8 text-center">
                   <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
                   <div className="flex flex-wrap justify-center gap-4">
                     {project.tools.map((tool: { name: string; logo: string }, i: number) => (
