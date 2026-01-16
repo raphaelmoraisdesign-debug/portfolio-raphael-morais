@@ -112,16 +112,15 @@ export default function ProjectDetail() {
                 {project.title}
               </h1>
               <p className="text-text-tertiary text-xs md:text-sm mt-2">{project.year}</p>
-              <div className="flex flex-wrap items-center gap-2 mt-2 md:mt-3">
-                <span className="px-2 md:px-3 py-1 text-xs md:text-sm font-medium bg-primary text-primary-foreground rounded-full">
-                  {project.role}
-                </span>
-                {project.sectors && project.sectors.length > 0 && project.sectors.map((sector: string) => (
-                  <Tag key={sector} variant="outline" size="sm">
-                    {sector}
-                  </Tag>
-                ))}
-              </div>
+              {project.sectors && project.sectors.length > 0 && (
+                <div className="flex flex-wrap items-center gap-2 mt-2 md:mt-3">
+                  {project.sectors.map((sector: string) => (
+                    <Tag key={sector} variant="outline" size="sm">
+                      {sector}
+                    </Tag>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* La mission */}
