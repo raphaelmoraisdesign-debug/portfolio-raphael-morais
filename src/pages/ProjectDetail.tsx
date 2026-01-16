@@ -121,13 +121,15 @@ export default function ProjectDetail() {
             {/* La mission */}
             <div className="mb-4 md:mb-6">
               <h3 className="text-base md:text-lg font-semibold text-foreground mb-1 md:mb-2">La mission</h3>
-              <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.subtitle}</p>
-            </div>
-
-            {/* Contexte - Hidden on mobile for brevity */}
-            <div className="hidden md:block mb-6">
-              <h3 className="text-lg font-semibold text-foreground mb-2">Contexte</h3>
-              <p className="text-text-secondary leading-relaxed text-sm">{project.context}</p>
+              <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar?.mission || project.subtitle}</p>
+              <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-border/50">
+                <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
+                  <span className="font-medium text-foreground">Rôle :</span> {project.role}
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
+                  <span className="font-medium text-foreground">Durée :</span> {project.duration}
+                </div>
+              </div>
             </div>
 
             {/* Principales actions menées */}
@@ -163,37 +165,8 @@ export default function ProjectDetail() {
       <div className="container py-12 md:py-16">
         <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
           
-          {/* MISSION Section */}
-          {project.mcar && (
-            <motion.section
-              id="mission"
-              initial="initial"
-              whileInView="animate"
-              viewport={{ once: true }}
-              variants={fadeInUp}
-            >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                  <span className="text-primary font-bold text-lg">01</span>
-                </div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Mission</h2>
-              </div>
-              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card">
-                <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.mission}</p>
-                <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-border">
-                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                    <span className="font-medium text-foreground">Rôle :</span> {project.role}
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                    <span className="font-medium text-foreground">Durée :</span> {project.duration}
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
-                    <span className="font-medium text-foreground">Période :</span> {project.year}
-                  </div>
-                </div>
-              </div>
-            </motion.section>
-          )}
+          {/* Hidden anchor for navigation */}
+          <div id="mission" className="sr-only" />
 
           {/* CONSTAT Section */}
           {project.mcar && (
