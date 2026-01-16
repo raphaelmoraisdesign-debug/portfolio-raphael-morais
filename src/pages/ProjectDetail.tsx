@@ -143,12 +143,9 @@ export default function ProjectDetail() {
                 <h3 className="text-base md:text-lg font-semibold text-foreground mb-2 md:mb-3">Principales actions menées</h3>
                 <div className="flex flex-wrap gap-1.5 md:gap-2">
                   {project.process.slice(0, 4).map((step: any, i: number) => (
-                    <span 
-                      key={i} 
-                      className="px-2 md:px-3 py-1 md:py-1.5 text-xs md:text-sm font-medium bg-primary/10 text-primary rounded-full border border-primary/20"
-                    >
+                    <Tag key={i} variant="accent" size="sm">
                       {step.title}
-                    </span>
+                    </Tag>
                   ))}
                 </div>
               </div>
@@ -185,14 +182,14 @@ export default function ProjectDetail() {
               {/* CONSTAT */}
               <section id="constat">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center">
-                    <span className="text-amber-600 font-bold text-sm">01</span>
+                  <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center">
+                    <span className="text-warning-foreground font-bold text-sm">01</span>
                   </div>
                   <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Constat</h2>
                 </div>
-                <div className="bg-card rounded-xl border border-amber-200 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
+                <div className="bg-card rounded-xl border border-warning/20 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
                   <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
+                    <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
                     <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.constat}</p>
                   </div>
                 </div>
@@ -223,14 +220,14 @@ export default function ProjectDetail() {
               variants={fadeInUp}
             >
               <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                  <span className="text-emerald-600 font-bold text-lg">04</span>
+                <div className="w-12 h-12 rounded-xl bg-success-light flex items-center justify-center">
+                  <span className="text-success-foreground font-bold text-lg">03</span>
                 </div>
                 <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Résultat</h2>
               </div>
               
               {/* Narrative Block */}
-              <div className="bg-card rounded-xl border border-emerald-200 p-6 md:p-8 shadow-card mb-6">
+              <div className="bg-card rounded-xl border border-success/20 p-6 md:p-8 shadow-card mb-6">
                 <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.resultat}</p>
               </div>
 
@@ -246,13 +243,13 @@ export default function ProjectDetail() {
                       transition={{ duration: 0.4 }}
                       className="relative group"
                     >
-                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-red-500/90 text-white text-xs md:text-sm font-medium rounded-full">
+                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-destructive/90 text-white text-xs md:text-sm font-medium rounded-full">
                         Avant
                       </div>
                       <img
                         src={project.beforeAfterImages.before.src}
                         alt={project.beforeAfterImages.before.alt}
-                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-red-200 shadow-soft"
+                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-destructive/30 shadow-soft"
                       />
                       <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
                         {project.beforeAfterImages.before.caption}
@@ -265,13 +262,13 @@ export default function ProjectDetail() {
                       transition={{ duration: 0.4, delay: 0.1 }}
                       className="relative group"
                     >
-                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-emerald-500/90 text-white text-xs md:text-sm font-medium rounded-full">
+                      <div className="absolute top-3 left-3 md:top-4 md:left-4 z-10 px-2 md:px-3 py-1 bg-success/90 text-white text-xs md:text-sm font-medium rounded-full">
                         Après
                       </div>
                       <img
                         src={project.beforeAfterImages.after.src}
                         alt={project.beforeAfterImages.after.alt}
-                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-emerald-200 shadow-soft"
+                        className="w-full aspect-[4/3] object-cover rounded-xl border-2 border-success/30 shadow-soft"
                       />
                       <p className="mt-2 text-xs md:text-sm text-text-tertiary text-center">
                         {project.beforeAfterImages.after.caption}

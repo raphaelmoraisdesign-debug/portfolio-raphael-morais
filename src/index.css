@@ -39,7 +39,14 @@
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
 
-    /* Border: #E5E5E5 → HSL(0, 0%, 90%) */
+    /* Semantic colors */
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 92% 30%;
+    --warning-light: 38 100% 95%;
+    
+    --success: 160 84% 39%;
+    --success-foreground: 160 84% 25%;
+    --success-light: 160 100% 95%;
     --border: 0 0% 90%;
     --input: 0 0% 90%;
     --ring: 241 98% 55%;
@@ -96,7 +103,14 @@
     --destructive: 0 62% 50%;
     --destructive-foreground: 0 0% 95%;
 
-    --border: 0 0% 18%;
+    /* Semantic colors - dark mode */
+    --warning: 38 92% 50%;
+    --warning-foreground: 38 100% 70%;
+    --warning-light: 38 50% 15%;
+    
+    --success: 160 84% 45%;
+    --success-foreground: 160 100% 75%;
+    --success-light: 160 50% 15%;
     --input: 0 0% 18%;
     --ring: 241 98% 60%;
     
