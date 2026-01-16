@@ -288,19 +288,21 @@ export default function ProjectDetail() {
               )}
 
               {/* Tools */}
-              <div className="mt-10 text-center">
-                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
-                <div className="flex flex-wrap justify-center gap-4">
-                  {project.tools.map((tool: { name: string; logo: string }, i: number) => (
-                    <div key={tool.name} className="flex flex-col items-center gap-1.5">
-                      <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
-                        <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
+              {project.tools && project.tools.length > 0 && (
+                <div className="mt-10 text-center">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
+                  <div className="flex flex-wrap justify-center gap-4">
+                    {project.tools.map((tool: { name: string; logo: string }, i: number) => (
+                      <div key={tool.name} className="flex flex-col items-center gap-1.5">
+                        <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
+                          <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
+                        </div>
+                        <span className="text-xs text-text-secondary">{tool.name}</span>
                       </div>
-                      <span className="text-xs text-text-secondary">{tool.name}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              )}
             </motion.section>
           )}
 
@@ -427,98 +429,106 @@ export default function ProjectDetail() {
               )}
 
               {/* Impact Metrics */}
-              <div className="mb-10">
-                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {project.results.quantitative.map((result: any, i: number) => (
-                    <ImpactCard
-                      key={i}
-                      metric={result.metric}
-                      change={result.change}
-                      before={result.before}
-                      after={result.after}
-                      index={i}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Qualitative Results */}
-              <div className="mb-10">
-                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {project.results.qualitative.map((item: string, i: number) => {
-                    const isQuote = item.includes('"');
-                    return (
-                      <motion.div
+              {project.results?.quantitative && project.results.quantitative.length > 0 && (
+                <div className="mb-10">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Métriques d'impact</h4>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {project.results.quantitative.map((result: any, i: number) => (
+                      <ImpactCard
                         key={i}
-                        initial={{ opacity: 0, y: 12 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.05, duration: 0.3 }}
-                        className="bg-card rounded-xl p-5 border border-border shadow-card"
-                      >
-                        {isQuote ? (
-                          <div className="flex gap-3">
-                            <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
-                            <p className="text-text-secondary italic leading-relaxed">{item}</p>
-                          </div>
-                        ) : (
-                          <div className="flex items-start gap-3">
-                            <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
-                            <p className="text-text-secondary leading-relaxed">{item}</p>
-                          </div>
-                        )}
-                      </motion.div>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Learnings */}
-              <div>
-                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
-                <div className="bg-accent-subtle rounded-xl p-6 md:p-8">
-                  <div className="space-y-4">
-                    {project.results.learnings.map((item: string, i: number) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, y: 8 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: i * 0.1, duration: 0.3 }}
-                        className="flex items-start gap-4"
-                      >
-                        <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                          <span className="text-primary font-semibold text-sm">{i + 1}</span>
-                        </div>
-                        <p className="text-text-secondary leading-relaxed pt-0.5">{item}</p>
-                      </motion.div>
+                        metric={result.metric}
+                        change={result.change}
+                        before={result.before}
+                        after={result.after}
+                        index={i}
+                      />
                     ))}
                   </div>
                 </div>
-              </div>
+              )}
+
+              {/* Qualitative Results */}
+              {project.results?.qualitative && project.results.qualitative.length > 0 && (
+                <div className="mb-10">
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Retours qualitatifs</h4>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {project.results.qualitative.map((item: string, i: number) => {
+                      const isQuote = item.includes('"');
+                      return (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 12 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.05, duration: 0.3 }}
+                          className="bg-card rounded-xl p-5 border border-border shadow-card"
+                        >
+                          {isQuote ? (
+                            <div className="flex gap-3">
+                              <Quote className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                              <p className="text-text-secondary italic leading-relaxed">{item}</p>
+                            </div>
+                          ) : (
+                            <div className="flex items-start gap-3">
+                              <div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 shrink-0" />
+                              <p className="text-text-secondary leading-relaxed">{item}</p>
+                            </div>
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {/* Learnings */}
+              {project.results?.learnings && project.results.learnings.length > 0 && (
+                <div>
+                  <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-6">Enseignements clés</h4>
+                  <div className="bg-accent-subtle rounded-xl p-6 md:p-8">
+                    <div className="space-y-4">
+                      {project.results.learnings.map((item: string, i: number) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 8 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          viewport={{ once: true }}
+                          transition={{ delay: i * 0.1, duration: 0.3 }}
+                          className="flex items-start gap-4"
+                        >
+                          <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                            <span className="text-primary font-semibold text-sm">{i + 1}</span>
+                          </div>
+                          <p className="text-text-secondary leading-relaxed pt-0.5">{item}</p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </motion.section>
           )}
 
           {/* Summary */}
-          <motion.section
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="bg-primary-light rounded-lg md:rounded-xl p-5 md:p-8"
-          >
-            <h3 className="font-display text-lg md:text-xl font-semibold text-foreground mb-3 md:mb-4">En 30 secondes</h3>
-            <ul className="space-y-1.5 md:space-y-2">
-              {project.summary.map((item: string, i: number) => (
-                <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
-                  <span className="font-bold text-primary">{i + 1}.</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </motion.section>
+          {project.summary && project.summary.length > 0 && (
+            <motion.section
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="bg-accent-subtle rounded-lg md:rounded-xl p-5 md:p-8"
+            >
+              <h3 className="font-display text-lg md:text-xl font-semibold text-foreground mb-3 md:mb-4">En 30 secondes</h3>
+              <ul className="space-y-1.5 md:space-y-2">
+                {project.summary.map((item: string, i: number) => (
+                  <li key={i} className="flex items-start gap-2 md:gap-3 text-text-secondary text-sm md:text-base">
+                    <span className="font-bold text-primary">{i + 1}.</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.section>
+          )}
 
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4 md:gap-6 pt-8 md:pt-12 border-t border-border">
