@@ -111,7 +111,7 @@ export default function ProjectDetail() {
                 {project.client && <span className="text-text-secondary">{project.client} / </span>}
                 {project.title}
               </h1>
-              <p className="text-text-tertiary text-xs md:text-sm mt-2">{project.year}</p>
+              
               {project.sectors && project.sectors.length > 0 && (
                 <div className="flex flex-wrap items-center gap-2 mt-2 md:mt-3">
                   {project.sectors.map((sector: string) => (
@@ -130,6 +130,9 @@ export default function ProjectDetail() {
               <div className="flex flex-wrap gap-3 mt-3 pt-3 border-t border-border/50">
                 <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
                   <span className="font-medium text-foreground">Rôle :</span> {project.role}
+                </div>
+                <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
+                  <span className="font-medium text-foreground">Année :</span> {project.year}
                 </div>
               </div>
             </div>
