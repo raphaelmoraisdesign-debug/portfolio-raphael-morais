@@ -365,7 +365,7 @@ export default function ProjectDetail() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <SectionTitle title="Étapes du processus" />
+              <SectionTitle title="Détails du processus" />
               <div className="space-y-6 md:space-y-8">
                 {project.process.map((step: any, index: number) => (
                   <div key={step.step} className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 md:gap-8 items-start`}>
