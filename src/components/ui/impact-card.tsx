@@ -33,33 +33,36 @@ export function ImpactCard({
       viewport={{ once: true }}
       transition={{ delay: index * 0.05, duration: 0.3 }}
       className={cn(
-        "bg-card rounded-xl p-5 md:p-6 border border-border shadow-card",
-        "hover:shadow-elevated hover:border-primary/30 transition-all duration-250",
+        "relative bg-card rounded-xl p-5 md:p-6 border border-border shadow-card overflow-hidden",
+        "hover:shadow-elevated hover:border-primary/30 transition-all duration-300",
         className
       )}
     >
+      {/* Signature accent bar */}
+      <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-primary via-accent-secondary to-primary/50" />
+      
       {/* Metric name */}
-      <p className="text-sm text-text-secondary mb-3">{metric}</p>
+      <p className="text-sm text-text-secondary mb-3 pl-3">{metric}</p>
       
       {/* Change value */}
-      <div className="flex items-center gap-2 mb-4">
-        <span className="text-2xl md:text-3xl font-bold text-primary">
+      <div className="flex items-center gap-3 mb-4 pl-3">
+        <span className="text-2xl md:text-3xl font-bold text-gradient">
           {change}
         </span>
-        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-primary/10">
+        <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-primary/10">
           {isNegativeGood ? (
-            <TrendingDown className="w-3.5 h-3.5 text-primary" />
+            <TrendingDown className="w-4 h-4 text-primary" />
           ) : (
-            <TrendingUp className="w-3.5 h-3.5 text-primary" />
+            <TrendingUp className="w-4 h-4 text-primary" />
           )}
         </div>
       </div>
       
       {/* Before/After */}
-      <div className="flex items-center gap-2 text-sm">
+      <div className="flex items-center gap-2 text-sm pl-3 pt-3 border-t border-border/50">
         <span className="text-text-tertiary line-through">{before}</span>
-        <ArrowRight className="w-3.5 h-3.5 text-text-tertiary" />
-        <span className="font-medium text-foreground">{after}</span>
+        <ArrowRight className="w-3.5 h-3.5 text-primary" />
+        <span className="font-semibold text-foreground">{after}</span>
       </div>
     </motion.div>
   );

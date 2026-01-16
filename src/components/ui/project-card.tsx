@@ -33,13 +33,16 @@ export function ProjectCard({
     <Link to={`/projet/${id}`} className="h-full">
       <motion.article
         className={cn(
-          "group relative bg-card rounded-2xl overflow-hidden shadow-card border border-transparent h-full flex flex-col",
-          "transition-all duration-300 ease-out hover:shadow-card-hover hover:border-primary/30",
+          "group relative bg-card rounded-xl overflow-hidden shadow-card border border-border/50 h-full flex flex-col",
+          "transition-all duration-300 ease-out hover:shadow-elevated hover:border-primary/40",
           className
         )}
         whileHover={{ y: -6 }}
         transition={{ duration: 0.3, ease: [0.34, 1.56, 0.64, 1] }}
       >
+        {/* Signature accent bar */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-accent-secondary to-primary/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10" />
+        
         {/* Image */}
         <div className="aspect-[16/10] bg-muted overflow-hidden relative">
           {imageSrc ? (
@@ -49,12 +52,12 @@ export function ProjectCard({
               className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
           ) : (
-            <div className="w-full h-full bg-gradient-to-br from-primary-light via-muted to-accent-secondary/10 flex items-center justify-center">
+            <div className="w-full h-full bg-gradient-to-br from-primary/10 via-muted to-accent-secondary/10 flex items-center justify-center">
               <span className="text-5xl font-display font-bold text-gradient">{client.charAt(0)}</span>
             </div>
           )}
           {/* Gradient overlay on hover */}
-          <div className="absolute inset-0 bg-gradient-to-t from-foreground/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
         </div>
 
         {/* Content */}
