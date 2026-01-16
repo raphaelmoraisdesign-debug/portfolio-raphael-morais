@@ -8,12 +8,12 @@ import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
 import { useProjectWithFallback } from "@/hooks/useProjectsWithFallback";
 
-// Section navigation items
+// Section navigation items - MCAR structure
 const sectionNav = [
-  { id: "info", label: "Info projet" },
-  { id: "role", label: "Rôle" },
-  { id: "process", label: "Process" },
-  { id: "resultats", label: "Résultats" },
+  { id: "mission", label: "Mission" },
+  { id: "constat", label: "Constat" },
+  { id: "action", label: "Action" },
+  { id: "resultats", label: "Résultat" },
 ];
 
 const fadeInUp = {
@@ -159,109 +159,150 @@ export default function ProjectDetail() {
         </div>
       </header>
 
-      {/* Main Content */}
+      {/* Main Content - MCAR Structure */}
       <div className="container py-section-mobile md:py-section">
-        <div className="max-w-5xl mx-auto space-y-12 md:space-y-20">
-          {/* CARTOUCHE INFO PROJET - Compact bloc replacing "À propos" + "Contexte" */}
-          <motion.section
-            id="info"
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <div className="bg-card rounded-xl md:rounded-2xl border border-primary/20 shadow-soft p-4 sm:p-6 md:p-10 overflow-hidden">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12">
-                {/* Column 1 - À propos du client */}
-                <div className="space-y-3 md:space-y-4 min-w-0">
-                  <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                      <Building2 className="w-5 h-5 md:w-6 md:h-6 text-primary" />
-                    </div>
-                    <h3 className="text-base sm:text-lg md:text-2xl font-display font-semibold text-foreground break-words">{project.client}</h3>
-                  </div>
-                  <div className="space-y-1 md:space-y-2 text-text-secondary text-xs sm:text-sm md:text-base">
-                    <p className="flex flex-wrap items-center gap-1 sm:gap-2">
-                      <span className="font-medium text-foreground">Secteur :</span> 
-                      <span className="break-words">{project.sector}</span>
-                    </p>
-                    <p className="flex flex-wrap items-start gap-1 sm:gap-2">
-                      <span className="font-medium text-foreground shrink-0">Audience :</span> 
-                      <span className="break-words">{project.audienceCible}</span>
-                    </p>
-                  </div>
-                  <div className="pt-1 md:pt-2">
-                    <p className="text-xs md:text-sm text-primary font-medium bg-primary/5 rounded-lg px-2 md:px-3 py-1.5 md:py-2 inline-block break-words">
-                      {project.statCle}
-                    </p>
-                  </div>
+        <div className="max-w-4xl mx-auto space-y-16 md:space-y-24">
+          
+          {/* MISSION Section */}
+          {project.mcar && (
+            <motion.section
+              id="mission"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-lg">01</span>
                 </div>
-
-                {/* Column 2 - Contexte & Problème */}
-                <div className="space-y-3 md:space-y-4 min-w-0">
-                  <div className="flex items-center gap-2 md:gap-3 mb-2 md:mb-4">
-                    <div className="w-10 h-10 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-amber-500/10 flex items-center justify-center shrink-0">
-                      <AlertTriangle className="w-5 h-5 md:w-6 md:h-6 text-amber-600" />
-                    </div>
-                    <h3 className="text-base sm:text-lg md:text-2xl font-display font-semibold text-foreground">Problème business</h3>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Mission</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card">
+                <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.mission}</p>
+                <div className="flex flex-wrap gap-4 mt-6 pt-6 border-t border-border">
+                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
+                    <span className="font-medium text-foreground">Rôle :</span> {project.role}
                   </div>
-                  <p className="text-text-secondary leading-relaxed text-xs sm:text-sm md:text-base">{project.context}</p>
-                  <div className="space-y-2 md:space-y-3 pt-1 md:pt-2">
-                    {project.objectives.map((obj: { text: string; metric: string }, i: number) => (
-                      <div
-                        key={i}
-                        className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1 sm:gap-4 py-1.5 md:py-2 border-b border-border/50 last:border-0"
-                      >
-                        <span className="text-text-secondary text-xs sm:text-sm md:text-base">{obj.text}</span>
-                        <span className="font-semibold text-primary text-xs sm:text-sm md:text-base sm:whitespace-nowrap">{obj.metric}</span>
-                      </div>
-                    ))}
+                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
+                    <span className="font-medium text-foreground">Durée :</span> {project.duration}
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-text-tertiary">
+                    <span className="font-medium text-foreground">Période :</span> {project.year}
                   </div>
                 </div>
               </div>
-            </div>
-          </motion.section>
+            </motion.section>
+          )}
 
-          {/* SECTION OUTILS UTILISÉS */}
-          <motion.section
-            initial="initial"
-            whileInView="animate"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h4 className="text-sm font-semibold text-text-secondary uppercase tracking-wider mb-6">
-              Outils utilisés sur ce projet
-            </h4>
-            <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-10">
-              {project.tools.map((tool: { name: string; logo: string }, i: number) => (
-                <motion.div
-                  key={tool.name}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.3 }}
-                  whileHover={{ scale: 1.1 }}
-                  className="group flex flex-col items-center gap-1.5 md:gap-2"
-                >
-                  <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-20 md:h-20 rounded-full bg-card border border-border shadow-soft flex items-center justify-center group-hover:shadow-elevated group-hover:border-primary/30 transition-all duration-250 ease-in-out">
-                    <img
-                      src={tool.logo}
-                      alt={tool.name}
-                      className="w-6 h-6 sm:w-7 sm:h-7 md:w-10 md:h-10 object-contain"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src =
-                          `https://ui-avatars.com/api/?name=${tool.name}&background=1E1AFD&color=fff`;
-                      }}
-                    />
-                  </div>
-                  <span className="text-[10px] sm:text-xs font-medium text-text-secondary group-hover:text-primary transition-colors duration-250">
-                    {tool.name}
-                  </span>
-                </motion.div>
-              ))}
-            </div>
-          </motion.section>
+          {/* CONSTAT Section */}
+          {project.mcar && (
+            <motion.section
+              id="constat"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center">
+                  <span className="text-amber-600 font-bold text-lg">02</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Constat</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-amber-200 p-6 md:p-8 shadow-card">
+                <div className="flex gap-4">
+                  <AlertTriangle className="w-6 h-6 text-amber-500 shrink-0 mt-1" />
+                  <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.constat}</p>
+                </div>
+              </div>
+            </motion.section>
+          )}
+
+          {/* ACTION Section */}
+          {project.mcar && (
+            <motion.section
+              id="action"
+              initial="initial"
+              whileInView="animate"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+            >
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
+                  <span className="text-primary font-bold text-lg">03</span>
+                </div>
+                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Action</h2>
+              </div>
+              <div className="bg-card rounded-xl border border-border p-6 md:p-8 shadow-card mb-8">
+                <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.action}</p>
+              </div>
+
+              {/* Process Steps */}
+              {project.process && project.process.length > 0 && (
+                <div className="space-y-8 md:space-y-12">
+                  <h3 className="text-lg font-semibold text-foreground">Étapes du processus</h3>
+                  {project.process.map((step: any, index: number) => (
+                    <div key={step.step} className={`grid ${step.image ? 'md:grid-cols-2' : 'md:grid-cols-1'} gap-4 md:gap-8 items-start`}>
+                      <div className={`${step.image && index % 2 === 1 ? "md:order-2" : ""}`}>
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-8 h-8 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm">
+                            {step.step}
+                          </div>
+                          <h4 className="text-base md:text-lg font-semibold text-foreground">{step.title}</h4>
+                        </div>
+                        <p className="text-text-secondary mb-3 text-sm">{step.summary}</p>
+                        <div className="bg-accent-subtle rounded-lg p-4 space-y-3">
+                          <div>
+                            <h5 className="text-xs font-semibold text-foreground mb-1.5">Activités</h5>
+                            <ul className="space-y-1">
+                              {step.activities.map((activity: string, i: number) => (
+                                <li key={i} className="text-xs text-text-secondary flex items-start gap-2">
+                                  <span className="text-primary">→</span>
+                                  {activity}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                          <div>
+                            <h5 className="text-xs font-semibold text-foreground mb-1">Livrables</h5>
+                            <p className="text-xs text-text-secondary">{step.deliverables}</p>
+                          </div>
+                        </div>
+                      </div>
+                      {step.image && (
+                        <div className={`${index % 2 === 1 ? "md:order-1" : ""}`}>
+                          <img
+                            src={step.image}
+                            alt={step.imageCaption || step.title}
+                            className="w-full aspect-video object-cover rounded-xl shadow-soft"
+                          />
+                          {step.imageCaption && (
+                            <p className="mt-2 text-xs text-text-tertiary text-center italic">{step.imageCaption}</p>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Tools */}
+              <div className="mt-10 text-center">
+                <h4 className="text-sm font-medium text-text-tertiary uppercase tracking-wider mb-4">Outils utilisés</h4>
+                <div className="flex flex-wrap justify-center gap-4">
+                  {project.tools.map((tool: { name: string; logo: string }, i: number) => (
+                    <div key={tool.name} className="flex flex-col items-center gap-1.5">
+                      <div className="w-12 h-12 rounded-full bg-card border border-border shadow-soft flex items-center justify-center">
+                        <img src={tool.logo} alt={tool.name} className="w-6 h-6 object-contain" />
+                      </div>
+                      <span className="text-xs text-text-secondary">{tool.name}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </motion.section>
+          )}
 
           {/* GALERIE VISUELS PROJET */}
           {project.gallery && project.gallery.length > 0 && (

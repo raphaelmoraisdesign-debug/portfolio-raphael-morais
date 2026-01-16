@@ -61,6 +61,12 @@ function mergeProjectData(dbProject: DBProject | null, staticProject: ProjectDat
       objectives: [],
       collaboration: "",
       team: [],
+      mcar: {
+        mission: dbProject.context || "",
+        constat: dbProject.challenge || "",
+        action: dbProject.solution || "",
+        resultat: dbProject.results || "",
+      },
       process: (dbProject.process_steps || []).map((step, i) => ({
         step: String(i + 1),
         title: step.title,

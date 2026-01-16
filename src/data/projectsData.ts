@@ -40,11 +40,6 @@ export interface ProcessStep {
   imageCaption?: string;
 }
 
-export interface Objective {
-  text: string;
-  metric: string;
-}
-
 export interface QuantitativeResult {
   metric: string;
   before: string;
@@ -69,6 +64,18 @@ export interface BeforeAfterImages {
   after: BeforeAfterImage;
 }
 
+// Structure MCAR narrative
+export interface MCARContent {
+  // MISSION : Synthèse du contexte et de l'objectif de la mission
+  mission: string;
+  // CONSTAT : Problématique rencontrée ou freins identifiés
+  constat: string;
+  // ACTION : Actions mises en place (méthodologie, livrables, leviers)
+  action: string;
+  // RÉSULTAT : Résumé synthétique de l'impact (les détails restent dans results)
+  resultat: string;
+}
+
 export interface ProjectData {
   // Identifiant (utilisé dans l'URL)
   id: string;
@@ -85,23 +92,34 @@ export interface ProjectData {
   // Mise en avant
   isFeatured?: boolean;
 
-  // Détails projet
-  challengeBusiness: string;
-  audienceCible: string;
-  statCle: string;
+  // Détails projet (meta)
   role: string;
   duration: string;
   year: string;
   tools: Tool[];
-  gallery: string[];
-  context: string;
-  objectives: Objective[];
   team: string[];
-  collaboration: string;
+
+  // MCAR - Structure narrative principale
+  mcar: MCARContent;
+
+  // Process détaillé (gardé pour la section dédiée)
   process: ProcessStep[];
+
+  // Résultats détaillés
   results: ProjectResults;
+
+  // Optionnels
+  gallery: string[];
   beforeAfterImages?: BeforeAfterImages;
-  summary: string[];
+
+  // Legacy fields (conservés pour compatibilité)
+  challengeBusiness?: string;
+  audienceCible?: string;
+  statCle?: string;
+  context?: string;
+  objectives?: { text: string; metric: string }[];
+  collaboration?: string;
+  summary?: string[];
 }
 
 // =========================================================
@@ -138,25 +156,24 @@ export const projectsData: ProjectData[] = [
     roles: ["Ux Discovery", "Delivery", "Cadrage"],
     heroImage: bnpOmnicanaliteHero,
     isFeatured: true,
-    challengeBusiness:
-      "Unifier l'expérience vendeur sur tous les canaux pour améliorer l'efficacité commerciale et la satisfaction client.",
-    audienceCible: "Conseillers crédit en télévente",
-    statCle: "Leader européen du crédit · Cetelem",
     role: "Product Designer",
     duration: "2 ans",
     year: "Janvier 2024 à Décembre 2025",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.userTesting, toolLogos.jira],
-    gallery: [],
-    context:
-      "Les conseillers crédit Cetelem utilisaient plusieurs outils non connectés pour gérer les dossiers clients, créant des frictions et des erreurs de saisie. L'objectif était de créer une interface unifiée omnicanale.",
-    objectives: [
-      { text: "Réduire le temps de traitement dossier", metric: "-40%" },
-      { text: "Améliorer la satisfaction conseiller", metric: "NPS +20pts" },
-      { text: "Unifier les canaux de vente", metric: "1 outil centralisant tout les besoins" },
-    ],
     team: ["1 Product Owner", "1 Product Designer", "3 Développeurs front-end", "1 Lead Tech"],
-    collaboration:
-      "Travail en squad agile avec des sprints de 2 semaines. Collaboration étroite avec les équipes métier crédit et les conseillers terrain.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "En tant que Product Designer au sein de l'équipe digitale Cetelem (BNP Paribas Personal Finance), j'ai été mandaté pour repenser l'outil utilisé par les conseillers crédit en télévente. Ma mission sur 2 ans : concevoir une interface vendeur omnicanale capable d'unifier les différents canaux de vente et d'améliorer significativement l'efficacité commerciale.",
+
+      constat: "Les conseillers crédit jonglaient quotidiennement entre plusieurs outils non connectés pour gérer les dossiers clients. Cette fragmentation générait des frictions majeures : erreurs de saisie fréquentes (12%), temps de traitement allongé, et une frustration palpable des équipes terrain. L'absence de vision unifiée du parcours client nuisait directement à la qualité du service et à la satisfaction des conseillers (NPS à +18).",
+
+      action: "J'ai déployé une approche centrée utilisateur en plusieurs phases. En discovery, j'ai mené des observations terrain avec les conseillers en télévente et réalisé des entretiens approfondis pour cartographier les parcours existants et identifier les pain points prioritaires. En conception, j'ai animé des ateliers d'idéation avec les équipes métier, créé un design system dédié aux outils collaborateurs, et conçu une interface entièrement optimisée pour une navigation clavier. Chaque itération a été validée par des tests utilisateurs sur MVP avant le développement final.",
+
+      resultat: "La nouvelle interface a transformé le quotidien des conseillers : réduction de 40% du temps de traitement dossier, chute de 67% des erreurs de saisie, et un bond du NPS conseiller de +18 à +42. L'adoption a été immédiate, les nouveaux arrivants étant désormais opérationnels bien plus rapidement."
+    },
+
     process: [
       {
         step: "01",
@@ -179,7 +196,7 @@ export const projectsData: ProjectData[] = [
         activities: [
           "Ateliers d'idéation avec les conseillers",
           "Conception des wireframes",
-          "Définition d'u nouveau design system dédié aux outils collaborateurs",
+          "Définition d'un nouveau design system dédié aux outils collaborateurs",
           "Prototypage interactif",
         ],
         deliverables: "Wireframes validés, prototype Figma, composants design system",
@@ -209,6 +226,7 @@ export const projectsData: ProjectData[] = [
         imageCaption: "Comparaison avant/après de l'interface",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Temps traitement", before: "25 min", after: "15 min", change: "-40%" },
@@ -217,20 +235,15 @@ export const projectsData: ProjectData[] = [
       ],
       qualitative: [
         '"Enfin un outil qui correspond à notre façon de travailler" - Conseiller Cetelem',
-        "Adoption rapide par les équipes terrain",
-        "Les nouveaux conseillés sont plus rapidment autonomes sur l'outils",
+        "Adoption rapide par les équipes terrain dès la première semaine",
+        "Formation des nouveaux arrivants significativement accélérée",
       ],
       learnings: [
-        "L'importance de l'observation terrain pour comprendre les vrais besoins",
-        "La co-conception avec les utilisateurs finaux garantit l'adoption",
-        "Un design system robuste accélère les développements futurs",
+        "L'observation terrain est indispensable pour comprendre les vrais besoins au-delà du déclaratif",
+        "La co-conception avec les utilisateurs finaux est la meilleure garantie d'adoption",
+        "Un design system robuste accélère considérablement les développements futurs",
       ],
     },
-    summary: [
-      "Problème : Outils fragmentés causant inefficacité et frustration",
-      "Action : Interface omnicanale unifiée co-conçue avec les conseillers",
-      "Impact : -40% temps de traitement, +24pts satisfaction",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -246,31 +259,24 @@ export const projectsData: ProjectData[] = [
     roles: ["UX Research", "Product Design", "Tests utilisateurs"],
     heroImage: bnpSouscriptionHero,
     isFeatured: true,
-    challengeBusiness:
-      "Réduire le taux d'abandon sur le parcours de souscription crédit tout en respectant les contraintes réglementaires bancaires.",
-    audienceCible: "Particuliers 25-55 ans",
-    statCle: "Leader européen du crédit · Cetelem",
     role: "Product Designer",
     duration: "2 ans",
-    year: "De janvier 2024 à Décembre 2025",
+    year: "Janvier 2024 à Décembre 2025",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.userTesting, toolLogos.jira],
+    team: ["1 Product Owner", "1 Product Designer", "2 Développeurs front-end", "1 Data Analyst", "1 Lead Design System"],
     gallery: [],
-    context:
-      "Le parcours de souscription crédit existant affichait un taux d'abandon élevé. Les utilisateurs se plaignaient de la complexité des formulaires et du manque de visibilité sur l'avancement.",
-    objectives: [
-      { text: "Réduire le taux d'abandon", metric: "-30%" },
-      { text: "Améliorer le taux de conversion", metric: "+25%" },
-      { text: "Réduire le temps de complétion", metric: "-50%" },
-    ],
-    team: [
-      "1 Product Owner",
-      "1 Product Designers",
-      "2 Développeurs front-end",
-      "1 Data Analyst",
-      "1 Lead Design System",
-    ],
-    collaboration:
-      "Méthodologie Lean UX avec des cycles de découverte et livraison en continu. Tests utilisateurs réguliers via UserTesting.",
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "Intégré à l'équipe produit Cetelem, j'ai été chargé de repenser intégralement le parcours de souscription crédit en ligne. L'enjeu : réduire drastiquement le taux d'abandon tout en respectant les contraintes réglementaires strictes du secteur bancaire. Une mission de 2 ans mêlant UX research, conception et tests utilisateurs continus.",
+
+      constat: "Le parcours existant affichait un taux d'abandon alarmant de 68%. Les utilisateurs décrochaient face à des formulaires perçus comme complexes et interminables, sans visibilité sur leur progression. L'analyse des données analytics et les retours utilisateurs révélaient une confusion généralisée, alimentée par un vocabulaire technique et des étapes mal séquencées.",
+
+      action: "J'ai adopté une méthodologie Lean UX avec des cycles de découverte et livraison en continu. En phase research, j'ai analysé les données du funnel, mené des entretiens utilisateurs et réalisé un audit UX complet du parcours existant. La conception s'est appuyée sur des ateliers d'idéation (Crazy 8), une approche mobile-first, et des micro-interactions rassurantes pour guider la progression. Chaque évolution a été validée via des tests modérés et non-modérés sur UserTesting.",
+
+      resultat: "Le nouveau parcours a démontré son efficacité : le taux d'abandon a chuté de 68% à 42% (-26pts), le temps de complétion a été divisé par deux, et la clarté perçue est passée de 65% à 89%. L'équipe conformité a validé la solution sans réserve."
+    },
+
     process: [
       {
         step: "01",
@@ -317,6 +323,7 @@ export const projectsData: ProjectData[] = [
         deliverables: "Documentation complète, composants prêts",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Taux d'abandon", before: "68%", after: "42%", change: "-26pts" },
@@ -325,20 +332,15 @@ export const projectsData: ProjectData[] = [
       ],
       qualitative: [
         '"Le parcours est beaucoup plus clair maintenant" - Utilisateur test',
-        "Validation positive de l'équipe conformité",
-        "Retours positifs des équipes support client",
+        "Validation positive de l'équipe conformité dès la première revue",
+        "Réduction notable des appels au support client",
       ],
       learnings: [
-        "Faire apparaître les champs progressivement est clé pour que les formulaires complexes restent faciles à comprendre et à remplir",
+        "L'affichage progressif des champs est essentiel pour rendre les formulaires complexes accessibles",
         "Les micro-interactions rassurent l'utilisateur sur sa progression",
-        "Tester tôt et souvent avec de vrais utilisateurs",
+        "Tester tôt et régulièrement avec de vrais utilisateurs évite les erreurs coûteuses",
       ],
     },
-    summary: [
-      "Problème : Taux d'abandon élevé sur le parcours de souscription",
-      "Action : Simplification et clarification du parcours via UX research et tests",
-      "Impact : -26pts d'abandon, -50% temps de complétion",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -348,31 +350,30 @@ export const projectsData: ProjectData[] = [
     id: "ene-plateforme-educative",
     title: "ENE - Espace Numérique Éducatif",
     subtitle: "Plateforme éducative numérique pour les collèges",
-    client: "Ministère de l'Education nationale",
+    client: "Ministère de l'Éducation nationale",
     sector: "Éducation",
     description: "Conception d'une plateforme éducative numérique pour les collèges et départements.",
-    roles: ["UX Design", "UI Design", "Ux researcher"],
+    roles: ["UX Design", "UI Design", "UX Research"],
     heroImage: eneHero,
     isFeatured: true,
-    challengeBusiness:
-      "Créer une plateforme unifiée pour connecter élèves, parents et enseignants autour des services éducatifs départementaux.",
-    audienceCible: "Élèves, parents et enseignants de collèges",
-    statCle: "Plateforme multi-départements",
     role: "UX/UI Designer",
     duration: "4 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.notion, toolLogos.miro],
-    gallery: [],
-    context:
-      "L'état souhaite proposer un espace numérique unifié pour accéder aux services éducatifs : emplois du temps, notes, communication, ressources pédagogiques.",
-    objectives: [
-      { text: "Centraliser les services éducatifs", metric: "1 plateforme" },
-      { text: "Améliorer l'adoption parents", metric: "+60%" },
-      { text: "Adoption de la solution", metric: "12 départments intéréssés lors de l'appel d'offre" },
-    ],
     team: ["1 Chef de projet", "1 UX/UI Designer", "2 Développeurs", "1 Intégrateur"],
-    collaboration:
-      "Méthodologie centrée utilisateur avec des ateliers de co-conception impliquant représentants d'élèves, parents d'élèves et enseignants.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "Dans le cadre d'un appel d'offres pour l'Éducation nationale, j'ai conçu une plateforme unifiée permettant de connecter élèves, parents et enseignants autour des services éducatifs départementaux. L'objectif : proposer un espace numérique moderne centralisant emplois du temps, notes, communication et ressources pédagogiques.",
+
+      constat: "Les services éducatifs numériques existants étaient fragmentés et difficiles d'accès. Les parents, souvent peu familiers avec les outils numériques, rencontraient des difficultés pour suivre la scolarité de leurs enfants. Le taux d'adoption parental stagnait à 35%, générant un volume important de sollicitations auprès des établissements.",
+
+      action: "J'ai déployé une méthodologie centrée utilisateur impliquant les trois profils cibles. En phase recherche, j'ai créé des personas détaillés pour chaque audience (élève, parent, enseignant) et cartographié leurs besoins spécifiques. La conception a privilégié l'accessibilité (RGAA niveau AA) et la simplicité, avec des tests de navigation impliquant des utilisateurs aux niveaux de maturité digitale variés. L'interface a été pensée pour fonctionner aussi bien sur mobile que desktop.",
+
+      resultat: "La plateforme a suscité l'intérêt de 12 départements lors de l'appel d'offres. Les tests pilotes ont montré une adoption parentale bondissant à 78% (+43pts), une satisfaction utilisateur à 84%, et une réduction de 60% des tickets support. L'accessibilité RGAA niveau AA a été validée."
+    },
+
     process: [
       {
         step: "01",
@@ -407,6 +408,7 @@ export const projectsData: ProjectData[] = [
         deliverables: "Plateforme validée, documentation",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Adoption parents", before: "35%", after: "78%", change: "+43pts" },
@@ -415,20 +417,15 @@ export const projectsData: ProjectData[] = [
       ],
       qualitative: [
         '"Enfin une interface intuitive pour suivre la scolarité" - Parent d\'élève',
-        "Forte adoption par les établissements pilotes",
-        "Accessibilité RGAA niveau AA atteinte",
+        "Forte adoption par les établissements pilotes dès le premier mois",
+        "Accessibilité RGAA niveau AA certifiée",
       ],
       learnings: [
-        "Concevoir pour l'accessibilité bénéficie à tous les utilisateurs",
-        "Les personas contrastés aident à prioriser les fonctionnalités",
-        "La simplicité est clé pour des utilisateurs aux niveaux de maturité digitale variés",
+        "Concevoir pour l'accessibilité bénéficie à l'ensemble des utilisateurs",
+        "Les personas contrastés permettent de prioriser efficacement les fonctionnalités",
+        "La simplicité est cruciale pour des utilisateurs aux niveaux de maturité digitale variés",
       ],
     },
-    summary: [
-      "Problème : Services éducatifs fragmentés et difficiles d'accès",
-      "Action : Plateforme unifiée conçue avec les utilisateurs finaux",
-      "Impact : +43pts adoption parents, -60% demandes support",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -437,31 +434,30 @@ export const projectsData: ProjectData[] = [
   {
     id: "pollux-voxaly",
     title: "Voxaly - Vote Électronique",
-    subtitle: "Refonte d'une plateforme d'Élections electronique CSE",
+    subtitle: "Refonte d'une plateforme d'élections électroniques CSE",
     client: "Docaposte / Voxaly",
     sector: "Services",
     description: "Refonte de l'expérience de vote électronique professionnel pour les élections d'entreprise.",
     roles: ["UX Research", "UI Design", "Animation d'ateliers"],
     heroImage: polluxVoxalyHero,
-    challengeBusiness:
-      "Moderniser et sécuriser l'expérience de vote électronique pour les élections professionnelles d'entreprise.",
-    audienceCible: "Salariés votants et administrateurs RH",
-    statCle: "Leader français du vote électronique",
     role: "UX/UI Designer",
     duration: "5 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.teams],
-    gallery: [],
-    context:
-      "La plateforme de vote existante était perçue comme austère et peu intuitive. L'objectif était de moderniser l'expérience tout en renforçant la confiance et la sécurité perçue.",
-    objectives: [
-      { text: "Améliorer le taux de participation", metric: "+15%" },
-      { text: "Réduire les erreurs de vote", metric: "-80%" },
-      { text: "Augmenter la confiance perçue", metric: "+30pts" },
-    ],
     team: ["1 Product Owner", "1 UX/UI Designer", "2 Développeurs", "1 Expert sécurité"],
-    collaboration:
-      "Travail en collaboration étroite avec les équipes sécurité et conformité. Ateliers avec des DRH et représentants syndicaux.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "Voxaly, leader français du vote électronique (filiale Docaposte), m'a confié la refonte de sa plateforme d'élections professionnelles. En 5 mois, j'ai dû moderniser l'expérience de vote tout en renforçant la confiance et la sécurité perçue, deux éléments critiques pour ce type d'outil.",
+
+      constat: "La plateforme existante était perçue comme austère et peu intuitive. Les utilisateurs exprimaient des doutes sur la fiabilité du processus, 5% d'entre eux ayant besoin d'assistance pour voter. Le taux d'accessibilité était insuffisant (32%), excluant de fait une partie des votants. La confiance perçue plafonnait à 68%.",
+
+      action: "J'ai mené un audit UX complet et un benchmark des solutions de vote existantes. En collaboration étroite avec les équipes sécurité et conformité, j'ai animé des ateliers avec des DRH et représentants syndicaux pour co-concevoir le nouveau parcours. Le design s'est focalisé sur la transparence (chaque étape clairement expliquée), les micro-interactions de confirmation, et une accessibilité renforcée (RGAA AAA). Le prototype a été validé par des tests utilisateurs et un audit sécurité.",
+
+      resultat: "La nouvelle plateforme a obtenu la certification sécurité et atteint le niveau RGAA AAA. Le taux d'accessibilité est passé de 32% à 92%, les demandes d'assistance ont chuté de 84%, et la confiance perçue a bondi à 91% (+23pts)."
+    },
+
     process: [
       {
         step: "01",
@@ -496,28 +492,24 @@ export const projectsData: ProjectData[] = [
         deliverables: "Maquettes finales certifiées",
       },
     ],
+
     results: {
       quantitative: [
-        { metric: "Taux d'accéssibilité", before: "32%", after: "92%", change: "+60pts" },
-        { metric: "Utilisateurs ayant besoin d'aide'", before: "5%", after: "0.8%", change: "-84%" },
+        { metric: "Taux d'accessibilité", before: "32%", after: "92%", change: "+60pts" },
+        { metric: "Utilisateurs nécessitant aide", before: "5%", after: "0.8%", change: "-84%" },
         { metric: "Confiance perçue", before: "68%", after: "91%", change: "+23pts" },
       ],
       qualitative: [
-        '"Le nouveau parcours est rassurant et professionnel" - DRH',
-        "Certification sécurité obtenue",
-        "Accessibilité RGAA niveau AAA",
+        '"Le nouveau parcours est rassurant et professionnel" - DRH client',
+        "Certification sécurité obtenue sans réserve",
+        "Accessibilité RGAA niveau AAA validée",
       ],
       learnings: [
-        "La confiance se construit par la clarté et la transparence",
-        "Les micro-interactions de confirmation réduisent l'anxiété",
-        "L'accessibilité est cruciale pour garantir l'égalité de participation",
+        "La confiance se construit par la clarté et la transparence à chaque étape",
+        "Les micro-interactions de confirmation réduisent significativement l'anxiété",
+        "L'accessibilité maximale est cruciale pour garantir l'égalité de participation",
       ],
     },
-    summary: [
-      "Problème : Plateforme de vote perçue comme austère et peu fiable",
-      "Action : Refonte UX/UI axée sur la confiance et la simplicité",
-      "Impact : +16pts d'accéssibilité, -84% SAV, +23pts confiance",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -529,29 +521,27 @@ export const projectsData: ProjectData[] = [
     subtitle: "Point d'entrée unique pour les services RH ENGIE GBS",
     client: "ENGIE GBS",
     sector: "Énergie",
-    description:
-      "Conception d'un portail RH unifié pour digitaliser et centraliser les services RH des collaborateurs ENGIE.",
+    description: "Conception d'un portail RH unifié pour digitaliser et centraliser les services RH des collaborateurs ENGIE.",
     roles: ["UX Design", "UI Design", "Cadrage"],
     heroImage: gbsHero,
-    challengeBusiness:
-      "Créer un point d'entrée unique pour 11 000 collaborateurs permettant de digitaliser et simplifier l'accès aux services RH.",
-    audienceCible: "Collaborateurs ENGIE et équipes RH",
-    statCle: "11 000 collaborateurs · 400+ clients internes",
     role: "Product Designer",
     duration: "6 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.jira],
-    gallery: [],
-    context:
-      "ENGIE GBS souhaitait unifier l'ensemble des services RH (staffing, onboarding, paie, learning, data RH) au sein d'un portail unique facilitant le suivi et la traçabilité des demandes.",
-    objectives: [
-      { text: "Centraliser les services RH", metric: "1 portail unique" },
-      { text: "Réduire le temps de traitement", metric: "-50%" },
-      { text: "Améliorer la satisfaction collaborateurs", metric: "+30pts NPS" },
-    ],
     team: ["1 Product Owner", "1 Product Designer", "2 Développeurs", "1 Business Analyst"],
-    collaboration:
-      "Travail en étroite collaboration avec les équipes RH métier et les représentants des différentes BU ENGIE pour comprendre les besoins spécifiques.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "ENGIE GBS m'a mandaté pour concevoir MyPortal, un point d'entrée unique destiné aux 11 000 collaborateurs et 400+ clients internes. L'objectif sur 6 mois : digitaliser et centraliser l'ensemble des services RH (staffing, onboarding, paie, learning, data RH) au sein d'un portail facilitant le suivi et la traçabilité des demandes.",
+
+      constat: "Les collaborateurs ENGIE devaient naviguer entre de multiples outils et canaux (emails, formulaires papier, applications diverses) pour leurs demandes RH. Cette fragmentation générait des délais de traitement longs (48h en moyenne), une absence de visibilité sur l'état des demandes, et une satisfaction utilisateur faible (62%). Les équipes RH étaient submergées de sollicitations par email.",
+
+      action: "J'ai structuré le projet en phases de cadrage puis de conception. En discovery, j'ai animé des ateliers avec les parties prenantes des différentes BU ENGIE, mené des entretiens utilisateurs et cartographié les parcours existants. La conception UX s'est focalisée sur une architecture de l'information claire et un système de suivi des demandes en temps réel. L'UI a été alignée sur la charte ENGIE tout en modernisant les codes visuels. Des tests utilisateurs modérés ont permis d'itérer avant livraison.",
+
+      resultat: "MyPortal a transformé l'expérience RH chez ENGIE GBS : temps de traitement divisé par deux (24h vs 48h), satisfaction utilisateur à 88% (+26pts), et une adoption de 78% dès les premiers mois. Les sollicitations par email ont drastiquement diminué."
+    },
+
     process: [
       {
         step: "01",
@@ -591,6 +581,7 @@ export const projectsData: ProjectData[] = [
         deliverables: "Rapport de tests, maquettes itérées",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Temps traitement demandes", before: "48h", after: "24h", change: "-50%" },
@@ -600,19 +591,14 @@ export const projectsData: ProjectData[] = [
       qualitative: [
         '"Enfin un outil simple pour gérer toutes mes demandes RH" - Collaborateur ENGIE',
         "Réduction significative des sollicitations par email",
-        "Meilleure visibilité sur l'état des demandes",
+        "Meilleure visibilité sur l'état des demandes en temps réel",
       ],
       learnings: [
-        "L'importance d'un point d'entrée unique pour réduire la charge cognitive",
-        "La traçabilité des demandes rassure les utilisateurs",
-        "Un design cohérent avec la marque renforce l'adoption",
+        "Un point d'entrée unique réduit considérablement la charge cognitive",
+        "La traçabilité des demandes en temps réel rassure les utilisateurs",
+        "Un design cohérent avec la marque renforce l'adoption interne",
       ],
     },
-    summary: [
-      "Problème : Services RH fragmentés et difficiles d'accès",
-      "Action : Portail unifié MyPortal centralisant tous les services",
-      "Impact : -50% temps de traitement, +26pts satisfaction",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -627,25 +613,24 @@ export const projectsData: ProjectData[] = [
     description: "Conception du parcours de demande de carte jeunes Génération #HDF pour les lycéens et étudiants.",
     roles: ["UX Research", "UI Design", "Tests utilisateurs"],
     heroImage: grandEstHero,
-    challengeBusiness:
-      "Simplifier le parcours de demande de carte jeunes pour maximiser l'adoption par les 16-25 ans de la région.",
-    audienceCible: "Jeunes de 16 à 25 ans (lycéens, étudiants, apprentis)",
-    statCle: "Région Hauts-de-France · 6M habitants",
     role: "UX/UI Designer",
     duration: "4 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.userTesting, toolLogos.notion],
-    gallery: [],
-    context:
-      "La région souhaitait moderniser le parcours de demande de carte jeunes, perçu comme complexe et peu adapté aux usages mobiles des jeunes utilisateurs.",
-    objectives: [
-      { text: "Augmenter le taux de complétion", metric: "+40%" },
-      { text: "Réduire les erreurs de saisie", metric: "-60%" },
-      { text: "Améliorer l'expérience mobile", metric: "Mobile-first" },
-    ],
     team: ["1 Chef de projet", "1 UX/UI Designer", "2 Développeurs", "1 Chargé de communication"],
-    collaboration:
-      "Co-conception avec des groupes de jeunes représentatifs. Tests utilisateurs réguliers avec des lycéens et étudiants.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "La Région Hauts-de-France (6M d'habitants) m'a sollicité pour moderniser le parcours de demande de carte jeunes Génération #HDF. L'objectif : simplifier l'accès à ce dispositif pour les 16-25 ans (lycéens, étudiants, apprentis) via une expérience mobile-first adaptée à leurs usages.",
+
+      constat: "Le parcours existant affichait un taux de complétion de seulement 52%. Les jeunes utilisateurs, pourtant digital natives, abandonnaient face à un formulaire perçu comme trop long, mal adapté au mobile, et utilisant un vocabulaire administratif peu clair. Les erreurs de saisie atteignaient 23%, allongeant les délais de traitement.",
+
+      action: "J'ai déployé une approche de co-conception avec le public cible. En recherche, j'ai mené des entretiens avec des lycéens et étudiants, créé des empathy maps et analysé le parcours existant. La conception s'est focalisée sur une refonte mobile-first du formulaire en étapes courtes, l'intégration de la capture photo directe, et l'adaptation du vocabulaire. Le design coloré et dynamique a été conçu pour correspondre aux codes visuels des jeunes. J'ai validé chaque itération par des tests avec 8 utilisateurs représentatifs.",
+
+      resultat: "Le nouveau parcours a significativement amélioré les indicateurs : taux de complétion à 81% (+29pts), erreurs de saisie réduites à 8% (-65%), et temps de parcours divisé par deux. Les retours des jeunes testeurs ont été unanimement positifs sur la fluidité mobile."
+    },
+
     process: [
       {
         step: "01",
@@ -689,6 +674,7 @@ export const projectsData: ProjectData[] = [
         deliverables: "Rapport de tests, maquettes corrigées",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Taux de complétion", before: "52%", after: "81%", change: "+29pts" },
@@ -697,20 +683,15 @@ export const projectsData: ProjectData[] = [
       ],
       qualitative: [
         '"C\'est beaucoup plus rapide et facile sur mobile" - Lycéen testeur',
-        "Meilleure compréhension du numéro de dossier après reformulation",
-        "La capture photo intégrée simplifie grandement le parcours",
+        "Compréhension immédiate du processus après reformulation du vocabulaire",
+        "La capture photo intégrée plébiscitée par les utilisateurs",
       ],
       learnings: [
-        "Les jeunes attendent une expérience mobile native et rapide",
-        "Le vocabulaire administratif doit être adapté au public cible",
-        "Les micro-interactions renforcent l'engagement",
+        "Les jeunes attendent une expérience mobile native et fluide",
+        "Le vocabulaire administratif doit être systématiquement adapté au public cible",
+        "Les micro-interactions ludiques renforcent l'engagement des jeunes utilisateurs",
       ],
     },
-    summary: [
-      "Problème : Parcours de demande complexe avec fort taux d'abandon",
-      "Action : Refonte mobile-first co-conçue avec les jeunes",
-      "Impact : +29pts complétion, -50% temps de parcours",
-    ],
   },
 
   // ---------------------------------------------------------
@@ -725,25 +706,24 @@ export const projectsData: ProjectData[] = [
     description: "Conception d'un portail de services généraux avec réservation de salles via cartographie 3D.",
     roles: ["UX Research", "UI Design", "Tests utilisateurs"],
     heroImage: docalflexHero,
-    challengeBusiness:
-      "Créer un outil intuitif permettant aux collaborateurs de réserver facilement salles, bureaux et places de parking via une interface 3D innovante.",
-    audienceCible: "Collaborateurs en flex office",
-    statCle: "3 sites pilotes · 72% taux de succès",
-    role: "Ux Designer",
+    role: "UX Designer",
     duration: "5 mois",
     year: "2023",
     tools: [toolLogos.figma, toolLogos.miro, toolLogos.teams],
-    gallery: [],
-    context:
-      "Dans un contexte de généralisation du flex office, les collaborateurs avaient besoin d'un outil simple pour réserver leurs espaces de travail. La cartographie 3D permet de se repérer rapidement dans les bâtiments.",
-    objectives: [
-      { text: "Simplifier la réservation", metric: "2 min max" },
-      { text: "Améliorer l'adoption de l'outil", metric: "+50%" },
-      { text: "Réduire les conflits de réservation", metric: "-70%" },
-    ],
     team: ["1 Product Owner", "1 UX Designer", "1 UI Designer", "2 Développeurs front", "1 Développeur 3D"],
-    collaboration:
-      "Interviews et tests utilisateurs sur 3 sites pilotes (Sophia antipoli, Marseille, Ivry). Collaboration avec les équipes services généraux.",
+    gallery: [],
+
+    // MCAR - Structure narrative
+    mcar: {
+      mission: "Dans un contexte de généralisation du flex office chez Docaposte, j'ai été mandaté pour concevoir DOCALFLEX, un portail permettant aux collaborateurs de réserver facilement salles, bureaux et places de parking. L'innovation clé : une cartographie 3D interactive pour se repérer rapidement dans les bâtiments.",
+
+      constat: "La réservation d'espaces était un irritant quotidien pour les collaborateurs en flex office. Le processus prenait en moyenne 5 minutes, avec un taux de réussite de seulement 58%. Les utilisateurs se perdaient dans les bâtiments, les conflits de réservation étaient fréquents, et aucun outil ne permettait de visualiser concrètement les espaces disponibles.",
+
+      action: "J'ai mené une recherche terrain sur 3 sites pilotes (Sophia Antipolis, Marseille, Ivry). Les interviews et observations ont permis de comprendre les pratiques de réservation et d'identifier les pain points prioritaires. La conception s'est articulée autour d'un parcours de réservation en 3 étapes maximum, intégrant une vue 3D interactive des bâtiments. J'ai travaillé en étroite collaboration avec le développeur 3D pour garantir une expérience fluide. Des tests utilisateurs sur application mobile ont validé la solution.",
+
+      resultat: "DOCALFLEX a transformé l'expérience de réservation : taux de réussite à 72% (+14pts), temps de réservation réduit à 2 minutes (-60%), et une adoption massive de la carte 3D (81% des utilisateurs). Les collaborateurs ont unanimement salué l'innovation de la visualisation 3D."
+    },
+
     process: [
       {
         step: "01",
@@ -786,6 +766,7 @@ export const projectsData: ProjectData[] = [
         deliverables: "Rapport de tests, chiffres clés",
       },
     ],
+
     results: {
       quantitative: [
         { metric: "Taux de réussite réservation", before: "58%", after: "72%", change: "+14pts" },
@@ -794,20 +775,15 @@ export const projectsData: ProjectData[] = [
       ],
       qualitative: [
         '"Le plan 3D est un vrai plus pour se situer rapidement" - Collaborateur',
-        '"Ça se fait en 2 minutes et très facilement" - Collaborateur',
-        "La cartographie 3D jugée essentielle par les utilisateurs",
+        '"Ça se fait en 2 minutes et très facilement" - Collaborateur site pilote',
+        "La cartographie 3D jugée indispensable par la majorité des utilisateurs",
       ],
       learnings: [
-        "La visualisation 3D améliore significativement l'orientation",
-        "L'expérience mobile est clé pour les réservations en mobilité",
-        "Un parcours de réservation ne doit pas dépasser 3 étapes",
+        "La visualisation 3D améliore significativement l'orientation dans les espaces complexes",
+        "L'expérience mobile est clé pour les réservations en situation de mobilité",
+        "Un parcours de réservation efficace ne doit pas dépasser 3 étapes",
       ],
     },
-    summary: [
-      "Problème : Réservation d'espaces complexe et chronophage",
-      "Action : Portail avec cartographie 3D et parcours simplifié",
-      "Impact : 72% taux de succès, 81% utilisent la vue 3D",
-    ],
   },
 ];
 
@@ -846,15 +822,15 @@ export function getProjectsBySector(sector: string) {
 }
 
 /**
- * Récupère tous les secteurs uniques
+ * Récupère les secteurs uniques
  */
-export function getAllSectors(): string[] {
-  const sectors = [...new Set(projectsData.map((p) => p.sector))];
-  return ["Tous", ...sectors];
+export function getUniqueSectors(): string[] {
+  const sectors = projectsData.map((p) => p.sector);
+  return ["Tous", ...Array.from(new Set(sectors))];
 }
 
 /**
- * Récupère les projets mis en avant (featured)
+ * Récupère les projets mis en avant
  */
 export function getFeaturedProjects() {
   return projectsData
