@@ -190,10 +190,7 @@ export default function ProjectDetail() {
                   </div>
                 </div>
                 <div className="relative bg-card rounded-xl border-l-2 border-warning/40 border-t border-r border-b border-border/50 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
-                  <div className="flex gap-3">
-                    <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
-                    <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.constat}</p>
-                  </div>
+                  <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.constat}</p>
                 </div>
               </section>
 
