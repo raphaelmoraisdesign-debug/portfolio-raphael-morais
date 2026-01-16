@@ -306,57 +306,6 @@ export default function ProjectDetail() {
             </motion.section>
           )}
 
-          {/* GALERIE VISUELS PROJET */}
-          {project.gallery && project.gallery.length > 0 && (
-            <motion.section initial="initial" whileInView="animate" viewport={{ once: true }} variants={fadeInUp}>
-              <SectionTitle title="Aperçu du projet" />
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
-                {project.gallery.map((image: any, i: number) => {
-                  const src = typeof image === "string" ? image : image?.src;
-                  const alt =
-                    typeof image === "string"
-                      ? `${project.title} - Visuel ${i + 1}`
-                      : image?.alt || `${project.title} - Visuel ${i + 1}`;
-                  const caption = typeof image === "string" ? "" : image?.caption;
-
-                  if (!src) return null;
-
-                  return (
-                    <motion.div
-                      key={i}
-                      initial={{ opacity: 0, y: 20 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      viewport={{ once: true }}
-                      transition={{ delay: i * 0.1, duration: 0.4 }}
-                      className="group relative overflow-hidden rounded-lg sm:rounded-xl bg-card border border-border shadow-soft hover:shadow-elevated transition-all duration-250"
-                    >
-                      <div className="aspect-[4/3] overflow-hidden">
-                        <img
-                          src={src}
-                          alt={alt}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      </div>
-                      {caption ? (
-                        <>
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300" />
-                          <p className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-xs sm:text-sm text-white font-medium opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 sm:translate-y-2 sm:group-hover:translate-y-0">
-                            {caption}
-                          </p>
-                        </>
-                      ) : null}
-                    </motion.div>
-                  );
-                })}
-              </div>
-
-              <p className="text-center text-xs sm:text-sm text-text-tertiary mt-3 sm:mt-4 italic hidden sm:block">
-                💡 Survolez les images pour voir les légendes
-              </p>
-            </motion.section>
-          )}
-
-
           {/* RÉSULTAT Section - MCAR */}
           {project.mcar && (
             <motion.section
@@ -506,6 +455,56 @@ export default function ProjectDetail() {
                   </div>
                 </div>
               )}
+            </motion.section>
+          )}
+
+          {/* GALERIE VISUELS PROJET */}
+          {project.gallery && project.gallery.length > 0 && (
+            <motion.section initial="initial" whileInView="animate" viewport={{ once: true }} variants={fadeInUp}>
+              <SectionTitle title="Aperçu du projet" />
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+                {project.gallery.map((image: any, i: number) => {
+                  const src = typeof image === "string" ? image : image?.src;
+                  const alt =
+                    typeof image === "string"
+                      ? `${project.title} - Visuel ${i + 1}`
+                      : image?.alt || `${project.title} - Visuel ${i + 1}`;
+                  const caption = typeof image === "string" ? "" : image?.caption;
+
+                  if (!src) return null;
+
+                  return (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ delay: i * 0.1, duration: 0.4 }}
+                      className="group relative overflow-hidden rounded-lg sm:rounded-xl bg-card border border-border shadow-soft hover:shadow-elevated transition-all duration-250"
+                    >
+                      <div className="aspect-[4/3] overflow-hidden">
+                        <img
+                          src={src}
+                          alt={alt}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      </div>
+                      {caption ? (
+                        <>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300" />
+                          <p className="absolute bottom-0 left-0 right-0 p-3 sm:p-4 text-xs sm:text-sm text-white font-medium opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity duration-300 sm:translate-y-2 sm:group-hover:translate-y-0">
+                            {caption}
+                          </p>
+                        </>
+                      ) : null}
+                    </motion.div>
+                  );
+                })}
+              </div>
+
+              <p className="text-center text-xs sm:text-sm text-text-tertiary mt-3 sm:mt-4 italic hidden sm:block">
+                💡 Survolez les images pour voir les légendes
+              </p>
             </motion.section>
           )}
 
