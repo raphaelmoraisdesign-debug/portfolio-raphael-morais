@@ -182,12 +182,13 @@ export default function ProjectDetail() {
               {/* CONSTAT */}
               <section id="constat">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-warning-light flex items-center justify-center">
-                    <span className="text-warning-foreground font-bold text-sm">01</span>
+                  <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-warning to-warning/50" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-warning font-bold text-sm bg-warning/10 px-2 py-0.5 rounded">01</span>
+                    <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Constat</h2>
                   </div>
-                  <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Constat</h2>
                 </div>
-                <div className="bg-card rounded-xl border border-warning/20 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
+                <div className="relative bg-card rounded-xl border-l-2 border-warning/40 border-t border-r border-b border-border/50 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
                   <div className="flex gap-3">
                     <AlertTriangle className="w-5 h-5 text-warning shrink-0 mt-0.5" />
                     <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.constat}</p>
@@ -198,12 +199,13 @@ export default function ProjectDetail() {
               {/* ACTION */}
               <section id="action">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <span className="text-primary font-bold text-sm">02</span>
+                  <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-primary to-accent-secondary" />
+                  <div className="flex items-center gap-2">
+                    <span className="text-primary font-bold text-sm bg-primary/10 px-2 py-0.5 rounded">02</span>
+                    <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Action</h2>
                   </div>
-                  <h2 className="text-xl md:text-2xl font-display font-bold text-foreground">Action</h2>
                 </div>
-                <div className="bg-card rounded-xl border border-border p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
+                <div className="relative bg-card rounded-xl border-l-2 border-primary/40 border-t border-r border-b border-border/50 p-5 md:p-6 shadow-card h-[calc(100%-52px)]">
                   <p className="text-text-secondary leading-relaxed text-sm md:text-base">{project.mcar.action}</p>
                 </div>
               </section>
@@ -219,15 +221,16 @@ export default function ProjectDetail() {
               viewport={{ once: true }}
               variants={fadeInUp}
             >
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-xl bg-success-light flex items-center justify-center">
-                  <span className="text-success-foreground font-bold text-lg">03</span>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-1.5 h-10 rounded-full bg-gradient-to-b from-success to-success/50" />
+                <div className="flex items-center gap-2">
+                  <span className="text-success-foreground font-bold text-sm bg-success/10 px-2.5 py-0.5 rounded">03</span>
+                  <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Résultat</h2>
                 </div>
-                <h2 className="text-2xl md:text-3xl font-display font-bold text-foreground">Résultat</h2>
               </div>
               
               {/* Narrative Block */}
-              <div className="bg-card rounded-xl border border-success/20 p-6 md:p-8 shadow-card mb-6">
+              <div className="relative bg-card rounded-xl border-l-2 border-success/40 border-t border-r border-b border-border/50 p-6 md:p-8 shadow-card mb-6">
                 <p className="text-text-secondary leading-relaxed text-base md:text-lg">{project.mcar.resultat}</p>
               </div>
 
