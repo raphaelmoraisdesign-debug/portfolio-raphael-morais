@@ -59,7 +59,7 @@ export default function AdminProjectEdit() {
     short_description: "",
     client: "",
     year: "",
-    duration: "",
+    
     role: "",
     context: "",
     challenge: "",
@@ -99,7 +99,7 @@ export default function AdminProjectEdit() {
         short_description: existingProject.short_description,
         client: existingProject.client || "",
         year: existingProject.year || "",
-        duration: existingProject.duration || "",
+        
         role: existingProject.role || "",
         context: existingProject.context || "",
         challenge: existingProject.challenge || "",
@@ -372,22 +372,13 @@ export default function AdminProjectEdit() {
                   />
                 </FormField>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <FormField label="Année">
-                    <Input
-                      value={formData.year}
-                      onChange={(e) => handleChange("year", e.target.value)}
-                      placeholder="2024"
-                    />
-                  </FormField>
-                  <FormField label="Durée">
-                    <Input
-                      value={formData.duration}
-                      onChange={(e) => handleChange("duration", e.target.value)}
-                      placeholder="6 mois"
-                    />
-                  </FormField>
-                </div>
+                <FormField label="Année">
+                  <Input
+                    value={formData.year}
+                    onChange={(e) => handleChange("year", e.target.value)}
+                    placeholder="2024"
+                  />
+                </FormField>
 
                 <FormField label="Secteurs d'activité">
                   <SectorsSelector

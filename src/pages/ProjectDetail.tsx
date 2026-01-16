@@ -131,9 +131,6 @@ export default function ProjectDetail() {
                 <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
                   <span className="font-medium text-foreground">Rôle :</span> {project.role}
                 </div>
-                <div className="flex items-center gap-1.5 text-xs text-text-tertiary">
-                  <span className="font-medium text-foreground">Durée :</span> {project.duration}
-                </div>
               </div>
             </div>
 
