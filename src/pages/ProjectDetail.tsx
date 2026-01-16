@@ -1,12 +1,15 @@
+import { useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, AlertTriangle, Building2, ChevronDown, Loader2, Quote } from "lucide-react";
+import { ArrowLeft, ArrowRight, Building2, ChevronDown, Loader2, Quote } from "lucide-react";
 import { ImpactCard } from "@/components/ui/impact-card";
 import { PageLayout } from "@/components/layout/page-layout";
 import { Button } from "@/components/ui/button";
 import { Tag } from "@/components/ui/tag";
 import { SectionTitle } from "@/components/ui/section-title";
 import { useProjectWithFallback } from "@/hooks/useProjectsWithFallback";
+import { useActiveSection } from "@/hooks/useActiveSection";
+import { cn } from "@/lib/utils";
 
 // Section navigation items - MCAR structure
 const sectionNav = [
@@ -26,6 +29,10 @@ const fadeInUp = {
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const { data: project, isLoading, error } = useProjectWithFallback(id || "");
+  
+  // Memoize section IDs to avoid recreating array on each render
+  const sectionIds = useMemo(() => sectionNav.map((s) => s.id), []);
+  const activeSection = useActiveSection(sectionIds);
 
   if (isLoading) {
     return (
@@ -61,14 +68,27 @@ export default function ProjectDetail() {
               <a
                 key={item.id}
                 href={`#${item.id}`}
-                className="text-sm text-text-secondary hover:text-primary transition-colors duration-250 ease-in-out whitespace-nowrap"
+                className={cn(
+                  "text-sm transition-colors duration-250 ease-in-out whitespace-nowrap relative py-1",
+                  activeSection === item.id
+                    ? "text-primary font-medium"
+                    : "text-text-secondary hover:text-foreground"
+                )}
               >
                 {item.label}
+                {activeSection === item.id && (
+                  <motion.div
+                    layoutId="section-indicator"
+                    className="absolute -bottom-3 left-0 right-0 h-0.5 bg-primary rounded-full"
+                    transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                  />
+                )}
               </a>
             ))}
           </div>
         </div>
       </nav>
+
 
       {/* HERO SECTION - Image left, content panel right */}
       <header className="relative min-h-[60vh] md:min-h-[70vh] lg:min-h-[85vh] overflow-hidden">
