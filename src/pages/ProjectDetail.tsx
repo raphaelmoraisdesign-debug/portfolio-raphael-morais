@@ -164,11 +164,12 @@ export default function ProjectDetail() {
       </header>
 
       {/* Main Content - MCAR Structure */}
+      <div id="info" className="scroll-mt-32" />
       <div className="container py-12 md:py-16">
         <div className="max-w-4xl mx-auto space-y-12 md:space-y-16">
           
-          {/* Hidden anchor for navigation */}
-          <div id="mission" className="sr-only" />
+          {/* Anchor for Mission section */}
+          <div id="mission" className="scroll-mt-32" />
 
           {/* CONSTAT & ACTION Sections - Horizontal Layout */}
           {project.mcar && (
@@ -180,7 +181,7 @@ export default function ProjectDetail() {
               className="grid grid-cols-1 md:grid-cols-2 gap-6"
             >
               {/* CONSTAT */}
-              <section id="constat">
+              <section id="constat" className="scroll-mt-32">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-warning to-warning/50" />
                   <div className="flex items-center gap-2">
@@ -197,7 +198,7 @@ export default function ProjectDetail() {
               </section>
 
               {/* ACTION */}
-              <section id="action">
+              <section id="action" className="scroll-mt-32">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1.5 h-8 rounded-full bg-gradient-to-b from-primary to-accent-secondary" />
                   <div className="flex items-center gap-2">
@@ -216,6 +217,7 @@ export default function ProjectDetail() {
           {project.mcar && (
             <motion.section
               id="resultats"
+              className="scroll-mt-32"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
@@ -366,6 +368,7 @@ export default function ProjectDetail() {
           {project.process && project.process.length > 0 && (
             <motion.section
               id="details"
+              className="scroll-mt-32"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
