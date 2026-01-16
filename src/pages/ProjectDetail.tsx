@@ -14,6 +14,7 @@ const sectionNav = [
   { id: "constat", label: "Constat" },
   { id: "action", label: "Action" },
   { id: "resultats", label: "Résultat" },
+  { id: "details", label: "Détails" },
 ];
 
 const fadeInUp = {
@@ -360,6 +361,7 @@ export default function ProjectDetail() {
           {/* PROCESS STEPS Section (separate from Action) */}
           {project.process && project.process.length > 0 && (
             <motion.section
+              id="details"
               initial="initial"
               whileInView="animate"
               viewport={{ once: true }}
