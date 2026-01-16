@@ -14,6 +14,7 @@ import { toast } from "sonner";
 import { ProcessStepsEditor } from "@/components/admin/ProcessStepsEditor";
 import { GalleryEditor } from "@/components/admin/GalleryEditor";
 import { ToolsEditor } from "@/components/admin/ToolsEditor";
+import { SectorsSelector } from "@/components/admin/SectorsSelector";
 import { cn } from "@/lib/utils";
 
 const generateSlug = (title: string) => {
@@ -51,7 +52,7 @@ export default function AdminProjectEdit() {
   const updateProject = useUpdateProject();
 
   const [activeTab, setActiveTab] = useState<TabId>("general");
-  const [formData, setFormData] = useState<Partial<ProjectInsert>>({
+  const [formData, setFormData] = useState<Partial<ProjectInsert> & { sectors?: string[] }>({
     title: "",
     slug: "",
     category: "",
@@ -69,6 +70,7 @@ export default function AdminProjectEdit() {
     process_steps: [],
     is_featured: false,
     display_order: 0,
+    sectors: [],
   });
   const [heroImage, setHeroImage] = useState<File | null>(null);
   const [heroPreview, setHeroPreview] = useState<string | null>(null);
@@ -108,6 +110,7 @@ export default function AdminProjectEdit() {
         process_steps: existingProject.process_steps || [],
         is_featured: existingProject.is_featured,
         display_order: existingProject.display_order,
+        sectors: (existingProject as any).sectors || [],
       });
       if (existingProject.hero_image_url) {
         setHeroPreview(existingProject.hero_image_url);
@@ -115,7 +118,7 @@ export default function AdminProjectEdit() {
     }
   }, [existingProject]);
 
-  const handleChange = (field: keyof ProjectInsert, value: any) => {
+  const handleChange = (field: keyof ProjectInsert | 'sectors', value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (field === "title" && isNew) {
       setFormData(prev => ({ ...prev, slug: generateSlug(value) }));
@@ -369,7 +372,7 @@ export default function AdminProjectEdit() {
                   />
                 </FormField>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <FormField label="Année">
                     <Input
                       value={formData.year}
@@ -384,14 +387,14 @@ export default function AdminProjectEdit() {
                       placeholder="6 mois"
                     />
                   </FormField>
-                  <FormField label="Rôle">
-                    <Input
-                      value={formData.role}
-                      onChange={(e) => handleChange("role", e.target.value)}
-                      placeholder="Product Designer"
-                    />
-                  </FormField>
                 </div>
+
+                <FormField label="Secteurs d'activité">
+                  <SectorsSelector
+                    selected={formData.sectors || []}
+                    onChange={(sectors) => handleChange("sectors", sectors)}
+                  />
+                </FormField>
               </FormSection>
 
               {/* Tools */}

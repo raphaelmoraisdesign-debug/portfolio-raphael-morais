@@ -30,6 +30,7 @@ export type Database = {
           process_steps: Json | null
           results: string | null
           role: string | null
+          sectors: string[] | null
           short_description: string
           slug: string
           solution: string | null
@@ -53,6 +54,7 @@ export type Database = {
           process_steps?: Json | null
           results?: string | null
           role?: string | null
+          sectors?: string[] | null
           short_description: string
           slug: string
           solution?: string | null
@@ -76,6 +78,7 @@ export type Database = {
           process_steps?: Json | null
           results?: string | null
           role?: string | null
+          sectors?: string[] | null
           short_description?: string
           slug?: string
           solution?: string | null
