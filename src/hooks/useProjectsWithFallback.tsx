@@ -31,6 +31,7 @@ export interface DBProject {
   process_steps: DBProcessStep[];
   is_featured: boolean;
   display_order: number;
+  sectors: string[];
 }
 
 // Merge DB project data with static fallback
@@ -49,6 +50,7 @@ function mergeProjectData(dbProject: DBProject | null, staticProject: ProjectDat
       description: dbProject.short_description,
       client: dbProject.client || "",
       sector: dbProject.category,
+      sectors: dbProject.sectors || [],
       roles: [dbProject.role || "Designer"],
       role: dbProject.role || "",
       year: dbProject.year || "",
@@ -95,6 +97,7 @@ function mergeProjectData(dbProject: DBProject | null, staticProject: ProjectDat
     subtitle: dbProject.short_description || staticProject.subtitle,
     client: dbProject.client || staticProject.client,
     sector: dbProject.category || staticProject.sector,
+    sectors: (dbProject.sectors && dbProject.sectors.length > 0) ? dbProject.sectors : staticProject.sectors,
     role: dbProject.role || staticProject.role,
     year: dbProject.year || staticProject.year,
     duration: dbProject.duration || staticProject.duration,
@@ -130,6 +133,7 @@ function transformDBProject(row: any): DBProject {
     gallery_images: row.gallery_images || [],
     is_featured: row.is_featured || false,
     display_order: row.display_order || 0,
+    sectors: row.sectors || [],
   };
 }
 

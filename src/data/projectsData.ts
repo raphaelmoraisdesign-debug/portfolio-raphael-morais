@@ -85,6 +85,7 @@ export interface ProjectData {
   subtitle: string;
   client: string;
   sector: string;
+  sectors?: string[];
   description: string;
   roles: string[];
   heroImage: string;
