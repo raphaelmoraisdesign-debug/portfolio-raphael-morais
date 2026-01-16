@@ -116,6 +116,11 @@ export default function ProjectDetail() {
                 <span className="px-2 md:px-3 py-1 text-xs md:text-sm font-medium bg-primary text-primary-foreground rounded-full">
                   {project.role}
                 </span>
+                {project.sectors && project.sectors.length > 0 && project.sectors.map((sector: string) => (
+                  <Tag key={sector} variant="outline" size="sm">
+                    {sector}
+                  </Tag>
+                ))}
               </div>
             </div>
 
