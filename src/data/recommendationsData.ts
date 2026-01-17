@@ -33,11 +33,11 @@ export const recommendations: Recommendation[] = [
     text: "J'ai eu le plaisir de collaborer avec Raphaël durant plus d'un an chez Cetelem (BNPP Personal Finance), sur plusieurs projets liés à l'amélioration des parcours de Souscription notamment. Son expertise en UX Design et son approche centrée utilisateur ont eu un réel impact sur la qualité de nos solutions. Nous avons animé plusieurs ateliers d'idéation ensemble afin d'écouter les besoins métier et transformer les idées en parcours efficaces et intuitifs ! Travailler à ses côtés a été très enrichissant, c'était un véritable plaisir tant humainement que professionnellement ✨ Je recommande vivement Raphaël pour tout projet nécessitant rigueur, créativité, sens de l'écoute et pour la bonne humeur qu'il apportera !"
   },
   {
-    id: "bouchra-benkhelifa",
-    name: "Bouchra Benkhelifa",
-    role: "Lead Product Manager",
-    company: "Chaze",
-    avatarInitials: "BB",
-    text: "Raphaël est un designer talentueux avec une forte capacité à transformer des idées complexes en interfaces simples et intuitives. J'ai eu le plaisir de travailler avec lui sur plusieurs projets chez Chaze, et son professionnalisme ainsi que sa rigueur créative ont toujours été au rendez-vous. Il possède une excellente compréhension des enjeux UX et sait parfaitement collaborer avec les équipes produit et tech pour livrer des solutions de haute qualité. Je le recommande vivement à toute équipe cherchant un Product Designer passionné et efficace."
+    id: "bouchera-rbatchi",
+    name: "Bouchera R'batchi",
+    role: "Chef de projet IT",
+    company: "BNP Paribas Personal Finance",
+    avatarInitials: "BR",
+    text: "J'ai collaboré avec Raphaël pendant un an et demi. Raphaël est quelqu'un de positif, fiable et avec qui il est très agréable de travailler au quotidien. J'ai une grande confiance en lui, aussi bien sur la qualité de son travail que sur sa capacité à faire avancer les sujets. Il est force de proposition sur les sujets UX/UI et cherche toujours à proposer des solutions pertinentes pour le produit. Il collabore très bien avec l'ensemble des équipes, aussi bien business que tech, ce qui rend le travail fluide et efficace. Je recommande vivement Raphaël pour tout poste UX/UI où l'esprit d'équipe, la proactivité et la qualité de réflexion sont des éléments clés !"
   }
 ];
