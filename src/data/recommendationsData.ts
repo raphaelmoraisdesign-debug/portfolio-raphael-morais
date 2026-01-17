@@ -31,5 +31,13 @@ export const recommendations: Recommendation[] = [
     company: "BNPP Personal Finance",
     avatarInitials: "AR",
     text: "J'ai eu le plaisir de collaborer avec Raphaël durant plus d'un an chez Cetelem (BNPP Personal Finance), sur plusieurs projets liés à l'amélioration des parcours de Souscription notamment. Son expertise en UX Design et son approche centrée utilisateur ont eu un réel impact sur la qualité de nos solutions. Nous avons animé plusieurs ateliers d'idéation ensemble afin d'écouter les besoins métier et transformer les idées en parcours efficaces et intuitifs ! Travailler à ses côtés a été très enrichissant, c'était un véritable plaisir tant humainement que professionnellement ✨ Je recommande vivement Raphaël pour tout projet nécessitant rigueur, créativité, sens de l'écoute et pour la bonne humeur qu'il apportera !"
+  },
+  {
+    id: "bouchra-benkhelifa",
+    name: "Bouchra Benkhelifa",
+    role: "Lead Product Manager",
+    company: "Chaze",
+    avatarInitials: "BB",
+    text: "Raphaël est un designer talentueux avec une forte capacité à transformer des idées complexes en interfaces simples et intuitives. J'ai eu le plaisir de travailler avec lui sur plusieurs projets chez Chaze, et son professionnalisme ainsi que sa rigueur créative ont toujours été au rendez-vous. Il possède une excellente compréhension des enjeux UX et sait parfaitement collaborer avec les équipes produit et tech pour livrer des solutions de haute qualité. Je le recommande vivement à toute équipe cherchant un Product Designer passionné et efficace."
   }
 ];
