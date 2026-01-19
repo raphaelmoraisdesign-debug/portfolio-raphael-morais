@@ -49,16 +49,17 @@ export default function Skills() {
       {/* Sticky Navigation */}
       <nav className="sticky top-16 z-40 bg-background/80 backdrop-blur-md border-b border-border/50">
         <div className="container">
-          <ul className="flex gap-1 py-3 overflow-x-auto scrollbar-hide">
+          <ul className="flex gap-6 py-3 overflow-x-auto scrollbar-hide">
             {sections.map((section) => (
               <li key={section.id}>
                 <button
                   onClick={() => scrollToSection(section.id)}
                   className={cn(
-                    "px-4 py-2 text-sm font-medium rounded-lg transition-colors whitespace-nowrap",
+                    "relative px-1 py-2 text-sm font-medium transition-colors whitespace-nowrap",
+                    "after:absolute after:bottom-0 after:left-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300",
                     activeSection === section.id
-                      ? "bg-primary text-primary-foreground"
-                      : "text-text-secondary hover:text-foreground hover:bg-muted"
+                      ? "text-primary after:w-full"
+                      : "text-text-secondary hover:text-foreground after:w-0 hover:after:w-full"
                   )}
                 >
                   {section.label}
