@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { BarChart3, Wrench, MessageSquare } from "lucide-react";
 import { PageLayout } from "@/components/layout/page-layout";
 import { SectionTitle } from "@/components/ui/section-title";
 import { SkillsRadarChart } from "@/components/skills/SkillsRadarChart";
@@ -8,9 +9,9 @@ import { useActiveSection } from "@/hooks/useActiveSection";
 import { cn } from "@/lib/utils";
 
 const sections = [
-  { id: "vue-densemble", label: "Vue d'ensemble" },
-  { id: "outils", label: "Mes outils" },
-  { id: "recommandations", label: "Recommandations" },
+  { id: "vue-densemble", label: "Vue d'ensemble", icon: BarChart3 },
+  { id: "outils", label: "Mes outils", icon: Wrench },
+  { id: "recommandations", label: "Recommandations", icon: MessageSquare },
 ];
 
 export default function Skills() {
@@ -55,13 +56,14 @@ export default function Skills() {
                 <button
                   onClick={() => scrollToSection(section.id)}
                   className={cn(
-                    "relative py-1 text-sm md:text-base font-medium transition-colors whitespace-nowrap",
+                    "relative flex items-center gap-2 py-1 text-sm md:text-base font-medium transition-colors whitespace-nowrap",
                     "after:absolute after:-bottom-1 after:left-0 after:h-0.5 after:rounded-full after:bg-primary after:transition-all after:duration-300",
                     activeSection === section.id
                       ? "text-primary after:w-full"
                       : "text-text-secondary hover:text-foreground after:w-0 hover:after:w-full"
                   )}
                 >
+                  <section.icon className="size-4" />
                   {section.label}
                 </button>
               </li>
