@@ -155,7 +155,7 @@ export function HeroCentered() {
 
           {/* Title with gradient accent */}
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-hero font-display font-bold text-foreground leading-tight mb-4 md:mb-6">
-            Product Designer Senior
+            Product Designer <span className="text-gradient">Senior</span>
           </motion.h1>
 
           {/* Subtitle with styled keywords */}
