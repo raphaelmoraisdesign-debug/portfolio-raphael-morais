@@ -157,15 +157,7 @@ export function HeroCentered() {
           <motion.h1 variants={fadeInUp} className="text-4xl md:text-hero font-display font-bold text-foreground leading-tight mb-4 md:mb-6">
             Product Designer{" "}
             <motion.span 
-              className="text-gradient"
-              initial={{ backgroundSize: "0% 100%" }}
-              animate={{ backgroundSize: "100% 100%" }}
-              transition={{ duration: 1.2, delay: 0.6, ease: "easeOut" }}
-              style={{ 
-                WebkitBackgroundClip: "text",
-                backgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}
+              className="text-shimmer-animated"
             >
               Senior
             </motion.span>
